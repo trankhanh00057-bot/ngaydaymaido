@@ -26,18 +26,14 @@
             font-family: 'Lora', serif;
             color: #ffffff;
             min-height: 100vh;
-            background: transparent; /* Nền trong suốt để hiện rõ ảnh GIF */
+            background: transparent;
         }
 
-        /* LỚP NỀN GIF HIỂN THỊ CHUẨN 100% */
+        /* LỚP NỀN GIF ĐỘC LẬP */
         .bg-fixed-layer {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100%; height: 100%;
             z-index: -1;
             background: url("https://i.pinimg.com/originals/8b/94/c0/8b94c0aa591d5366c9cafe0abe619eb3.gif") no-repeat center center;
             background-size: cover;
@@ -45,7 +41,7 @@
             transform: translateZ(0);
         }
 
-        /* NÚT ÂM THANH CỐ ĐỊNH Ở GÓC PHẢI */
+        /* NÚT HỘP NHẠC GÓC TRÊN PHẢI */
         .global-audio-btn {
             position: fixed;
             top: 12px;
@@ -62,9 +58,17 @@
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .global-audio-btn:hover {
+            background: rgba(25, 64, 38, 0.95);
+            border-color: #7FE5B6;
+            transform: scale(1.03);
         }
 
-        /* NÚT TRỞ VỀ CỐ ĐỊNH Ở GÓC TRÁI */
+        /* NÚT TRỞ VỀ GÓC TRÁI */
         .global-back-btn {
             position: fixed;
             top: 12px;
@@ -103,7 +107,7 @@
             gap: 5px;
         }
 
-        /* KHUNG CHỨA TOÀN TRANG - CĂN GIỮA TUYỆT ĐỐI */
+        /* KHUNG CHỨA CĂN GIỮA TOÀN TRANG */
         .page-container {
             width: 100%;
             max-width: 860px;
@@ -159,10 +163,7 @@
         }
 
         /* ================= GIAO DIỆN TRANG 2: NGÀY ĐÂY MAI ĐÓ ================= */
-        #page2 {
-            display: none;
-            max-width: 680px;
-        }
+        #page2 { display: none; max-width: 680px; }
         .p2-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.3em; color: #FFFFFF; margin: 0;
@@ -189,11 +190,7 @@
         }
 
         .cards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            width: 100%;
-            margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; margin: 0 auto;
         }
         .feature-card {
             background: rgba(12, 36, 21, 0.92);
@@ -201,9 +198,7 @@
             border-radius: 18px; padding: 18px; text-align: left;
             display: flex; flex-direction: column; justify-content: space-between;
             min-height: 165px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(8px); cursor: pointer;
-            transition: all 0.2s ease;
-            width: 100%;
+            backdrop-filter: blur(8px); cursor: pointer; transition: all 0.2s ease; width: 100%;
         }
         .feature-card:active { transform: scale(0.98); }
         .card-header { display: flex; justify-content: space-between; align-items: center; }
@@ -229,10 +224,7 @@
         }
 
         /* ================= GIAO DIỆN TRANG 3: DẤU CHÂN ================= */
-        #page3 {
-            display: none;
-            max-width: 860px;
-        }
+        #page3 { display: none; max-width: 860px; }
         .p3-header {
             display: flex; justify-content: space-between; align-items: flex-end;
             margin-bottom: 18px; flex-wrap: wrap; gap: 10px; width: 100%;
@@ -240,8 +232,7 @@
         .p3-title-wrap { display: flex; flex-direction: column; text-align: left; }
         .p3-title-row { display: flex; align-items: center; gap: 8px; }
         .p3-title {
-            font-family: 'Playfair Display', serif; font-size: 2em;
-            color: #FFFFFF; margin: 0; font-weight: 600;
+            font-family: 'Playfair Display', serif; font-size: 2em; color: #FFFFFF; margin: 0; font-weight: 600;
         }
         .p3-desc { font-size: 0.82em; color: #C8E6C9; margin: 2px 0 0 0; font-style: italic; }
         .p3-actions-wrap { display: flex; align-items: center; gap: 8px; }
@@ -252,8 +243,7 @@
         }
         .p3-search-box { position: relative; }
         .p3-search-box .icon {
-            position: absolute; left: 10px; top: 50%;
-            transform: translateY(-50%); font-size: 11px; color: #8EA898;
+            position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 11px; color: #8EA898;
         }
         .btn-add-char {
             background-color: #7FE5B6; color: #0A2416; border: none;
@@ -263,8 +253,7 @@
         }
 
         .char-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 16px; width: 100%;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; width: 100%;
         }
         .empty-placeholder {
             grid-column: 1 / -1; padding: 35px 12px; text-align: center;
@@ -275,8 +264,7 @@
         .char-card {
             background: rgba(12, 36, 21, 0.92); border: 1px solid rgba(85, 139, 110, 0.4);
             border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35); backdrop-filter: blur(8px);
-            width: 100%;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35); backdrop-filter: blur(8px); width: 100%;
         }
         .char-img-container { position: relative; width: 100%; height: 140px; background: #11281A; }
         .char-img { width: 100%; height: 100%; object-fit: cover; }
@@ -287,17 +275,14 @@
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .char-body {
-            padding: 12px; text-align: left; display: flex;
-            flex-direction: column; justify-content: space-between; flex: 1;
+            padding: 12px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; flex: 1;
         }
         .char-name {
-            font-family: 'Playfair Display', serif; font-size: 1.2em;
-            color: #FFFFFF; margin: 0 0 4px 0; font-weight: 600;
+            font-family: 'Playfair Display', serif; font-size: 1.2em; color: #FFFFFF; margin: 0 0 4px 0; font-weight: 600;
         }
         .char-story-snippet {
             font-size: 0.8em; color: #C8E6C9; line-height: 1.4;
-            margin: 0 0 10px 0; display: -webkit-box; -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical; overflow: hidden;
+            margin: 0 0 10px 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
         }
         .char-actions {
             display: flex; justify-content: space-between; align-items: center;
@@ -311,78 +296,56 @@
         }
 
         /* ================= GIAO DIỆN TRANG 4: HÒM THƯ ================= */
-        #page4 {
-            display: none;
-            max-width: 860px;
-        }
+        #page4 { display: none; max-width: 860px; }
         .mailbox-layout {
-            display: grid;
-            grid-template-columns: 1fr 1.15fr;
-            gap: 16px;
-            text-align: left;
-            margin: 12px auto 0 auto;
-            width: 100%;
+            display: grid; grid-template-columns: 1fr 1.15fr; gap: 16px;
+            text-align: left; margin: 12px auto 0 auto; width: 100%;
         }
         .mailbox-form-card, .mailbox-list-card {
-            background: rgba(12, 36, 21, 0.94);
-            border: 1px solid rgba(85, 139, 110, 0.35);
-            border-radius: 16px; padding: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.35); backdrop-filter: blur(8px);
-            width: 100%;
+            background: rgba(12, 36, 21, 0.94); border: 1px solid rgba(85, 139, 110, 0.35);
+            border-radius: 16px; padding: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.35); backdrop-filter: blur(8px); width: 100%;
         }
         .form-title { font-size: 1.1em; font-weight: bold; color: #FFFFFF; margin: 0 0 2px 0; }
         .form-subtitle { font-size: 0.78em; color: #A8D5BA; margin: 0 0 14px 0; }
         .form-label-row {
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.82em; font-weight: bold; color: #E8F5E9; margin-bottom: 5px;
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.82em; font-weight: bold; color: #E8F5E9; margin-bottom: 5px;
         }
         .chosen-icon-text { font-size: 0.75em; color: #7FE5B6; font-weight: normal; }
         
         .icon-scroll-bar {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding: 4px 2px 8px 2px;
-            margin-bottom: 10px;
-            width: 100%;
+            display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+            padding: 4px 2px 8px 2px; margin-bottom: 10px; width: 100%;
         }
         .icon-scroll-bar::-webkit-scrollbar { height: 3px; }
         .icon-scroll-bar::-webkit-scrollbar-thumb { background: rgba(127, 229, 182, 0.4); border-radius: 10px; }
         .icon-opt {
             background: rgba(18, 48, 28, 0.85); border: 1px solid rgba(85, 139, 110, 0.4);
             border-radius: 8px; width: 32px; height: 32px; min-width: 32px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 15px; cursor: pointer; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; flex-shrink: 0;
         }
         .icon-opt.active { border: 2px solid #7FE5B6; background: rgba(35, 95, 58, 0.95); }
 
         .mail-input, .mail-select, .mail-textarea {
             width: 100%; background: rgba(8, 26, 15, 0.8);
             border: 1px solid rgba(85, 139, 110, 0.5); border-radius: 10px;
-            padding: 8px 10px; color: #FFFFFF; font-family: 'Lora', serif; font-size: 14px;
-            margin-bottom: 12px; outline: none;
+            padding: 8px 10px; color: #FFFFFF; font-family: 'Lora', serif; font-size: 14px; margin-bottom: 12px; outline: none;
         }
         .mail-textarea { min-height: 75px; resize: vertical; margin-bottom: 6px; }
         .btn-send-mail {
             background-color: #7FE5B6; color: #0A2416; border: none;
-            border-radius: 16px; padding: 9px; width: 100%;
-            font-size: 13px; font-family: 'Lora', serif; font-weight: bold; cursor: pointer;
+            border-radius: 16px; padding: 9px; width: 100%; font-size: 13px; font-family: 'Lora', serif; font-weight: bold; cursor: pointer;
         }
 
         .list-header-row {
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.75em; color: #A8D5BA; font-weight: bold; margin-bottom: 12px;
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.75em; color: #A8D5BA; font-weight: bold; margin-bottom: 12px;
         }
         .letters-container {
-            display: flex; flex-direction: column; gap: 10px;
-            max-height: 380px; overflow-y: auto; padding-right: 2px;
+            display: flex; flex-direction: column; gap: 10px; max-height: 380px; overflow-y: auto; padding-right: 2px;
         }
         .letters-container::-webkit-scrollbar { width: 3px; }
         .letters-container::-webkit-scrollbar-thumb { background: rgba(127, 229, 182, 0.3); border-radius: 10px; }
         .letter-item {
-            background: rgba(8, 26, 15, 0.8); border: 1px solid rgba(85, 139, 110, 0.4);
-            border-radius: 10px; padding: 10px;
+            background: rgba(8, 26, 15, 0.8); border: 1px solid rgba(85, 139, 110, 0.4); border-radius: 10px; padding: 10px;
         }
         .letter-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
         .user-info { display: flex; align-items: center; gap: 5px; }
@@ -392,11 +355,81 @@
         }
         .user-name { font-weight: bold; color: #FFFFFF; font-size: 0.84em; }
         .mood-tag {
-            background: rgba(22, 60, 36, 0.9); border: 1px solid rgba(127, 229, 182, 0.3);
-            color: #7FE5B6; font-size: 9.5px; padding: 1px 5px; border-radius: 6px;
+            background: rgba(22, 60, 36, 0.9); border: 1px solid rgba(127, 229, 182, 0.3); color: #7FE5B6; font-size: 9.5px; padding: 1px 5px; border-radius: 6px;
         }
         .letter-date { font-size: 0.7em; color: #8EA898; }
         .letter-content { font-size: 0.8em; color: #E8F5E9; line-height: 1.45; margin: 0; }
+
+        /* ================= CỬA SỔ HỘP NHẠC (PLAYLIST) ================= */
+        .music-player-panel {
+            background: rgba(8, 26, 15, 0.95);
+            border: 1px solid rgba(127, 229, 182, 0.4);
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .now-playing-title {
+            font-size: 0.9em;
+            color: #7FE5B6;
+            font-weight: bold;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .ctrl-btn {
+            background: rgba(25, 64, 38, 0.9);
+            border: 1px solid rgba(127, 229, 182, 0.3);
+            color: #E8F5E9;
+            border-radius: 50%;
+            width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; cursor: pointer; transition: 0.2s;
+        }
+        .ctrl-btn:hover { background: #7FE5B6; color: #0A2416; }
+        .ctrl-btn.play-btn { width: 40px; height: 40px; font-size: 16px; background: #7FE5B6; color: #0A2416; }
+
+        .playlist-items {
+            display: flex; flex-direction: column; gap: 6px;
+            max-height: 220px; overflow-y: auto; margin-bottom: 12px;
+            padding-right: 3px;
+        }
+        .playlist-items::-webkit-scrollbar { width: 3px; }
+        .playlist-items::-webkit-scrollbar-thumb { background: rgba(127, 229, 182, 0.3); }
+
+        .track-row {
+            background: rgba(14, 40, 24, 0.85);
+            border: 1px solid rgba(85, 139, 110, 0.3);
+            border-radius: 10px;
+            padding: 7px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.82em;
+        }
+        .track-row:hover { background: rgba(25, 64, 38, 0.95); border-color: #7FE5B6; }
+        .track-row.active {
+            border: 1.5px solid #7FE5B6;
+            background: rgba(30, 80, 48, 0.95);
+            color: #7FE5B6;
+            font-weight: bold;
+        }
+        .track-lang-badge {
+            font-size: 9px;
+            padding: 1px 5px;
+            border-radius: 4px;
+            background: rgba(0,0,0,0.4);
+            margin-right: 5px;
+        }
 
         /* ================= MODAL CỬA SỔ CHUNG ================= */
         .modal-overlay {
@@ -438,7 +471,7 @@
         .bubble-user { align-self: flex-end; background: #7FE5B6; color: #0A2416; font-weight: 500; }
         .bubble-char { align-self: flex-start; background: rgba(255, 255, 255, 0.15); color: #E8F5E9; border: 1px solid rgba(255, 255, 255, 0.2); }
 
-        /* ================= TỐI ƯU CHO ĐIỆN THOẠI ================= */
+        /* ================= TỐI ƯU ĐIỆN THOẠI ================= */
         @media (max-width: 680px) {
             .page-container { padding: 55px 12px 25px 12px; }
             .title-main { font-size: 1.95em; }
@@ -453,19 +486,19 @@
 </head>
 <body>
 
-    <!-- LỚP NỀN GIF ĐỘC LẬP - KHÔNG BAO GIỜ BỊ ĐƠ HAY MẤT HÌNH -->
+    <!-- LỚP NỀN GIF ĐỘC LẬP -->
     <div class="bg-fixed-layer"></div>
 
-    <!-- NÚT TRỞ VỀ CỐ ĐỊNH Ở GÓC TRÊN TRÁI -->
+    <!-- NÚT TRỞ VỀ GÓC TRÁI -->
     <div class="global-back-btn" id="globalBackBtn">← Trở về</div>
 
-    <!-- NÚT ÂM THANH CỐ ĐỊNH Ở GÓC TRÊN PHẢI -->
-    <div class="global-audio-btn" id="globalAudioBtn" onclick="toggleMusic()">🔊 Âm thanh tĩnh lặng</div>
+    <!-- NÚT MỞ HỘP NHẠC GÓC PHẢI -->
+    <div class="global-audio-btn" id="globalAudioBtn" onclick="moModal('modal-music')">
+        <span id="audio-icon">🎵</span> <span id="audio-status-text">Hộp nhạc</span>
+    </div>
 
-    <!-- NHẠC NỀN -->
-    <audio id="bgMusic" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mp3">
-    </audio>
+    <!-- THẺ AUDIO -->
+    <audio id="bgMusic"></audio>
 
     <!-- ================= TRANG 1: MỞ ĐẦU ================= -->
     <div class="top-nav-logo" id="p1-logo"><span>🍃</span> Đây đó</div>
@@ -551,13 +584,12 @@
         <div class="char-grid" id="charGrid"></div>
     </div>
 
-    <!-- ================= TRANG 4: HÒM THƯ (CĂN GIỮA CHUẨN) ================= -->
+    <!-- ================= TRANG 4: HÒM THƯ ================= -->
     <div class="page-container" id="page4">
         <h1 class="p2-title" style="font-size: 2.3em; margin-bottom: 2px;">📮 Hòm Thư</h1>
         <div class="p2-subtitle" style="margin-bottom: 12px;">Gửi vài dòng góp ý, tâm tình, cảm nghĩ tại đây.</div>
 
         <div class="mailbox-layout">
-            <!-- CỘT TRÁI: FORM GỬI THƯ -->
             <div class="mailbox-form-card">
                 <h3 class="form-title">✍️ Viết thư gửi về trạm</h3>
                 <p class="form-subtitle">Gửi ý kiến đóng góp hoặc đôi dòng chia sẻ</p>
@@ -593,7 +625,6 @@
                 <button class="btn-send-mail" onclick="guiLaThuMoi()">🍃 Gửi thư về trạm</button>
             </div>
 
-            <!-- CỘT PHẢI: DANH SÁCH THƯ -->
             <div class="mailbox-list-card">
                 <div class="list-header-row">
                     <span id="mail-list-header-count">NHỮNG LÁ THƯ ĐÃ GỬI (0)</span>
@@ -601,6 +632,33 @@
                 </div>
 
                 <div class="letters-container" id="lettersList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: HỘP NHẠC (PLAYLIST ĐẦY ĐỦ HÀN - TRUNG - VIỆT - THÁI) ================= -->
+    <div class="modal-overlay" id="modal-music">
+        <div class="modal-box">
+            <button class="modal-close" onclick="dongModal('modal-music')">✕</button>
+            <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">🎵 Hộp Nhạc Trạm Nghỉ</h3>
+            
+            <div class="music-player-panel">
+                <div class="now-playing-title" id="nowPlayingText">Đang phát: Like a Dream (Minnie)</div>
+                <div class="player-controls">
+                    <button class="ctrl-btn" onclick="prevTrack()" title="Bài trước">⏮️</button>
+                    <button class="ctrl-btn play-btn" id="mainPlayBtn" onclick="togglePlayPause()" title="Phát/Tạm dừng">▶️</button>
+                    <button class="ctrl-btn" onclick="nextTrack()" title="Bài tiếp theo">⏭️</button>
+                </div>
+            </div>
+
+            <div style="font-size:0.82em; color:#C8E6C9; margin-bottom:6px; font-weight:bold;">Danh sách bài hát:</div>
+            <div class="playlist-items" id="playlistContainer"></div>
+
+            <div style="border-top:1px dashed rgba(255,255,255,0.2); padding-top:10px; margin-top:10px;">
+                <div style="font-size:0.8em; color:#A8D5BA; margin-bottom:4px; font-weight:bold;">+ Thêm bài hát riêng (.mp3):</div>
+                <input type="text" id="customSongTitle" placeholder="Tên bài hát..." style="margin-bottom:6px;">
+                <input type="text" id="customSongUrl" placeholder="Link MP3 trực tiếp (https://...)..." style="margin-bottom:6px;">
+                <button class="btn-modal-action" style="padding:7px; font-size:12px;" onclick="themBaiHatMoi()">+ Thêm vào Hộp Nhạc</button>
             </div>
         </div>
     </div>
@@ -659,37 +717,136 @@
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
         const ADMIN_PIN = "1234";
 
-        const music = document.getElementById("bgMusic");
+        const audio = document.getElementById("bgMusic");
         const audioBtn = document.getElementById("globalAudioBtn");
         const backBtn = document.getElementById("globalBackBtn");
         
-        let isMusicPlaying = false;
-        let userManuallyMuted = false;
+        let isPlaying = false;
+        let currentTrackIndex = 0;
         let selectedIcon = '🐱';
         let currentCharChat = null;
 
+        // DANH SÁCH BÀI HÁT TỔNG HỢP: HÀN, TRUNG, VIỆT, THÁI
+        const defaultPlaylist = [
+            // NHẠC HÀN (K-POP & OST)
+            { title: "Like a Dream (꿈결같아서) - Minnie", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" },
+            { title: "KNOCK - Lee Chae Yeon", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" },
+            { title: "Typa Girl - BLACKPINK", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3" },
+            { title: "Catch Catch! - YENA", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3" },
+            
+            // NHẠC TRUNG (C-POP)
+            { title: "Khóa (锁) - Tăng Thuấn Hy & Trương Lượng Dĩnh", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_c420239ec2.mp3" },
+            { title: "Gió Đêm Nơi Góc Phố (街角的晚风) - Tăng Thuấn Hy & Diêu Hiểu Đường", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_65b30b42f6.mp3" },
+            { title: "Nhìn Vào Mắt Anh Mà Nói (看着我的眼睛说) - Trương Viễn & Diêu Hiểu Đường", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_2145b23d90.mp3" },
+            { title: "Từ Trước Đã Nói (从前说) - Bạch Tiểu Bạch & Diêu Hiểu Đường", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" },
+            { title: "Thế Giới Ngày Mai (明日世界) - Uông Tô Lang", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" },
+            { title: "Huân Khói (烟熏) - Giang Hạo Nam", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3" },
+
+            // NHẠC VIỆT (V-POP)
+            { title: "Một Vì Sao - Hoàng Duyên x Jsol", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3" },
+            { title: "5 Tháng - WEAN, Ali Hoàng Dương, Captain Boy", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_c420239ec2.mp3" },
+            { title: "Laviem - Quang Hùng MasterD, Pháp Kiều", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_65b30b42f6.mp3" },
+            { title: "Thử Lòng Quân Tử - Phương Mỹ Chi x DTAP", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_2145b23d90.mp3" },
+            { title: "Hạnh Phúc Mới - Phạm Quỳnh Anh", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" },
+            { title: "Đánh Đổi - Obito", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" },
+
+            // NHẠC THÁI (T-POP)
+            { title: "Lực Hút (แรงดึงดูด) - Studio Wabi Sabi", lang: "🇹🇭", url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3" }
+        ];
+
+        let playList = JSON.parse(localStorage.getItem('ngay_day_mai_do_playlist_v2')) || defaultPlaylist;
         let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars')) || [];
         let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters')) || [];
 
         window.onload = function() {
             renderCharGrid();
             renderLetterList();
+            renderPlaylist();
+            loadTrack(currentTrackIndex);
         };
 
-        function toggleMusic() {
-            if (isMusicPlaying) {
-                music.pause();
-                audioBtn.innerHTML = "🔇 Âm thanh tĩnh lặng";
-                isMusicPlaying = false;
-                userManuallyMuted = true;
+        /* ================= HỆ THỐNG PHÁT NHẠC ================= */
+        function loadTrack(index) {
+            currentTrackIndex = index;
+            audio.src = playList[currentTrackIndex].url;
+            document.getElementById("nowPlayingText").innerText = "Đang phát: " + playList[currentTrackIndex].title;
+            renderPlaylist();
+        }
+
+        function togglePlayPause() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                document.getElementById("mainPlayBtn").innerText = "▶️";
+                document.getElementById("audio-icon").innerText = "🔇";
             } else {
-                music.play().catch(() => {});
-                audioBtn.innerHTML = "🔊 Âm thanh tĩnh lặng";
-                isMusicPlaying = true;
-                userManuallyMuted = false;
+                audio.play().then(() => {
+                    isPlaying = true;
+                    document.getElementById("mainPlayBtn").innerText = "⏸️";
+                    document.getElementById("audio-icon").innerText = "🎵";
+                }).catch(() => {});
             }
         }
 
+        function nextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % playList.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) audio.play();
+        }
+
+        function prevTrack() {
+            currentTrackIndex = (currentTrackIndex - 1 + playList.length) % playList.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) audio.play();
+        }
+
+        audio.onended = function() {
+            nextTrack();
+        };
+
+        function chonBaiHat(index) {
+            loadTrack(index);
+            audio.play().then(() => {
+                isPlaying = true;
+                document.getElementById("mainPlayBtn").innerText = "⏸️";
+                document.getElementById("audio-icon").innerText = "🎵";
+            }).catch(() => {});
+        }
+
+        function renderPlaylist() {
+            const container = document.getElementById("playlistContainer");
+            container.innerHTML = "";
+            playList.forEach((t, idx) => {
+                const row = document.createElement("div");
+                row.className = `track-row ${idx === currentTrackIndex ? 'active' : ''}`;
+                row.innerHTML = `
+                    <span><span class="track-lang-badge">${t.lang || '🎵'}</span>${t.title}</span>
+                    <span>${idx === currentTrackIndex && isPlaying ? '🔊' : '▶'}</span>
+                `;
+                row.onclick = () => chonBaiHat(idx);
+                container.appendChild(row);
+            });
+        }
+
+        function themBaiHatMoi() {
+            const title = document.getElementById("customSongTitle").value.trim();
+            const url = document.getElementById("customSongUrl").value.trim();
+
+            if (!title || !url) {
+                alert("Vui lòng nhập đầy đủ Tên bài hát và Link MP3 nhé!");
+                return;
+            }
+
+            playList.push({ title: title, lang: "🎶", url: url });
+            localStorage.setItem('ngay_day_mai_do_playlist_v2', JSON.stringify(playList));
+
+            renderPlaylist();
+            document.getElementById("customSongTitle").value = "";
+            document.getElementById("customSongUrl").value = "";
+            alert("🌿 Đã thêm bài hát vào Hộp Nhạc thành công!");
+        }
+
+        /* ================= CHUYỂN TRANG ================= */
         function chuyenTrang(soTrang) {
             document.getElementById("page1").style.display = (soTrang === 1) ? "flex" : "none";
             document.getElementById("p1-logo").style.display = (soTrang === 1) ? "inline-flex" : "none";
@@ -709,10 +866,11 @@
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            if (soTrang > 1 && !isMusicPlaying && !userManuallyMuted) {
-                music.play().then(() => {
-                    isMusicPlaying = true;
-                    audioBtn.innerHTML = "🔊 Âm thanh tĩnh lặng";
+            if (soTrang > 1 && !isPlaying) {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    document.getElementById("mainPlayBtn").innerText = "⏸️";
+                    document.getElementById("audio-icon").innerText = "🎵";
                 }).catch(() => {});
             }
         }
@@ -830,7 +988,7 @@
             });
         }
 
-        /* ================= TÍNH NĂNG TRÒ CHUYỆN ================= */
+        /* ================= TRÒ CHUYỆN VỚI CHAR (GOOGLE AI) ================= */
         function moTroChuyen(name, story) {
             currentCharChat = { name, story };
             document.getElementById("chat-title").innerText = `💬 Trò chuyện cùng ${name}`;
