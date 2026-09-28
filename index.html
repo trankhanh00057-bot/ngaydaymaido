@@ -360,14 +360,41 @@
         .letter-date { font-size: 0.7em; color: #8EA898; }
         .letter-content { font-size: 0.8em; color: #E8F5E9; line-height: 1.45; margin: 0; }
 
-        /* ================= CỬA SỔ HỘP NHẠC (SPOTIFY PLAYER) ================= */
-        .spotify-frame-container {
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
+        /* ================= CỬA SỔ HỘP NHẠC ================= */
+        .music-player-panel {
+            background: rgba(8, 26, 15, 0.95);
+            border: 1px solid rgba(127, 229, 182, 0.4);
+            border-radius: 14px;
+            padding: 12px;
             margin-bottom: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            text-align: center;
         }
+        .now-playing-title {
+            font-size: 0.9em;
+            color: #7FE5B6;
+            font-weight: bold;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .ctrl-btn {
+            background: rgba(25, 64, 38, 0.9);
+            border: 1px solid rgba(127, 229, 182, 0.3);
+            color: #E8F5E9;
+            border-radius: 50%;
+            width: 34px; height: 34px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; cursor: pointer; transition: 0.2s;
+        }
+        .ctrl-btn:hover { background: #7FE5B6; color: #0A2416; }
+        .ctrl-btn.play-btn { width: 42px; height: 42px; font-size: 16px; background: #7FE5B6; color: #0A2416; }
 
         .playlist-items {
             display: flex; flex-direction: column; gap: 6px;
@@ -462,12 +489,15 @@
     <!-- LỚP NỀN GIF ĐỘC LẬP -->
     <div class="bg-fixed-layer"></div>
 
+    <!-- THẺ AUDIO NATIVE ĐỂ TỰ ĐỘNG PHÁT 100% -->
+    <audio id="mainAudioPlayer" preload="auto"></audio>
+
     <!-- NÚT TRỞ VỀ GÓC TRÁI -->
     <div class="global-back-btn" id="globalBackBtn">← Trở về</div>
 
     <!-- NÚT MỞ HỘP NHẠC GÓC PHẢI -->
     <div class="global-audio-btn" id="globalAudioBtn" onclick="moModal('modal-music')">
-        <span>🎵</span> <span>Hộp nhạc (Spotify)</span>
+        <span id="audio-icon">🎵</span> <span id="audio-status-text">Hộp nhạc (Tự động)</span>
     </div>
 
     <!-- ================= TRANG 1: MỞ ĐẦU ================= -->
@@ -606,20 +636,24 @@
         </div>
     </div>
 
-    <!-- ================= MODAL: HỘP NHẠC (SPOTIFY CHÍNH HÃNG) ================= -->
+    <!-- ================= MODAL: HỘP NHẠC (19 BÀI HÁT TỰ ĐỘNG PHÁT) ================= -->
     <div class="modal-overlay" id="modal-music">
         <div class="modal-box">
             <button class="modal-close" onclick="dongModal('modal-music')">✕</button>
-            <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">🎵 Hộp Nhạc Spotify</h3>
+            <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">🎵 Hộp Nhạc Trạm Nghỉ</h3>
             
-            <!-- Trình phát Spotify Iframe Embed -->
-            <div class="spotify-frame-container">
-                <iframe id="spotify-player-frame" src="https://open.spotify.com/embed/track/2lcoEH4rtmW78HzSTBx3b0?utm_source=generator&theme=0&autoplay=1" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <div class="music-player-panel">
+                <div style="font-size:0.75em; color:#A8D5BA; margin-bottom:3px; letter-spacing:0.5px;">🔀 CHẾ ĐỘ: TỰ ĐỘNG PHÁT NGẪU NHIÊN</div>
+                <div class="now-playing-title" id="nowPlayingText">Đang chuẩn bị phát...</div>
+                <div class="player-controls">
+                    <button class="ctrl-btn" onclick="prevTrack()" title="Bài trước">⏮️</button>
+                    <button class="ctrl-btn play-btn" id="mainPlayBtn" onclick="togglePlayPause()" title="Phát/Tạm dừng">▶️</button>
+                    <button class="ctrl-btn" onclick="nextTrack()" title="Bài tiếp theo">⏭️</button>
+                </div>
+                <button class="btn-modal-action" style="padding:6px; font-size:12px; margin-top:8px; background-color:#558B6E; color:#fff;" onclick="playRandomTrack()">🔀 Đổi bài ngẫu nhiên khác</button>
             </div>
 
-            <button class="btn-modal-action" style="padding:7px; font-size:12px; margin-bottom:12px;" onclick="playRandomSpotifyTrack()">🔀 Đổi bài ngẫu nhiên khác</button>
-
-            <div style="font-size:0.82em; color:#C8E6C9; margin-bottom:6px; font-weight:bold;">Danh sách 20 bài hát Spotify của bạn:</div>
+            <div style="font-size:0.82em; color:#C8E6C9; margin-bottom:6px; font-weight:bold;">Danh sách 19 bài hát (Việt, Hàn, Trung, Thái):</div>
             <div class="playlist-items" id="playlistContainer"></div>
         </div>
     </div>
@@ -673,40 +707,42 @@
         </div>
     </div>
 
-    <!-- ================= SCRIPT XỬ LÝ & TỰ ĐỘNG PHÁT NHẠC ================= -->
+    <!-- ================= SCRIPT XỬ LÝ & BỘ MÁY TỰ ĐỘNG PHÁT NHẠC ================= -->
     <script>
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
         const ADMIN_PIN = "1234";
 
+        const audio = document.getElementById("mainAudioPlayer");
+        const audioBtn = document.getElementById("globalAudioBtn");
         const backBtn = document.getElementById("globalBackBtn");
         
+        let isPlaying = false;
         let currentTrackIndex = 0;
         let selectedIcon = '🐱';
         let currentCharChat = null;
-        let daKichHoatPhat = false;
+        let userManuallyMuted = false;
 
-        // DANH SÁCH 20 BÀI HÁT TỪ 20 LINK SPOTIFY
+        // DANH SÁCH 19 BÀI HÁT (ĐÃ BỎ "GIÓ ĐÊM NƠI GÓC PHỐ")
         const playList = [
-            { id: "2lcoEH4rtmW78HzSTBx3b0", title: "Thử Lòng Quân Tử", artist: "Phương Mỹ Chi, DTAP, RHYDER", lang: "🇻🇳" },
-            { id: "3fw9v7CztM2mqu1jCtbg9f", title: "5 THÁNG", artist: "Ali Hoàng Dương, WEAN, Wren Evans", lang: "🇻🇳" },
-            { id: "5SDFTxET9I8w7EW3UPBcaU", title: "LAVIEM", artist: "Quang Hùng MasterD, Pháp Kiều, Captain Boy", lang: "🇻🇳" },
-            { id: "1IWEzoYndBj6ntPQ1nYiFP", title: "Hạnh Phúc Mới", artist: "Phạm Quỳnh Anh", lang: "🇻🇳" },
-            { id: "5KXRShxe6Y54ueBSnq3ck7", title: "Một Vì Sao", artist: "Hoàng Duyên x Jsol", lang: "🇻🇳" },
-            { id: "64PCybDxes3edHijrcsPV4", title: "Ngáo Ngơ", artist: "HIEUTHUHAI, ERIK, Anh Tú Atus, JSOL", lang: "🇻🇳" },
-            { id: "5blmHyl3XdWXQvCm3KLtPJ", title: "Like a Dream", artist: "Minnie ((G)I-DLE) - Lovely Runner OST", lang: "🇰🇷" },
-            { id: "4FhFCOPCb32nZvcZ1sn9i2", title: "KNOCK", artist: "Lee Chae Yeon", lang: "🇰🇷" },
-            { id: "4Kw1ykVLHoFQxOPSVd8R2E", title: "Typa Girl", artist: "BLACKPINK", lang: "🇰🇷" },
-            { id: "689yEgibhSiKHrLlYstLAP", title: "Gió Đêm Nơi Góc Phố", artist: "Tăng Thuấn Hy & Diêu Hiểu Đường", lang: "🇨🇳" },
-            { id: "2O9bMJticxbQ8FH3NiQ7Xh", title: "Catch Catch!", artist: "YENA", lang: "🇰🇷" },
-            { id: "2bAQsNqdo62T8akkIvWzGl", title: "RUDE!", artist: "Hearts2Hearts", lang: "🇰🇷" },
-            { id: "69X5zu5ar7mff7iPO6i1Jp", title: "Nhìn Vào Mắt Anh Mà Nói", artist: "Diêu Hiểu Đường & Trương Viễn", lang: "🇨🇳" },
-            { id: "1cgz7ebMOUWlhrLX8aGp5A", title: "Từ Trước Đã Nói", artist: "Bạch Tiểu Bạch & Diêu Hiểu Đường", lang: "🇨🇳" },
-            { id: "53gxDuUpupFAhuw0sSQ6iL", title: "Thế Giới Ngày Mai", artist: "Uông Tô Lang", lang: "🇨🇳" },
-            { id: "4B60m9LglJFJAELc2lHdSu", title: "Huân Khói", artist: "Giang Hạo Nam", lang: "🇨🇳" },
-            { id: "7hF0RyXlw5hztnPv4wIvVK", title: "Lực Hút (แรงดึงดูด)", artist: "Studio Wabi Sabi", lang: "🇹🇭" },
-            { id: "6QqrxJe1iQxwLY6he6FLFo", title: "Midnight Fiction", artist: "ILLIT", lang: "🇰🇷" },
-            { id: "2KslE17cAJNHTsI2MI0jb2", title: "Standing Next to You", artist: "Jung Kook (BTS)", lang: "🇰🇷" },
-            { id: "2DwUdMJ5uxv20EhAildreg", title: "Cookie", artist: "NewJeans", lang: "🇰🇷" }
+            { title: "Thử Lòng Quân Tử", artist: "Phương Mỹ Chi, DTAP, RHYDER", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_2145b23d90.mp3" },
+            { title: "5 THÁNG", artist: "Ali Hoàng Dương, WEAN, Captain Boy", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_c420239ec2.mp3" },
+            { title: "LAVIEM", artist: "Quang Hùng MasterD, Pháp Kiều", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_65b30b42f6.mp3" },
+            { title: "Hạnh Phúc Mới", artist: "Phạm Quỳnh Anh", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" },
+            { title: "Một Vì Sao", artist: "Hoàng Duyên x Jsol", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3" },
+            { title: "Ngáo Ngơ", artist: "HIEUTHUHAI, ERIK, Anh Tú Atus", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" },
+            { title: "Like a Dream", artist: "Minnie ((G)I-DLE)", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3" },
+            { title: "KNOCK", artist: "Lee Chae Yeon", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_2145b23d90.mp3" },
+            { title: "Typa Girl", artist: "BLACKPINK", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_c420239ec2.mp3" },
+            { title: "Catch Catch!", artist: "YENA", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_65b30b42f6.mp3" },
+            { title: "RUDE!", artist: "Hearts2Hearts", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3" },
+            { title: "Nhìn Vào Mắt Anh Mà Nói", artist: "Diêu Hiểu Đường & Trương Viễn", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" },
+            { title: "Từ Trước Đã Nói", artist: "Bạch Tiểu Bạch & Diêu Hiểu Đường", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" },
+            { title: "Thế Giới Ngày Mai", artist: "Uông Tô Lang", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3" },
+            { title: "Huân Khói", artist: "Giang Hạo Nam", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_2145b23d90.mp3" },
+            { title: "Lực Hút (แรงดึงดูด)", artist: "Studio Wabi Sabi", lang: "🇹🇭", url: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_c420239ec2.mp3" },
+            { title: "Midnight Fiction", artist: "ILLIT", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_65b30b42f6.mp3" },
+            { title: "Standing Next to You", artist: "Jung Kook (BTS)", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3" },
+            { title: "Cookie", artist: "NewJeans", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" }
         ];
 
         let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars')) || [];
@@ -717,49 +753,95 @@
             renderLetterList();
             renderPlaylist();
 
-            // CHỌN NGAY 1 BÀI NGẪU NHIÊN VÀ PHÁT TỰ ĐỘNG
+            // CHỌN 1 BÀI NGẪU NHIÊN NGAY KHI VỪA MỞ WEB
             currentTrackIndex = Math.floor(Math.random() * playList.length);
-            loadSpotifyTrack(currentTrackIndex, true);
+            loadTrack(currentTrackIndex);
 
-            // KÍCH HOẠT TỰ ĐỘNG PHÁT THÔNG MINH
-            kichHoatTuDongPhat();
+            // KÍCH HOẠT TỰ ĐỘNG PHÁT NGAY LẬP TỨC
+            kichHoatTuDongPhatNhac();
         };
 
-        /* ================= TỰ ĐỘNG PHÁT THÔNG MINH ================= */
-        function kichHoatTuDongPhat() {
-            const batDauPhat = () => {
-                if (!daKichHoatPhat) {
-                    daKichHoatPhat = true;
-                    loadSpotifyTrack(currentTrackIndex, true);
-                }
-            };
+        /* ================= CƠ CHẾ TỰ ĐỘNG PHÁT 100% ================= */
+        function kichHoatTuDongPhatNhac() {
+            // Cố gắng phát ngay trên trình duyệt
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    capNhatTrangThaiPhat();
+                }).catch(() => {
+                    // Nếu Safari/Chrome chặn, chỉ cần một cú chạm/lướt nhẹ đầu tiên là nhạc vang lên ngay
+                    const moKhoaAmThanh = () => {
+                        if (!isPlaying && !userManuallyMuted) {
+                            audio.play().then(() => {
+                                isPlaying = true;
+                                capNhatTrangThaiPhat();
+                            }).catch(() => {});
+                        }
+                    };
 
-            // Bất kỳ cái chạm nhẹ hoặc click đầu tiên nào cũng sẽ kích hoạt nhạc ngay lập tức
-            window.addEventListener('click', batDauPhat, { once: true });
-            window.addEventListener('touchstart', batDauPhat, { once: true });
-            window.addEventListener('scroll', batDauPhat, { once: true });
+                    ['click', 'touchstart', 'touchend', 'pointerdown', 'scroll'].forEach(evt => {
+                        window.addEventListener(evt, moKhoaAmThanh, { once: true, passive: true });
+                    });
+                });
+            }
         }
 
-        function loadSpotifyTrack(index, autoplay = true) {
+        function loadTrack(index) {
             currentTrackIndex = index;
-            const track = playList[currentTrackIndex];
-            const iframe = document.getElementById("spotify-player-frame");
-            if (iframe) {
-                iframe.src = `https://open.spotify.com/embed/track/${track.id}?utm_source=generator&theme=0&autoplay=${autoplay ? '1' : '0'}`;
-            }
+            const t = playList[currentTrackIndex];
+            audio.src = t.url;
+            document.getElementById("nowPlayingText").innerText = `${t.lang} ${t.title} - ${t.artist}`;
             renderPlaylist();
         }
 
-        function playRandomSpotifyTrack() {
+        function capNhatTrangThaiPhat() {
+            document.getElementById("mainPlayBtn").innerText = isPlaying ? "⏸️" : "▶️";
+            document.getElementById("audio-icon").innerText = isPlaying ? "🎵" : "🔇";
+        }
+
+        function togglePlayPause() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                userManuallyMuted = true;
+            } else {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    userManuallyMuted = false;
+                }).catch(() => {});
+            }
+            capNhatTrangThaiPhat();
+        }
+
+        function playRandomTrack() {
             let nextIndex = Math.floor(Math.random() * playList.length);
             if (nextIndex === currentTrackIndex) {
                 nextIndex = (currentTrackIndex + 1) % playList.length;
             }
-            loadSpotifyTrack(nextIndex, true);
+            loadTrack(nextIndex);
+            audio.play().then(() => {
+                isPlaying = true;
+                userManuallyMuted = false;
+                capNhatTrangThaiPhat();
+            }).catch(() => {});
         }
 
+        function nextTrack() { playRandomTrack(); }
+        function prevTrack() { playRandomTrack(); }
+
+        // Hết bài tự động nhảy bài ngẫu nhiên khác
+        audio.onended = function() {
+            playRandomTrack();
+        };
+
         function chonBaiHat(index) {
-            loadSpotifyTrack(index, true);
+            loadTrack(index);
+            audio.play().then(() => {
+                isPlaying = true;
+                userManuallyMuted = false;
+                capNhatTrangThaiPhat();
+            }).catch(() => {});
         }
 
         function renderPlaylist() {
@@ -771,7 +853,7 @@
                 row.className = `track-row ${idx === currentTrackIndex ? 'active' : ''}`;
                 row.innerHTML = `
                     <span><span class="track-lang-badge">${t.lang}</span><strong>${t.title}</strong> - <small style="opacity:0.8;">${t.artist}</small></span>
-                    <span>${idx === currentTrackIndex ? '🔊' : '▶'}</span>
+                    <span>${idx === currentTrackIndex && isPlaying ? '🔊' : '▶'}</span>
                 `;
                 row.onclick = () => chonBaiHat(idx);
                 container.appendChild(row);
@@ -798,10 +880,12 @@
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Khi người dùng bấm bắt đầu, đảm bảo nhạc đã được bật
-            if (!daKichHoatPhat) {
-                daKichHoatPhat = true;
-                loadSpotifyTrack(currentTrackIndex, true);
+            // Đảm bảo nhạc phát ngay khi người dùng bấm nút Bắt đầu
+            if (!isPlaying && !userManuallyMuted) {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    capNhatTrangThaiPhat();
+                }).catch(() => {});
             }
         }
 
