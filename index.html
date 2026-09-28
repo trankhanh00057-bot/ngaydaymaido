@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ngày đây mai đó</title>
     
-    <!-- Nhúng Font chữ Playfair Display & Lora -->
+    <!-- Nhúng Font chữ Playfair Display & Lora chuẩn tiếng Việt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&display=swap" rel="stylesheet">
@@ -13,27 +13,42 @@
     <style>
         /* ================= CẤU HÌNH CHUNG ================= */
         * { box-sizing: border-box; }
+        
         body {
             margin: 0;
             padding: 0;
             font-family: 'Lora', serif;
             color: #ffffff;
-            background: url("https://i.pinimg.com/originals/8b/94/c0/8b94c0aa591d5366c9cafe0abe619eb3.gif") no-repeat center center fixed; 
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
+            width: 100vw;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
         }
 
-        /* NÚT ÂM THANH CỐ ĐỊNH Ở GÓC TRÊN BÊN PHẢI (BÁM THEO KHI LƯỚT) */
+        /* LỚP NỀN GIF ĐỘC LẬP - KHÔNG BAO GIỜ BỊ ĐỨNG HÌNH KHI CUỘN */
+        .bg-fixed-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -10;
+            background: url("https://i.pinimg.com/originals/8b/94/c0/8b94c0aa591d5366c9cafe0abe619eb3.gif") no-repeat center center;
+            background-size: cover;
+            pointer-events: none;
+            transform: translateZ(0);
+        }
+
+        /* NÚT ÂM THANH CỐ ĐỊNH Ở GÓC TRÊN PHẢI */
         .global-audio-btn {
             position: fixed;
             top: 15px;
             right: 15px;
             z-index: 9999;
-            background: rgba(14, 40, 24, 0.85);
+            background: rgba(14, 40, 24, 0.88);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(127, 229, 182, 0.4);
             color: #E8F5E9;
@@ -51,13 +66,13 @@
             transform: scale(1.03);
         }
 
-        /* NÚT TRỞ VỀ CỐ ĐỊNH Ở GÓC TRÊN BÊN TRÁI (BÁM THEO KHI LƯỚT) */
+        /* NÚT TRỞ VỀ CỐ ĐỊNH Ở GÓC TRÊN TRÁI */
         .global-back-btn {
             position: fixed;
             top: 15px;
             left: 15px;
             z-index: 9999;
-            background: rgba(14, 40, 24, 0.85);
+            background: rgba(14, 40, 24, 0.88);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(127, 229, 182, 0.4);
             color: #E8F5E9;
@@ -68,7 +83,7 @@
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             transition: all 0.2s ease;
-            display: none; /* Mặc định ẩn ở trang 1 */
+            display: none; /* Ẩn ở trang 1 */
             align-items: center;
             gap: 5px;
         }
@@ -78,7 +93,7 @@
             transform: scale(1.03);
         }
 
-        /* LOGO NHỎ GÓC TRÁI TRANG 1 */
+        /* LOGO GÓC TRÁI TRANG 1 */
         .top-nav-logo {
             position: fixed;
             top: 15px;
@@ -96,15 +111,23 @@
             gap: 6px;
         }
 
-        /* ================= GIAO DIỆN TRANG 1 ================= */
-        #page1 {
-            width: 92%;
-            max-width: 600px;
-            text-align: center;
-            padding: 70px 15px 25px 15px;
+        /* ================= KHUNG CHỨA CĂN GIỮA TOÀN TRANG ================= */
+        .page-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 70px 15px 35px 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: center;
+        }
+
+        /* ================= GIAO DIỆN TRANG 1 ================= */
+        #page1 {
+            max-width: 580px;
+            min-height: 80vh;
+            justify-content: center;
         }
         .title-main {
             font-family: 'Playfair Display', serif;
@@ -132,7 +155,7 @@
         .btn-wander {
             background-color: #558B6E; color: #FFFFFF;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 25px; padding: 10px 30px;
+            border-radius: 25px; padding: 10px 32px;
             font-size: 14.5px; font-family: 'Lora', serif; font-weight: 600;
             cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
             transition: 0.3s;
@@ -143,12 +166,10 @@
             margin-top: 18px; opacity: 0.9;
         }
 
-        /* ================= GIAO DIỆN TRANG 2: NGÀY ĐÂY MAI ĐÓ ================= */
+        /* ================= GIAO DIỆN TRANG 2: CĂN GIỮA CHÍNH XÁC ================= */
         #page2 {
             display: none;
-            width: 94%; max-width: 780px;
-            padding: 70px 10px 25px 10px;
-            text-align: center;
+            max-width: 720px;
         }
         .p2-title {
             font-family: 'Playfair Display', serif;
@@ -156,7 +177,7 @@
             text-shadow: 0 4px 15px rgba(0,0,0,0.7); font-weight: 500;
         }
         .p2-subtitle {
-            color: #DCE7E1; font-size: 0.95em; margin: 8px 0 20px 0;
+            color: #DCE7E1; font-size: 0.95em; margin: 8px 0 22px 0;
             font-style: italic; text-shadow: 0 2px 6px rgba(0,0,0,0.8);
         }
         .search-container {
@@ -175,9 +196,14 @@
             transform: translateY(-50%); color: #8EA898; font-size: 13px;
         }
 
-        /* THẺ CARD TRANG 2: BẤM VÀO BẤT CỨ ĐÂU ĐỀU CHUYỂN TRANG */
+        /* 2 KHUNG THẺ ĐƯỢC CĂN GIỮA ĐỒNG ĐỀU */
         .cards-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            width: 100%;
+            max-width: 680px;
+            margin: 0 auto;
         }
         .feature-card {
             background: rgba(12, 36, 21, 0.92);
@@ -218,12 +244,11 @@
         /* ================= GIAO DIỆN TRANG 3: DẤU CHÂN ================= */
         #page3 {
             display: none;
-            width: 95%; max-width: 950px;
-            padding: 70px 10px 25px 10px;
+            max-width: 900px;
         }
         .p3-header {
             display: flex; justify-content: space-between; align-items: flex-end;
-            margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+            margin-bottom: 22px; flex-wrap: wrap; gap: 12px; width: 100%;
         }
         .p3-title-wrap { display: flex; flex-direction: column; text-align: left; }
         .p3-title-row { display: flex; align-items: center; gap: 10px; }
@@ -246,7 +271,7 @@
         }
         .btn-add-char {
             background-color: #7FE5B6; color: #0A2416; border: none;
-            border-radius: 20px; padding: 7px 15px; font-size: 12.5px;
+            border-radius: 20px; padding: 7px 16px; font-size: 12.5px;
             font-family: 'Lora', serif; font-weight: bold; cursor: pointer;
             display: inline-flex; align-items: center; gap: 4px; transition: 0.2s;
         }
@@ -257,7 +282,7 @@
             gap: 18px; width: 100%;
         }
         .empty-placeholder {
-            grid-column: 1 / -1; padding: 40px 15px; text-align: center;
+            grid-column: 1 / -1; padding: 45px 15px; text-align: center;
             color: #C8E6C9; font-style: italic; font-size: 1em;
             background: rgba(12, 36, 21, 0.6); border: 1px dashed rgba(85, 139, 110, 0.4);
             border-radius: 18px; line-height: 1.6;
@@ -300,22 +325,25 @@
             color: #E8F5E9; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
         }
 
-        /* ================= GIAO DIỆN TRANG 4: HÒM THƯ ================= */
+        /* ================= GIAO DIỆN TRANG 4: HÒM THƯ CĂN GIỮA TUYỆT ĐỐI ================= */
         #page4 {
             display: none;
-            width: 95%; max-width: 980px;
-            padding: 70px 10px 25px 10px;
-            text-align: center;
+            max-width: 900px;
         }
         .mailbox-layout {
-            display: grid; grid-template-columns: 1fr 1.25fr; gap: 18px;
-            text-align: left; margin-top: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 20px;
+            text-align: left;
+            margin: 15px auto 0 auto;
+            width: 100%;
         }
         .mailbox-form-card, .mailbox-list-card {
             background: rgba(12, 36, 21, 0.92);
             border: 1px solid rgba(85, 139, 110, 0.35);
-            border-radius: 18px; padding: 18px;
+            border-radius: 18px; padding: 20px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.35); backdrop-filter: blur(8px);
+            width: 100%;
         }
         .form-title { font-size: 1.15em; font-weight: bold; color: #FFFFFF; margin: 0 0 3px 0; }
         .form-subtitle { font-size: 0.8em; color: #A8D5BA; margin: 0 0 16px 0; }
@@ -324,6 +352,7 @@
             font-size: 0.85em; font-weight: bold; color: #E8F5E9; margin-bottom: 6px;
         }
         .chosen-icon-text { font-size: 0.78em; color: #7FE5B6; font-weight: normal; }
+        
         .icon-scroll-bar {
             display: flex; gap: 8px; overflow-x: auto;
             padding: 4px 2px 8px 2px; margin-bottom: 10px;
@@ -418,12 +447,12 @@
         .bubble-user { align-self: flex-end; background: #7FE5B6; color: #0A2416; font-weight: 500; }
         .bubble-char { align-self: flex-start; background: rgba(255, 255, 255, 0.15); color: #E8F5E9; border: 1px solid rgba(255, 255, 255, 0.2); }
 
-        /* ================= RESPONSIVE ĐIỆN THOẠI ================= */
-        @media (max-width: 650px) {
+        /* ================= TỐI ƯU CĂN GIỮA TRÊN MOBILE ================= */
+        @media (max-width: 720px) {
             .title-main { font-size: 2.1em; }
             .p2-title { font-size: 2.1em; }
-            .cards-grid { grid-template-columns: 1fr; }
-            .mailbox-layout { grid-template-columns: 1fr; }
+            .cards-grid { grid-template-columns: 1fr; max-width: 360px; }
+            .mailbox-layout { grid-template-columns: 1fr; max-width: 420px; }
             .p3-header { flex-direction: column; align-items: flex-start; gap: 8px; }
             .p3-actions-wrap { width: 100%; justify-content: space-between; }
             .p3-search-input { width: 130px; }
@@ -433,7 +462,10 @@
 </head>
 <body>
 
-    <!-- NÚT TRỞ VỀ CỐ ĐỊNH Ở GÓC TRÊN TRÁI (TỰ ĐỘNG HIỆN VÀ BÁM THEO KHI LƯỚT) -->
+    <!-- LỚP NỀN GIF ĐỘC LẬP - ĐẢM BẢO KHÔNG BỊ ĐƠ KHI CUỘN TRANG -->
+    <div class="bg-fixed-layer"></div>
+
+    <!-- NÚT TRỞ VỀ CỐ ĐỊNH Ở GÓC TRÊN TRÁI (BÁM THEO KHI LƯỚT) -->
     <div class="global-back-btn" id="globalBackBtn">← Trở về</div>
 
     <!-- NÚT ÂM THANH CỐ ĐỊNH Ở GÓC TRÊN PHẢI (BÁM THEO KHI LƯỚT) -->
@@ -447,7 +479,7 @@
     <!-- ================= TRANG 1: MỞ ĐẦU ================= -->
     <div class="top-nav-logo" id="p1-logo"><span>🍃</span> Đây đó</div>
 
-    <div id="page1">
+    <div class="page-container" id="page1">
         <h1 class="title-main">
             Ghé đây,<br>
             <span class="title-italic">gặp một câu chuyện...</span>
@@ -462,8 +494,8 @@
         <div class="footer-quote">~ Một bước chân, một câu chuyện ~</div>
     </div>
 
-    <!-- ================= TRANG 2: NGÀY ĐÂY MAI ĐÓ ================= -->
-    <div id="page2">
+    <!-- ================= TRANG 2: NGÀY ĐÂY MAI ĐÓ (CĂN GIỮA CHUẨN) ================= -->
+    <div class="page-container" id="page2">
         <h1 class="p2-title">Ngày đây mai đó</h1>
         <div class="p2-subtitle">Nơi lưu lại những câu chuyện và vài dòng nhắn gửi.</div>
 
@@ -506,7 +538,7 @@
     </div>
 
     <!-- ================= TRANG 3: BỘ SƯU TẬP DẤU CHÂN ================= -->
-    <div id="page3">
+    <div class="page-container" id="page3">
         <div class="p3-header">
             <div class="p3-title-wrap">
                 <div class="p3-title-row">
@@ -528,12 +560,13 @@
         <div class="char-grid" id="charGrid"></div>
     </div>
 
-    <!-- ================= TRANG 4: HÒM THƯ ================= -->
-    <div id="page4">
+    <!-- ================= TRANG 4: HÒM THƯ (CĂN GIỮA CHUẨN) ================= -->
+    <div class="page-container" id="page4">
         <h1 class="p2-title" style="font-size: 2.6em; margin-bottom: 2px;">📮 Hòm Thư</h1>
         <div class="p2-subtitle" style="margin-bottom: 12px;">Gửi vài dòng góp ý, tâm tình, cảm nghĩ tại đây.</div>
 
         <div class="mailbox-layout">
+            <!-- CỘT TRÁI: FORM GỬI THƯ -->
             <div class="mailbox-form-card">
                 <h3 class="form-title">✍️ Viết thư gửi về trạm</h3>
                 <p class="form-subtitle">Gửi ý kiến đóng góp hoặc đôi dòng chia sẻ</p>
@@ -558,7 +591,6 @@
                 <input type="text" class="mail-input" id="mailSender" placeholder="🐱 Nhập biệt danh của bạn...">
 
                 <div class="form-label-row"><span>💌 Tem cảm xúc</span></div>
-                <!-- CHỈ CÒN ĐÚNG 2 LỰA CHỌN -->
                 <select class="mail-select" id="mailMood">
                     <option value="Hài lòng">Hài lòng</option>
                     <option value="Không hài lòng">Không hài lòng</option>
@@ -570,6 +602,7 @@
                 <button class="btn-send-mail" onclick="guiLaThuMoi()">🍃 Gửi thư về trạm</button>
             </div>
 
+            <!-- CỘT PHẢI: DANH SÁCH THƯ -->
             <div class="mailbox-list-card">
                 <div class="list-header-row">
                     <span id="mail-list-header-count">NHỮNG LÁ THƯ ĐÃ GỬI (0)</span>
@@ -640,7 +673,7 @@
         const backBtn = document.getElementById("globalBackBtn");
         
         let isMusicPlaying = false;
-        let userManuallyMuted = false; // Ghi nhớ nếu người dùng đã chủ động tắt âm
+        let userManuallyMuted = false;
         let selectedIcon = '🐱';
         let currentCharChat = null;
 
@@ -652,30 +685,27 @@
             renderLetterList();
         };
 
-        // BẬT / TẮT ÂM THANH (GHI NHỚ LỰA CHỌN CỦA NGƯỜI DÙNG)
         function toggleMusic() {
             if (isMusicPlaying) {
                 music.pause();
                 audioBtn.innerHTML = "🔇 Âm thanh tĩnh lặng";
                 isMusicPlaying = false;
-                userManuallyMuted = true; // Đánh dấu là người dùng đã chủ động tắt
+                userManuallyMuted = true;
             } else {
                 music.play().catch(() => {});
                 audioBtn.innerHTML = "🔊 Âm thanh tĩnh lặng";
                 isMusicPlaying = true;
-                userManuallyMuted = false; // Người dùng bật lại
+                userManuallyMuted = false;
             }
         }
 
-        // CHUYỂN TRANG & ĐIỀU HƯỚNG NÚT TRỞ VỀ CỐ ĐỊNH
         function chuyenTrang(soTrang) {
             document.getElementById("page1").style.display = (soTrang === 1) ? "flex" : "none";
             document.getElementById("p1-logo").style.display = (soTrang === 1) ? "inline-flex" : "none";
-            document.getElementById("page2").style.display = (soTrang === 2) ? "block" : "none";
-            document.getElementById("page3").style.display = (soTrang === 3) ? "block" : "none";
-            document.getElementById("page4").style.display = (soTrang === 4) ? "block" : "none";
+            document.getElementById("page2").style.display = (soTrang === 2) ? "flex" : "none";
+            document.getElementById("page3").style.display = (soTrang === 3) ? "flex" : "none";
+            document.getElementById("page4").style.display = (soTrang === 4) ? "flex" : "none";
 
-            // Cập nhật hoạt động cho nút Trở về cố định
             if (soTrang === 1) {
                 backBtn.style.display = "none";
             } else if (soTrang === 2) {
@@ -686,10 +716,8 @@
                 backBtn.onclick = () => chuyenTrang(2);
             }
 
-            // Tự động cuộn lên đầu trang khi chuyển màn hình
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Chỉ phát nhạc lần đầu tiên khi rời Trang 1 nếu người dùng CHƯA bấm tắt
             if (soTrang > 1 && !isMusicPlaying && !userManuallyMuted) {
                 music.play().then(() => {
                     isMusicPlaying = true;
