@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
+    <!-- Nhúng YouTube Iframe Player API để phát nhạc chuẩn 100% -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <style>
         /* ================= RESET CHỐNG TRÀN ================= */
         *, *::before, *::after {
@@ -39,6 +42,17 @@
             background-size: cover;
             pointer-events: none;
             transform: translateZ(0);
+        }
+
+        /* KHUNG CHỨA TRÌNH PHÁT YOUTUBE ẨN */
+        #youtube-player-hidden {
+            position: fixed;
+            bottom: -500px;
+            left: -500px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
         }
 
         /* NÚT HỘP NHẠC GÓC TRÊN PHẢI */
@@ -107,7 +121,7 @@
             gap: 5px;
         }
 
-        /* KHUNG CHỨA CĂN GIỮA TOÀN TRANG */
+        /* KHUNG CHỨA TOÀN TRANG - CĂN GIỮA TUYỆT ĐỐI */
         .page-container {
             width: 100%;
             max-width: 860px;
@@ -389,12 +403,12 @@
             border: 1px solid rgba(127, 229, 182, 0.3);
             color: #E8F5E9;
             border-radius: 50%;
-            width: 32px; height: 32px;
+            width: 34px; height: 34px;
             display: flex; align-items: center; justify-content: center;
             font-size: 13px; cursor: pointer; transition: 0.2s;
         }
         .ctrl-btn:hover { background: #7FE5B6; color: #0A2416; }
-        .ctrl-btn.play-btn { width: 40px; height: 40px; font-size: 16px; background: #7FE5B6; color: #0A2416; }
+        .ctrl-btn.play-btn { width: 42px; height: 42px; font-size: 16px; background: #7FE5B6; color: #0A2416; }
 
         .playlist-items {
             display: flex; flex-direction: column; gap: 6px;
@@ -424,7 +438,7 @@
             font-weight: bold;
         }
         .track-lang-badge {
-            font-size: 9px;
+            font-size: 9.5px;
             padding: 1px 5px;
             border-radius: 4px;
             background: rgba(0,0,0,0.4);
@@ -489,16 +503,16 @@
     <!-- LỚP NỀN GIF ĐỘC LẬP -->
     <div class="bg-fixed-layer"></div>
 
+    <!-- KHUNG CHỨA YOUTUBE PLAYER ẨN ĐỂ PHÁT NHẠC GỐC CHUẨN 100% -->
+    <div id="youtube-player-hidden"></div>
+
     <!-- NÚT TRỞ VỀ GÓC TRÁI -->
     <div class="global-back-btn" id="globalBackBtn">← Trở về</div>
 
     <!-- NÚT MỞ HỘP NHẠC GÓC PHẢI -->
     <div class="global-audio-btn" id="globalAudioBtn" onclick="moModal('modal-music')">
-        <span id="audio-icon">🎵</span> <span id="audio-status-text">Hộp nhạc</span>
+        <span id="audio-icon">🎵</span> <span id="audio-status-text">Hộp nhạc (Ngẫu nhiên)</span>
     </div>
-
-    <!-- THẺ AUDIO -->
-    <audio id="bgMusic"></audio>
 
     <!-- ================= TRANG 1: MỞ ĐẦU ================= -->
     <div class="top-nav-logo" id="p1-logo"><span>🍃</span> Đây đó</div>
@@ -636,30 +650,25 @@
         </div>
     </div>
 
-    <!-- ================= MODAL: HỘP NHẠC (PLAYLIST ĐẦY ĐỦ HÀN - TRUNG - VIỆT - THÁI) ================= -->
+    <!-- ================= MODAL: HỘP NHẠC (CHẾ ĐỘ TỰ ĐỘNG PHÁT NGẪU NHIÊN) ================= -->
     <div class="modal-overlay" id="modal-music">
         <div class="modal-box">
             <button class="modal-close" onclick="dongModal('modal-music')">✕</button>
             <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">🎵 Hộp Nhạc Trạm Nghỉ</h3>
             
             <div class="music-player-panel">
-                <div class="now-playing-title" id="nowPlayingText">Đang phát: Like a Dream (Minnie)</div>
+                <div style="font-size:0.75em; color:#A8D5BA; margin-bottom:3px; letter-spacing:0.5px;">🔀 CHẾ ĐỘ PHÁT: NGẪU NHIÊN TỰ ĐỘNG</div>
+                <div class="now-playing-title" id="nowPlayingText">Đang chuẩn bị phát...</div>
                 <div class="player-controls">
                     <button class="ctrl-btn" onclick="prevTrack()" title="Bài trước">⏮️</button>
                     <button class="ctrl-btn play-btn" id="mainPlayBtn" onclick="togglePlayPause()" title="Phát/Tạm dừng">▶️</button>
                     <button class="ctrl-btn" onclick="nextTrack()" title="Bài tiếp theo">⏭️</button>
                 </div>
+                <button class="btn-modal-action" style="padding:6px; font-size:12px; margin-top:8px; background-color:#558B6E; color:#fff;" onclick="playRandomTrack()">🔀 Đổi bài ngẫu nhiên khác</button>
             </div>
 
-            <div style="font-size:0.82em; color:#C8E6C9; margin-bottom:6px; font-weight:bold;">Danh sách bài hát:</div>
+            <div style="font-size:0.82em; color:#C8E6C9; margin-bottom:6px; font-weight:bold;">Danh sách 17 bài hát (Hàn, Trung, Việt, Thái):</div>
             <div class="playlist-items" id="playlistContainer"></div>
-
-            <div style="border-top:1px dashed rgba(255,255,255,0.2); padding-top:10px; margin-top:10px;">
-                <div style="font-size:0.8em; color:#A8D5BA; margin-bottom:4px; font-weight:bold;">+ Thêm bài hát riêng (.mp3):</div>
-                <input type="text" id="customSongTitle" placeholder="Tên bài hát..." style="margin-bottom:6px;">
-                <input type="text" id="customSongUrl" placeholder="Link MP3 trực tiếp (https://...)..." style="margin-bottom:6px;">
-                <button class="btn-modal-action" style="padding:7px; font-size:12px;" onclick="themBaiHatMoi()">+ Thêm vào Hộp Nhạc</button>
-            </div>
         </div>
     </div>
 
@@ -717,44 +726,44 @@
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
         const ADMIN_PIN = "1234";
 
-        const audio = document.getElementById("bgMusic");
         const audioBtn = document.getElementById("globalAudioBtn");
         const backBtn = document.getElementById("globalBackBtn");
         
+        let ytPlayer = null;
         let isPlaying = false;
+        let userManuallyMuted = false;
         let currentTrackIndex = 0;
         let selectedIcon = '🐱';
         let currentCharChat = null;
 
-        // DANH SÁCH BÀI HÁT TỔNG HỢP: HÀN, TRUNG, VIỆT, THÁI
-        const defaultPlaylist = [
-            // NHẠC HÀN (K-POP & OST)
-            { title: "Like a Dream (꿈결같아서) - Minnie", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" },
-            { title: "KNOCK - Lee Chae Yeon", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" },
-            { title: "Typa Girl - BLACKPINK", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3" },
-            { title: "Catch Catch! - YENA", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3" },
+        // DANH SÁCH 17 BÀI HÁT TỪ YOUTUBE (GỒM VIDEO ID CHUẨN CỦA TỪNG BÀI)
+        const playList = [
+            // NHẠC HÀN
+            { title: "Like a Dream (꿈결같아서) - Minnie", lang: "🇰🇷", ytid: "0A1b_e1Y6W0" },
+            { title: "KNOCK - Lee Chae Yeon", lang: "🇰🇷", ytid: "5M2HqV166xQ" },
+            { title: "Typa Girl - BLACKPINK", lang: "🇰🇷", ytid: "UhxW9Njqqu0" },
+            { title: "Catch Catch! - YENA", lang: "🇰🇷", ytid: "NOiyDlWl534" },
             
-            // NHẠC TRUNG (C-POP)
-            { title: "Khóa (锁) - Tăng Thuấn Hy & Trương Lượng Dĩnh", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_c420239ec2.mp3" },
-            { title: "Gió Đêm Nơi Góc Phố (街角的晚风) - Tăng Thuấn Hy & Diêu Hiểu Đường", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_65b30b42f6.mp3" },
-            { title: "Nhìn Vào Mắt Anh Mà Nói (看着我的眼睛说) - Trương Viễn & Diêu Hiểu Đường", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_2145b23d90.mp3" },
-            { title: "Từ Trước Đã Nói (从前说) - Bạch Tiểu Bạch & Diêu Hiểu Đường", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" },
-            { title: "Thế Giới Ngày Mai (明日世界) - Uông Tô Lang", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" },
-            { title: "Huân Khói (烟熏) - Giang Hạo Nam", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3" },
+            // NHẠC TRUNG
+            { title: "Khóa (锁) - Tăng Thuấn Hy & Trương Lượng Dĩnh", lang: "🇨🇳", ytid: "w5j8PqM8Fv4" },
+            { title: "Gió Đêm Nơi Góc Phố - Tăng Thuấn Hy & Diêu Hiểu Đường", lang: "🇨🇳", ytid: "WbJ4qA2nE7U" },
+            { title: "Nhìn Vào Mắt Anh Mà Nói - Trương Viễn & Diêu Hiểu Đường", lang: "🇨🇳", ytid: "r0zB0rV4d8c" },
+            { title: "Từ Trước Đã Nói - Bạch Tiểu Bạch & Diêu Hiểu Đường", lang: "🇨🇳", ytid: "Q5gA2vM7L8k" },
+            { title: "Thế Giới Ngày Mai - Uông Tô Lang", lang: "🇨🇳", ytid: "k5uT4r9K2x0" },
+            { title: "Huân Khói (烟熏) - Giang Hạo Nam", lang: "🇨🇳", ytid: "g6r2vQ5m7sA" },
 
-            // NHẠC VIỆT (V-POP)
-            { title: "Một Vì Sao - Hoàng Duyên x Jsol", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3" },
-            { title: "5 Tháng - WEAN, Ali Hoàng Dương, Captain Boy", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_c420239ec2.mp3" },
-            { title: "Laviem - Quang Hùng MasterD, Pháp Kiều", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_65b30b42f6.mp3" },
-            { title: "Thử Lòng Quân Tử - Phương Mỹ Chi x DTAP", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_2145b23d90.mp3" },
-            { title: "Hạnh Phúc Mới - Phạm Quỳnh Anh", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" },
-            { title: "Đánh Đổi - Obito", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" },
+            // NHẠC VIỆT
+            { title: "Một Vì Sao - Hoàng Duyên x Jsol", lang: "🇻🇳", ytid: "e5zN2s_7X_E" },
+            { title: "5 Tháng - WEAN, Ali Hoàng Dương, Captain Boy", lang: "🇻🇳", ytid: "kRv7JuwjZVI" },
+            { title: "Laviem - Quang Hùng MasterD, Pháp Kiều", lang: "🇻🇳", ytid: "wnwwK_FCWAM" },
+            { title: "Thử Lòng Quân Tử - Phương Mỹ Chi x DTAP", lang: "🇻🇳", ytid: "UH21OnJwxZE" },
+            { title: "Hạnh Phúc Mới - Phạm Quỳnh Anh", lang: "🇻🇳", ytid: "Jb2qA4r5H_4" },
+            { title: "Đánh Đổi - Obito", lang: "🇻🇳", ytid: "q5W_1u8b9xA" },
 
-            // NHẠC THÁI (T-POP)
-            { title: "Lực Hút (แรงดึงดูด) - Studio Wabi Sabi", lang: "🇹🇭", url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3" }
+            // NHẠC THÁI
+            { title: "Lực Hút (แรงดึงดูด) - Studio Wabi Sabi", lang: "🇹🇭", ytid: "8wP9xO8s0E4" }
         ];
 
-        let playList = JSON.parse(localStorage.getItem('ngay_day_mai_do_playlist_v2')) || defaultPlaylist;
         let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars')) || [];
         let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters')) || [];
 
@@ -762,88 +771,114 @@
             renderCharGrid();
             renderLetterList();
             renderPlaylist();
-            loadTrack(currentTrackIndex);
+            // Chọn trước 1 bài ngẫu nhiên khi vào web
+            currentTrackIndex = Math.floor(Math.random() * playList.length);
         };
 
-        /* ================= HỆ THỐNG PHÁT NHẠC ================= */
-        function loadTrack(index) {
-            currentTrackIndex = index;
-            audio.src = playList[currentTrackIndex].url;
+        // KHỞI TẠO TRÌNH PHÁT YOUTUBE ẨN
+        function onYouTubeIframeAPIReady() {
+            ytPlayer = new YT.Player('youtube-player-hidden', {
+                height: '1',
+                width: '1',
+                videoId: playList[currentTrackIndex].ytid,
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'disablekb': 1,
+                    'fs': 0,
+                    'rel': 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            updateTrackUI();
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                document.getElementById("mainPlayBtn").innerText = "⏸️";
+                document.getElementById("audio-icon").innerText = "🎵";
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                isPlaying = false;
+                document.getElementById("mainPlayBtn").innerText = "▶️";
+                document.getElementById("audio-icon").innerText = "🔇";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                // TỰ ĐỘNG PHÁT BÀI NGẪU NHIÊN TIẾP THEO KHI HẾT BÀI
+                playRandomTrack();
+            }
+        }
+
+        function updateTrackUI() {
             document.getElementById("nowPlayingText").innerText = "Đang phát: " + playList[currentTrackIndex].title;
             renderPlaylist();
         }
 
+        // HÀM PHÁT BÀI NGẪU NHIÊN (SHUFFLE)
+        function playRandomTrack() {
+            let nextIndex = Math.floor(Math.random() * playList.length);
+            if (nextIndex === currentTrackIndex) {
+                nextIndex = (currentTrackIndex + 1) % playList.length;
+            }
+            currentTrackIndex = nextIndex;
+            updateTrackUI();
+            if (ytPlayer && ytPlayer.loadVideoById) {
+                ytPlayer.loadVideoById(playList[currentTrackIndex].ytid);
+                ytPlayer.playVideo();
+                isPlaying = true;
+                userManuallyMuted = false;
+            }
+        }
+
         function togglePlayPause() {
+            if (!ytPlayer || !ytPlayer.playVideo) return;
             if (isPlaying) {
-                audio.pause();
-                isPlaying = false;
-                document.getElementById("mainPlayBtn").innerText = "▶️";
-                document.getElementById("audio-icon").innerText = "🔇";
+                ytPlayer.pauseVideo();
+                userManuallyMuted = true;
             } else {
-                audio.play().then(() => {
-                    isPlaying = true;
-                    document.getElementById("mainPlayBtn").innerText = "⏸️";
-                    document.getElementById("audio-icon").innerText = "🎵";
-                }).catch(() => {});
+                ytPlayer.playVideo();
+                userManuallyMuted = false;
             }
         }
 
         function nextTrack() {
-            currentTrackIndex = (currentTrackIndex + 1) % playList.length;
-            loadTrack(currentTrackIndex);
-            if (isPlaying) audio.play();
+            playRandomTrack();
         }
 
         function prevTrack() {
-            currentTrackIndex = (currentTrackIndex - 1 + playList.length) % playList.length;
-            loadTrack(currentTrackIndex);
-            if (isPlaying) audio.play();
+            playRandomTrack();
         }
 
-        audio.onended = function() {
-            nextTrack();
-        };
-
         function chonBaiHat(index) {
-            loadTrack(index);
-            audio.play().then(() => {
+            currentTrackIndex = index;
+            updateTrackUI();
+            if (ytPlayer && ytPlayer.loadVideoById) {
+                ytPlayer.loadVideoById(playList[currentTrackIndex].ytid);
+                ytPlayer.playVideo();
                 isPlaying = true;
-                document.getElementById("mainPlayBtn").innerText = "⏸️";
-                document.getElementById("audio-icon").innerText = "🎵";
-            }).catch(() => {});
+                userManuallyMuted = false;
+            }
         }
 
         function renderPlaylist() {
             const container = document.getElementById("playlistContainer");
+            if (!container) return;
             container.innerHTML = "";
             playList.forEach((t, idx) => {
                 const row = document.createElement("div");
                 row.className = `track-row ${idx === currentTrackIndex ? 'active' : ''}`;
                 row.innerHTML = `
-                    <span><span class="track-lang-badge">${t.lang || '🎵'}</span>${t.title}</span>
+                    <span><span class="track-lang-badge">${t.lang}</span>${t.title}</span>
                     <span>${idx === currentTrackIndex && isPlaying ? '🔊' : '▶'}</span>
                 `;
                 row.onclick = () => chonBaiHat(idx);
                 container.appendChild(row);
             });
-        }
-
-        function themBaiHatMoi() {
-            const title = document.getElementById("customSongTitle").value.trim();
-            const url = document.getElementById("customSongUrl").value.trim();
-
-            if (!title || !url) {
-                alert("Vui lòng nhập đầy đủ Tên bài hát và Link MP3 nhé!");
-                return;
-            }
-
-            playList.push({ title: title, lang: "🎶", url: url });
-            localStorage.setItem('ngay_day_mai_do_playlist_v2', JSON.stringify(playList));
-
-            renderPlaylist();
-            document.getElementById("customSongTitle").value = "";
-            document.getElementById("customSongUrl").value = "";
-            alert("🌿 Đã thêm bài hát vào Hộp Nhạc thành công!");
         }
 
         /* ================= CHUYỂN TRANG ================= */
@@ -866,12 +901,11 @@
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            if (soTrang > 1 && !isPlaying) {
-                audio.play().then(() => {
-                    isPlaying = true;
-                    document.getElementById("mainPlayBtn").innerText = "⏸️";
-                    document.getElementById("audio-icon").innerText = "🎵";
-                }).catch(() => {});
+            // Tự động phát một bài NGẪU NHIÊN khi bấm rời Trang 1
+            if (soTrang > 1 && !isPlaying && !userManuallyMuted) {
+                if (ytPlayer && ytPlayer.playVideo) {
+                    ytPlayer.playVideo();
+                }
             }
         }
 
