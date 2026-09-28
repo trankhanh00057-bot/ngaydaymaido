@@ -7,11 +7,11 @@
     
     <!-- Nhúng Font chữ Playfair Display & Lora -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
-        /* ================= RESET CHỐNG TRÀN MÀN HÌNH ================= */
+        /* ================= RESET CHỐNG TRÀN ================= */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -26,10 +26,10 @@
             font-family: 'Lora', serif;
             color: #ffffff;
             min-height: 100vh;
-            background-color: #0d2617;
+            background: transparent; /* Nền trong suốt để hiện rõ ảnh GIF */
         }
 
-        /* LỚP NỀN GIF ĐỘC LẬP */
+        /* LỚP NỀN GIF HIỂN THỊ CHUẨN 100% */
         .bg-fixed-layer {
             position: fixed;
             top: 0;
@@ -38,7 +38,7 @@
             bottom: 0;
             width: 100%;
             height: 100%;
-            z-index: -10;
+            z-index: -1;
             background: url("https://i.pinimg.com/originals/8b/94/c0/8b94c0aa591d5366c9cafe0abe619eb3.gif") no-repeat center center;
             background-size: cover;
             pointer-events: none;
@@ -103,7 +103,7 @@
             gap: 5px;
         }
 
-        /* KHUNG CHỨA TOÀN TRANG - CĂN GIỮA VÀ CO GIÃN THEO MÀN HÌNH */
+        /* KHUNG CHỨA TOÀN TRANG - CĂN GIỮA TUYỆT ĐỐI */
         .page-container {
             width: 100%;
             max-width: 860px;
@@ -310,7 +310,7 @@
             color: #E8F5E9; cursor: pointer; display: inline-flex; align-items: center; gap: 3px;
         }
 
-        /* ================= GIAO DIỆN TRANG 4: HÒM THƯ (CĂN CHUẨN TUYỆT ĐỐI) ================= */
+        /* ================= GIAO DIỆN TRANG 4: HÒM THƯ ================= */
         #page4 {
             display: none;
             max-width: 860px;
@@ -338,7 +338,6 @@
         }
         .chosen-icon-text { font-size: 0.75em; color: #7FE5B6; font-weight: normal; }
         
-        /* THANH CUỘN ICON THÚ CƯNG KHÔNG BỊ TRÀN */
         .icon-scroll-bar {
             display: flex;
             gap: 8px;
@@ -439,7 +438,7 @@
         .bubble-user { align-self: flex-end; background: #7FE5B6; color: #0A2416; font-weight: 500; }
         .bubble-char { align-self: flex-start; background: rgba(255, 255, 255, 0.15); color: #E8F5E9; border: 1px solid rgba(255, 255, 255, 0.2); }
 
-        /* ================= TỐI ƯU 100% CHO ĐIỆN THOẠI ================= */
+        /* ================= TỐI ƯU CHO ĐIỆN THOẠI ================= */
         @media (max-width: 680px) {
             .page-container { padding: 55px 12px 25px 12px; }
             .title-main { font-size: 1.95em; }
@@ -454,7 +453,7 @@
 </head>
 <body>
 
-    <!-- LỚP NỀN GIF ĐỘC LẬP -->
+    <!-- LỚP NỀN GIF ĐỘC LẬP - KHÔNG BAO GIỜ BỊ ĐƠ HAY MẤT HÌNH -->
     <div class="bg-fixed-layer"></div>
 
     <!-- NÚT TRỞ VỀ CỐ ĐỊNH Ở GÓC TRÊN TRÁI -->
@@ -552,7 +551,7 @@
         <div class="char-grid" id="charGrid"></div>
     </div>
 
-    <!-- ================= TRANG 4: HÒM THƯ (CĂN GIỮA TUYỆT ĐỐI) ================= -->
+    <!-- ================= TRANG 4: HÒM THƯ (CĂN GIỮA CHUẨN) ================= -->
     <div class="page-container" id="page4">
         <h1 class="p2-title" style="font-size: 2.3em; margin-bottom: 2px;">📮 Hòm Thư</h1>
         <div class="p2-subtitle" style="margin-bottom: 12px;">Gửi vài dòng góp ý, tâm tình, cảm nghĩ tại đây.</div>
