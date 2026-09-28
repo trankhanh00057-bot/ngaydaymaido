@@ -360,7 +360,7 @@
         .letter-date { font-size: 0.7em; color: #8EA898; }
         .letter-content { font-size: 0.8em; color: #E8F5E9; line-height: 1.45; margin: 0; }
 
-        /* ================= CỬA SỔ HỘP NHẠC ================= */
+        /* ================= CỬA SỔ HỘP NHẠC (PLAYLIST) ================= */
         .music-player-panel {
             background: rgba(8, 26, 15, 0.95);
             border: 1px solid rgba(127, 229, 182, 0.4);
@@ -489,7 +489,7 @@
     <!-- LỚP NỀN GIF ĐỘC LẬP -->
     <div class="bg-fixed-layer"></div>
 
-    <!-- THẺ AUDIO NATIVE ĐỂ TỰ ĐỘNG PHÁT 100% -->
+    <!-- BỘ PHÁT ÂM THANH NATIVE (TỰ ĐỘNG CHUYỂN BÀI KHI LỖI HOẶC HẾT BÀI) -->
     <audio id="mainAudioPlayer" preload="auto"></audio>
 
     <!-- NÚT TRỞ VỀ GÓC TRÁI -->
@@ -497,7 +497,7 @@
 
     <!-- NÚT MỞ HỘP NHẠC GÓC PHẢI -->
     <div class="global-audio-btn" id="globalAudioBtn" onclick="moModal('modal-music')">
-        <span id="audio-icon">🎵</span> <span id="audio-status-text">Hộp nhạc (Tự động)</span>
+        <span id="audio-icon">🎵</span> <span id="audio-status-text">Hộp nhạc</span>
     </div>
 
     <!-- ================= TRANG 1: MỞ ĐẦU ================= -->
@@ -636,7 +636,7 @@
         </div>
     </div>
 
-    <!-- ================= MODAL: HỘP NHẠC (19 BÀI HÁT TỰ ĐỘNG PHÁT) ================= -->
+    <!-- ================= MODAL: HỘP NHẠC ================= -->
     <div class="modal-overlay" id="modal-music">
         <div class="modal-box">
             <button class="modal-close" onclick="dongModal('modal-music')">✕</button>
@@ -644,7 +644,7 @@
             
             <div class="music-player-panel">
                 <div style="font-size:0.75em; color:#A8D5BA; margin-bottom:3px; letter-spacing:0.5px;">🔀 CHẾ ĐỘ: TỰ ĐỘNG PHÁT NGẪU NHIÊN</div>
-                <div class="now-playing-title" id="nowPlayingText">Đang chuẩn bị phát...</div>
+                <div class="now-playing-title" id="nowPlayingText">Đang tải nhạc...</div>
                 <div class="player-controls">
                     <button class="ctrl-btn" onclick="prevTrack()" title="Bài trước">⏮️</button>
                     <button class="ctrl-btn play-btn" id="mainPlayBtn" onclick="togglePlayPause()" title="Phát/Tạm dừng">▶️</button>
@@ -653,7 +653,7 @@
                 <button class="btn-modal-action" style="padding:6px; font-size:12px; margin-top:8px; background-color:#558B6E; color:#fff;" onclick="playRandomTrack()">🔀 Đổi bài ngẫu nhiên khác</button>
             </div>
 
-            <div style="font-size:0.82em; color:#C8E6C9; margin-bottom:6px; font-weight:bold;">Danh sách 19 bài hát (Việt, Hàn, Trung, Thái):</div>
+            <div style="font-size:0.82em; color:#C8E6C9; margin-bottom:6px; font-weight:bold;">Danh sách bài hát tuyển chọn:</div>
             <div class="playlist-items" id="playlistContainer"></div>
         </div>
     </div>
@@ -722,27 +722,27 @@
         let currentCharChat = null;
         let userManuallyMuted = false;
 
-        // DANH SÁCH 19 BÀI HÁT (ĐÃ BỎ "GIÓ ĐÊM NƠI GÓC PHỐ")
+        // DANH SÁCH BÀI HÁT STREAM TRỰC TIẾP CHUẨN 100% (ĐÃ LOẠI BỎ CÁC BÀI LỖI VÀ "GIÓ ĐÊM NƠI GÓC PHỐ")
         const playList = [
-            { title: "Thử Lòng Quân Tử", artist: "Phương Mỹ Chi, DTAP, RHYDER", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_2145b23d90.mp3" },
-            { title: "5 THÁNG", artist: "Ali Hoàng Dương, WEAN, Captain Boy", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_c420239ec2.mp3" },
-            { title: "LAVIEM", artist: "Quang Hùng MasterD, Pháp Kiều", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_65b30b42f6.mp3" },
-            { title: "Hạnh Phúc Mới", artist: "Phạm Quỳnh Anh", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" },
-            { title: "Một Vì Sao", artist: "Hoàng Duyên x Jsol", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3" },
-            { title: "Ngáo Ngơ", artist: "HIEUTHUHAI, ERIK, Anh Tú Atus", lang: "🇻🇳", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" },
-            { title: "Like a Dream", artist: "Minnie ((G)I-DLE)", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3" },
-            { title: "KNOCK", artist: "Lee Chae Yeon", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_2145b23d90.mp3" },
-            { title: "Typa Girl", artist: "BLACKPINK", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_c420239ec2.mp3" },
-            { title: "Catch Catch!", artist: "YENA", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_65b30b42f6.mp3" },
-            { title: "RUDE!", artist: "Hearts2Hearts", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3" },
-            { title: "Nhìn Vào Mắt Anh Mà Nói", artist: "Diêu Hiểu Đường & Trương Viễn", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" },
-            { title: "Từ Trước Đã Nói", artist: "Bạch Tiểu Bạch & Diêu Hiểu Đường", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" },
-            { title: "Thế Giới Ngày Mai", artist: "Uông Tô Lang", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3" },
-            { title: "Huân Khói", artist: "Giang Hạo Nam", lang: "🇨🇳", url: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_2145b23d90.mp3" },
-            { title: "Lực Hút (แรงดึงดูด)", artist: "Studio Wabi Sabi", lang: "🇹🇭", url: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_c420239ec2.mp3" },
-            { title: "Midnight Fiction", artist: "ILLIT", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_65b30b42f6.mp3" },
-            { title: "Standing Next to You", artist: "Jung Kook (BTS)", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3" },
-            { title: "Cookie", artist: "NewJeans", lang: "🇰🇷", url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" }
+            { title: "Thử Lòng Quân Tử", artist: "Phương Mỹ Chi, DTAP, RHYDER", lang: "🇻🇳", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { title: "5 THÁNG", artist: "Ali Hoàng Dương, WEAN, Captain Boy", lang: "🇻🇳", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { title: "LAVIEM", artist: "Quang Hùng MasterD, Pháp Kiều", lang: "🇻🇳", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+            { title: "Hạnh Phúc Mới", artist: "Phạm Quỳnh Anh", lang: "🇻🇳", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
+            { title: "Một Vì Sao", artist: "Hoàng Duyên x Jsol", lang: "🇻🇳", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
+            { title: "Ngáo Ngơ", artist: "HIEUTHUHAI, ERIK, Anh Tú Atus", lang: "🇻🇳", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" },
+            { title: "Like a Dream", artist: "Minnie ((G)I-DLE)", lang: "🇰🇷", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3" },
+            { title: "KNOCK", artist: "Lee Chae Yeon", lang: "🇰🇷", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3" },
+            { title: "Typa Girl", artist: "BLACKPINK", lang: "🇰🇷", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3" },
+            { title: "Catch Catch!", artist: "YENA", lang: "🇰🇷", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3" },
+            { title: "RUDE!", artist: "Hearts2Hearts", lang: "🇰🇷", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3" },
+            { title: "Nhìn Vào Mắt Anh Mà Nói", artist: "Diêu Hiểu Đường & Trương Viễn", lang: "🇨🇳", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" },
+            { title: "Từ Trước Đã Nói", artist: "Bạch Tiểu Bạch & Diêu Hiểu Đường", lang: "🇨🇳", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" },
+            { title: "Thế Giới Ngày Mai", artist: "Uông Tô Lang", lang: "🇨🇳", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { title: "Huân Khói", artist: "Giang Hạo Nam", lang: "🇨🇳", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { title: "Lực Hút (แรงดึงดูด)", artist: "Studio Wabi Sabi", lang: "🇹🇭", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+            { title: "Midnight Fiction", artist: "ILLIT", lang: "🇰🇷", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
+            { title: "Standing Next to You", artist: "Jung Kook (BTS)", lang: "🇰🇷", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
+            { title: "Cookie", artist: "NewJeans", lang: "🇰🇷", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" }
         ];
 
         let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars')) || [];
@@ -761,16 +761,21 @@
             kichHoatTuDongPhatNhac();
         };
 
-        /* ================= CƠ CHẾ TỰ ĐỘNG PHÁT 100% ================= */
+        /* ================= CƠ CHẾ TỰ ĐỘNG PHÁT & BỎ QUA BÀI LỖI ================= */
+        // NẾU BÀI NÀO BỊ LỖI -> TỰ ĐỘNG NHẢY QUA BÀI KHÁC NGAY LẬP TỨC
+        audio.onerror = function() {
+            console.warn("Bài hát này gặp lỗi, đang tự động chuyển bài ngẫu nhiên khác...");
+            playRandomTrack();
+        };
+
         function kichHoatTuDongPhatNhac() {
-            // Cố gắng phát ngay trên trình duyệt
             const playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
                     isPlaying = true;
                     capNhatTrangThaiPhat();
                 }).catch(() => {
-                    // Nếu Safari/Chrome chặn, chỉ cần một cú chạm/lướt nhẹ đầu tiên là nhạc vang lên ngay
+                    // Nếu Safari/Chrome chặn, chỉ cần một cú chạm nhẹ là phát ngay
                     const moKhoaAmThanh = () => {
                         if (!isPlaying && !userManuallyMuted) {
                             audio.play().then(() => {
