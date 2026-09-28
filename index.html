@@ -107,7 +107,7 @@
             gap: 5px;
         }
 
-        /* KHUNG CHỨA TOÀN TRANG - CĂN GIỮA TUYỆT ĐỐI */
+        /* KHUNG CHỨA TOÀN TRANG */
         .page-container {
             width: 100%;
             max-width: 860px;
@@ -614,7 +614,7 @@
             
             <!-- Trình phát Spotify Iframe Embed -->
             <div class="spotify-frame-container">
-                <iframe id="spotify-player-frame" src="https://open.spotify.com/embed/track/2lcoEH4rtmW78HzSTBx3b0?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe id="spotify-player-frame" src="https://open.spotify.com/embed/track/2lcoEH4rtmW78HzSTBx3b0?utm_source=generator&theme=0&autoplay=1" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
 
             <button class="btn-modal-action" style="padding:7px; font-size:12px; margin-bottom:12px;" onclick="playRandomSpotifyTrack()">🔀 Đổi bài ngẫu nhiên khác</button>
@@ -673,7 +673,7 @@
         </div>
     </div>
 
-    <!-- ================= SCRIPT XỬ LÝ ================= -->
+    <!-- ================= SCRIPT XỬ LÝ & TỰ ĐỘNG PHÁT NHẠC ================= -->
     <script>
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
         const ADMIN_PIN = "1234";
@@ -683,8 +683,9 @@
         let currentTrackIndex = 0;
         let selectedIcon = '🐱';
         let currentCharChat = null;
+        let daKichHoatPhat = false;
 
-        // DANH SÁCH 20 BÀI HÁT TỪ 20 LINK SPOTIFY CỦA BẠN
+        // DANH SÁCH 20 BÀI HÁT TỪ 20 LINK SPOTIFY
         const playList = [
             { id: "2lcoEH4rtmW78HzSTBx3b0", title: "Thử Lòng Quân Tử", artist: "Phương Mỹ Chi, DTAP, RHYDER", lang: "🇻🇳" },
             { id: "3fw9v7CztM2mqu1jCtbg9f", title: "5 THÁNG", artist: "Ali Hoàng Dương, WEAN, Wren Evans", lang: "🇻🇳" },
@@ -715,18 +716,36 @@
             renderCharGrid();
             renderLetterList();
             renderPlaylist();
-            // Chọn trước 1 bài ngẫu nhiên khi vào web
+
+            // CHỌN NGAY 1 BÀI NGẪU NHIÊN VÀ PHÁT TỰ ĐỘNG
             currentTrackIndex = Math.floor(Math.random() * playList.length);
-            loadSpotifyTrack(currentTrackIndex);
+            loadSpotifyTrack(currentTrackIndex, true);
+
+            // KÍCH HOẠT TỰ ĐỘNG PHÁT THÔNG MINH
+            kichHoatTuDongPhat();
         };
 
-        /* ================= HỆ THỐNG PHÁT NHẠC SPOTIFY ================= */
-        function loadSpotifyTrack(index) {
+        /* ================= TỰ ĐỘNG PHÁT THÔNG MINH ================= */
+        function kichHoatTuDongPhat() {
+            const batDauPhat = () => {
+                if (!daKichHoatPhat) {
+                    daKichHoatPhat = true;
+                    loadSpotifyTrack(currentTrackIndex, true);
+                }
+            };
+
+            // Bất kỳ cái chạm nhẹ hoặc click đầu tiên nào cũng sẽ kích hoạt nhạc ngay lập tức
+            window.addEventListener('click', batDauPhat, { once: true });
+            window.addEventListener('touchstart', batDauPhat, { once: true });
+            window.addEventListener('scroll', batDauPhat, { once: true });
+        }
+
+        function loadSpotifyTrack(index, autoplay = true) {
             currentTrackIndex = index;
             const track = playList[currentTrackIndex];
             const iframe = document.getElementById("spotify-player-frame");
             if (iframe) {
-                iframe.src = `https://open.spotify.com/embed/track/${track.id}?utm_source=generator&theme=0`;
+                iframe.src = `https://open.spotify.com/embed/track/${track.id}?utm_source=generator&theme=0&autoplay=${autoplay ? '1' : '0'}`;
             }
             renderPlaylist();
         }
@@ -736,11 +755,11 @@
             if (nextIndex === currentTrackIndex) {
                 nextIndex = (currentTrackIndex + 1) % playList.length;
             }
-            loadSpotifyTrack(nextIndex);
+            loadSpotifyTrack(nextIndex, true);
         }
 
         function chonBaiHat(index) {
-            loadSpotifyTrack(index);
+            loadSpotifyTrack(index, true);
         }
 
         function renderPlaylist() {
@@ -778,6 +797,12 @@
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Khi người dùng bấm bắt đầu, đảm bảo nhạc đã được bật
+            if (!daKichHoatPhat) {
+                daKichHoatPhat = true;
+                loadSpotifyTrack(currentTrackIndex, true);
+            }
         }
 
         function moModal(id) { document.getElementById(id).style.display = "flex"; }
