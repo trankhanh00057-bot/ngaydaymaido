@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
-        /* ================= CẤU HÌNH CHUNG & RESPONSIVE ================= */
+        /* ================= CẤU HÌNH CHUNG ================= */
         * { box-sizing: border-box; }
         body {
             margin: 0;
@@ -27,7 +27,7 @@
             overflow-x: hidden;
         }
 
-        /* NÚT ÂM THANH CỐ ĐỊNH Ở MỌI TRANG */
+        /* NÚT ÂM THANH CỐ ĐỊNH Ở GÓC TRÊN BÊN PHẢI (BÁM THEO KHI LƯỚT) */
         .global-audio-btn {
             position: fixed;
             top: 15px;
@@ -51,7 +51,34 @@
             transform: scale(1.03);
         }
 
-        /* LOGO TRÊN CÙNG TRANG 1 */
+        /* NÚT TRỞ VỀ CỐ ĐỊNH Ở GÓC TRÊN BÊN TRÁI (BÁM THEO KHI LƯỚT) */
+        .global-back-btn {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 9999;
+            background: rgba(14, 40, 24, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(127, 229, 182, 0.4);
+            color: #E8F5E9;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-family: 'Lora', serif;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease;
+            display: none; /* Mặc định ẩn ở trang 1 */
+            align-items: center;
+            gap: 5px;
+        }
+        .global-back-btn:hover {
+            background: rgba(25, 64, 38, 0.95);
+            border-color: #7FE5B6;
+            transform: scale(1.03);
+        }
+
+        /* LOGO NHỎ GÓC TRÁI TRANG 1 */
         .top-nav-logo {
             position: fixed;
             top: 15px;
@@ -74,7 +101,7 @@
             width: 92%;
             max-width: 600px;
             text-align: center;
-            padding: 60px 15px 20px 15px;
+            padding: 70px 15px 25px 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -120,29 +147,9 @@
         #page2 {
             display: none;
             width: 94%; max-width: 780px;
-            padding: 60px 10px 25px 10px;
+            padding: 70px 10px 25px 10px;
             text-align: center;
         }
-        .p2-topbar {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 20px; width: 100%; gap: 10px;
-        }
-        .btn-back-pill {
-            background: rgba(14, 40, 24, 0.8);
-            border: 1px solid rgba(85, 139, 110, 0.4);
-            color: #FFFFFF; border-radius: 20px;
-            padding: 5px 14px; font-size: 12px;
-            cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
-            transition: 0.2s;
-        }
-        .btn-back-pill:hover { background: rgba(25, 64, 38, 0.95); }
-        .status-pill {
-            background: rgba(14, 40, 24, 0.8);
-            border: 1px solid rgba(85, 139, 110, 0.3);
-            border-radius: 20px; padding: 5px 14px;
-            color: #C8E6C9; font-size: 11.5px; font-style: italic;
-        }
-
         .p2-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.6em; color: #FFFFFF; margin: 0;
@@ -168,7 +175,7 @@
             transform: translateY(-50%); color: #8EA898; font-size: 13px;
         }
 
-        /* THẺ CARD TRANG 2: CẢ THẺ ĐỀU BẤM ĐƯỢC */
+        /* THẺ CARD TRANG 2: BẤM VÀO BẤT CỨ ĐÂU ĐỀU CHUYỂN TRANG */
         .cards-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%;
         }
@@ -212,7 +219,7 @@
         #page3 {
             display: none;
             width: 95%; max-width: 950px;
-            padding: 60px 10px 25px 10px;
+            padding: 70px 10px 25px 10px;
         }
         .p3-header {
             display: flex; justify-content: space-between; align-items: flex-end;
@@ -297,7 +304,7 @@
         #page4 {
             display: none;
             width: 95%; max-width: 980px;
-            padding: 60px 10px 25px 10px;
+            padding: 70px 10px 25px 10px;
             text-align: center;
         }
         .mailbox-layout {
@@ -411,13 +418,13 @@
         .bubble-user { align-self: flex-end; background: #7FE5B6; color: #0A2416; font-weight: 500; }
         .bubble-char { align-self: flex-start; background: rgba(255, 255, 255, 0.15); color: #E8F5E9; border: 1px solid rgba(255, 255, 255, 0.2); }
 
-        /* ================= TỐI ƯU GIAO DIỆN ĐIỆN THOẠI ================= */
+        /* ================= RESPONSIVE ĐIỆN THOẠI ================= */
         @media (max-width: 650px) {
             .title-main { font-size: 2.1em; }
             .p2-title { font-size: 2.1em; }
             .cards-grid { grid-template-columns: 1fr; }
             .mailbox-layout { grid-template-columns: 1fr; }
-            .p2-topbar, .p3-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .p3-header { flex-direction: column; align-items: flex-start; gap: 8px; }
             .p3-actions-wrap { width: 100%; justify-content: space-between; }
             .p3-search-input { width: 130px; }
             .p3-search-input:focus { width: 145px; }
@@ -426,7 +433,10 @@
 </head>
 <body>
 
-    <!-- NÚT ÂM THANH TOÀN CỤC CỐ ĐỊNH Ở MỌI TRANG -->
+    <!-- NÚT TRỞ VỀ CỐ ĐỊNH Ở GÓC TRÊN TRÁI (TỰ ĐỘNG HIỆN VÀ BÁM THEO KHI LƯỚT) -->
+    <div class="global-back-btn" id="globalBackBtn">← Trở về</div>
+
+    <!-- NÚT ÂM THANH CỐ ĐỊNH Ở GÓC TRÊN PHẢI (BÁM THEO KHI LƯỚT) -->
     <div class="global-audio-btn" id="globalAudioBtn" onclick="toggleMusic()">🔊 Âm thanh tĩnh lặng</div>
 
     <!-- NHẠC NỀN -->
@@ -454,11 +464,6 @@
 
     <!-- ================= TRANG 2: NGÀY ĐÂY MAI ĐÓ ================= -->
     <div id="page2">
-        <div class="p2-topbar">
-            <div class="btn-back-pill" onclick="chuyenTrang(1)">← Trở về</div>
-            <div class="status-pill">Trạm nghỉ đang mở cửa đón gió phương xa</div>
-        </div>
-
         <h1 class="p2-title">Ngày đây mai đó</h1>
         <div class="p2-subtitle">Nơi lưu lại những câu chuyện và vài dòng nhắn gửi.</div>
 
@@ -468,7 +473,6 @@
         </div>
 
         <div class="cards-grid">
-            <!-- BẤM VÀO BẤT KỲ ĐÂU TRÊN THẺ NÀY ĐỀU SANG TRANG DẤU CHÂN -->
             <div class="feature-card" onclick="chuyenTrang(3)">
                 <div>
                     <div class="card-header">
@@ -484,7 +488,6 @@
                 </div>
             </div>
 
-            <!-- BẤM VÀO BẤT KỲ ĐÂU TRÊN THẺ NÀY ĐỀU SANG TRANG HÒM THƯ -->
             <div class="feature-card" onclick="chuyenTrang(4)">
                 <div>
                     <div class="card-header">
@@ -504,11 +507,6 @@
 
     <!-- ================= TRANG 3: BỘ SƯU TẬP DẤU CHÂN ================= -->
     <div id="page3">
-        <div class="p2-topbar" style="margin-bottom: 12px;">
-            <div class="btn-back-pill" onclick="chuyenTrang(2)">← Trở về</div>
-            <div class="status-pill">🌾 Dấu chân</div>
-        </div>
-
         <div class="p3-header">
             <div class="p3-title-wrap">
                 <div class="p3-title-row">
@@ -523,28 +521,19 @@
                     <span class="icon">🔍</span>
                     <input type="text" class="p3-search-input" id="filterInput" placeholder="Lọc nhân vật..." oninput="locNhanVat()">
                 </div>
-                <!-- NÚT THÊM CHỈ 1 DẤU CỘNG VÀ ĐƯỢC BẢO VỆ BẰNG MẬT KHẨU -->
                 <button class="btn-add-char" onclick="kiemTraQuyenThemChar()">+ Thêm nhân vật</button>
             </div>
         </div>
 
-        <div class="char-grid" id="charGrid">
-            <!-- Danh sách nhân vật hiển thị tự động -->
-        </div>
+        <div class="char-grid" id="charGrid"></div>
     </div>
 
     <!-- ================= TRANG 4: HÒM THƯ ================= -->
     <div id="page4">
-        <div class="p2-topbar" style="margin-bottom: 8px;">
-            <div class="btn-back-pill" onclick="chuyenTrang(2)">← Trở về</div>
-            <div class="status-pill">📮 Hòm Thư</div>
-        </div>
-
         <h1 class="p2-title" style="font-size: 2.6em; margin-bottom: 2px;">📮 Hòm Thư</h1>
         <div class="p2-subtitle" style="margin-bottom: 12px;">Gửi vài dòng góp ý, tâm tình, cảm nghĩ tại đây.</div>
 
         <div class="mailbox-layout">
-            <!-- CỘT TRÁI: FORM GỬI THƯ -->
             <div class="mailbox-form-card">
                 <h3 class="form-title">✍️ Viết thư gửi về trạm</h3>
                 <p class="form-subtitle">Gửi ý kiến đóng góp hoặc đôi dòng chia sẻ</p>
@@ -569,11 +558,10 @@
                 <input type="text" class="mail-input" id="mailSender" placeholder="🐱 Nhập biệt danh của bạn...">
 
                 <div class="form-label-row"><span>💌 Tem cảm xúc</span></div>
+                <!-- CHỈ CÒN ĐÚNG 2 LỰA CHỌN -->
                 <select class="mail-select" id="mailMood">
                     <option value="Hài lòng">Hài lòng</option>
-                    <option value="Rất thích">Rất thích</option>
-                    <option value="Bình yên">Bình yên</option>
-                    <option value="Góp ý nhẹ">Góp ý nhẹ</option>
+                    <option value="Không hài lòng">Không hài lòng</option>
                 </select>
 
                 <div class="form-label-row"><span>📝 Lời nhắn / Góp ý</span></div>
@@ -582,21 +570,18 @@
                 <button class="btn-send-mail" onclick="guiLaThuMoi()">🍃 Gửi thư về trạm</button>
             </div>
 
-            <!-- CỘT PHẢI: DANH SÁCH THƯ -->
             <div class="mailbox-list-card">
                 <div class="list-header-row">
                     <span id="mail-list-header-count">NHỮNG LÁ THƯ ĐÃ GỬI (0)</span>
                     <span>Lưu trữ tin nhắn</span>
                 </div>
 
-                <div class="letters-container" id="lettersList">
-                    <!-- Danh sách thư hiển thị tự động -->
-                </div>
+                <div class="letters-container" id="lettersList"></div>
             </div>
         </div>
     </div>
 
-    <!-- ================= MODAL: THÊM NHÂN VẬT (CHỈ DÀNH CHO BẠN) ================= -->
+    <!-- ================= MODAL: THÊM NHÂN VẬT ================= -->
     <div class="modal-overlay" id="modal-add-char">
         <div class="modal-box">
             <button class="modal-close" onclick="dongModal('modal-add-char')">✕</button>
@@ -645,16 +630,17 @@
         </div>
     </div>
 
-    <!-- ================= SCRIPT XỬ LÝ DỮ LIỆU & GOOGLE AI ================= -->
+    <!-- ================= SCRIPT XỬ LÝ ================= -->
     <script>
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
-        
-        // MẬT MÃ DÀNH RIÊNG CHO BẠN ĐỂ THÊM NHÂN VẬT (BẠN CÓ THỂ ĐỔI MÃ NÀY TÙY THÍCH):
         const ADMIN_PIN = "1234";
 
         const music = document.getElementById("bgMusic");
         const audioBtn = document.getElementById("globalAudioBtn");
+        const backBtn = document.getElementById("globalBackBtn");
+        
         let isMusicPlaying = false;
+        let userManuallyMuted = false; // Ghi nhớ nếu người dùng đã chủ động tắt âm
         let selectedIcon = '🐱';
         let currentCharChat = null;
 
@@ -666,18 +652,22 @@
             renderLetterList();
         };
 
+        // BẬT / TẮT ÂM THANH (GHI NHỚ LỰA CHỌN CỦA NGƯỜI DÙNG)
         function toggleMusic() {
             if (isMusicPlaying) {
                 music.pause();
                 audioBtn.innerHTML = "🔇 Âm thanh tĩnh lặng";
                 isMusicPlaying = false;
+                userManuallyMuted = true; // Đánh dấu là người dùng đã chủ động tắt
             } else {
                 music.play().catch(() => {});
                 audioBtn.innerHTML = "🔊 Âm thanh tĩnh lặng";
                 isMusicPlaying = true;
+                userManuallyMuted = false; // Người dùng bật lại
             }
         }
 
+        // CHUYỂN TRANG & ĐIỀU HƯỚNG NÚT TRỞ VỀ CỐ ĐỊNH
         function chuyenTrang(soTrang) {
             document.getElementById("page1").style.display = (soTrang === 1) ? "flex" : "none";
             document.getElementById("p1-logo").style.display = (soTrang === 1) ? "inline-flex" : "none";
@@ -685,7 +675,22 @@
             document.getElementById("page3").style.display = (soTrang === 3) ? "block" : "none";
             document.getElementById("page4").style.display = (soTrang === 4) ? "block" : "none";
 
-            if (soTrang > 1 && !isMusicPlaying) {
+            // Cập nhật hoạt động cho nút Trở về cố định
+            if (soTrang === 1) {
+                backBtn.style.display = "none";
+            } else if (soTrang === 2) {
+                backBtn.style.display = "inline-flex";
+                backBtn.onclick = () => chuyenTrang(1);
+            } else if (soTrang === 3 || soTrang === 4) {
+                backBtn.style.display = "inline-flex";
+                backBtn.onclick = () => chuyenTrang(2);
+            }
+
+            // Tự động cuộn lên đầu trang khi chuyển màn hình
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Chỉ phát nhạc lần đầu tiên khi rời Trang 1 nếu người dùng CHƯA bấm tắt
+            if (soTrang > 1 && !isMusicPlaying && !userManuallyMuted) {
                 music.play().then(() => {
                     isMusicPlaying = true;
                     audioBtn.innerHTML = "🔊 Âm thanh tĩnh lặng";
@@ -696,7 +701,6 @@
         function moModal(id) { document.getElementById(id).style.display = "flex"; }
         function dongModal(id) { document.getElementById(id).style.display = "none"; }
 
-        // KIỂM TRA MẬT KHẨU KHI BẤM THÊM NHÂN VẬT
         function kiemTraQuyenThemChar() {
             const pass = prompt("🌿 Nhập mật khẩu chủ trạm để gieo mầm nhân vật mới:");
             if (pass === ADMIN_PIN) {
