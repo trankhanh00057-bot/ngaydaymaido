@@ -10,9 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
-    <!-- Nhúng YouTube Iframe Player API để phát nhạc chuẩn 100% -->
-    <script src="https://www.youtube.com/iframe_api"></script>
-
     <style>
         /* ================= RESET CHỐNG TRÀN ================= */
         *, *::before, *::after {
@@ -42,17 +39,6 @@
             background-size: cover;
             pointer-events: none;
             transform: translateZ(0);
-        }
-
-        /* KHUNG CHỨA TRÌNH PHÁT YOUTUBE ẨN */
-        #youtube-player-hidden {
-            position: fixed;
-            bottom: -500px;
-            left: -500px;
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            pointer-events: none;
         }
 
         /* NÚT HỘP NHẠC GÓC TRÊN PHẢI */
@@ -176,7 +162,7 @@
             margin-top: 16px; opacity: 0.9;
         }
 
-        /* ================= GIAO DIỆN TRANG 2: NGÀY ĐÂY MAI ĐÓ ================= */
+        /* ================= GIAO DIỆN TRANG 2 ================= */
         #page2 { display: none; max-width: 680px; }
         .p2-title {
             font-family: 'Playfair Display', serif;
@@ -374,41 +360,14 @@
         .letter-date { font-size: 0.7em; color: #8EA898; }
         .letter-content { font-size: 0.8em; color: #E8F5E9; line-height: 1.45; margin: 0; }
 
-        /* ================= CỬA SỔ HỘP NHẠC (PLAYLIST) ================= */
-        .music-player-panel {
-            background: rgba(8, 26, 15, 0.95);
-            border: 1px solid rgba(127, 229, 182, 0.4);
-            border-radius: 14px;
-            padding: 12px;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-        .now-playing-title {
-            font-size: 0.9em;
-            color: #7FE5B6;
-            font-weight: bold;
-            margin-bottom: 8px;
-            white-space: nowrap;
+        /* ================= CỬA SỔ HỘP NHẠC (SPOTIFY PLAYER) ================= */
+        .spotify-frame-container {
+            width: 100%;
+            border-radius: 12px;
             overflow: hidden;
-            text-overflow: ellipsis;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
-        .player-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-        .ctrl-btn {
-            background: rgba(25, 64, 38, 0.9);
-            border: 1px solid rgba(127, 229, 182, 0.3);
-            color: #E8F5E9;
-            border-radius: 50%;
-            width: 34px; height: 34px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; cursor: pointer; transition: 0.2s;
-        }
-        .ctrl-btn:hover { background: #7FE5B6; color: #0A2416; }
-        .ctrl-btn.play-btn { width: 42px; height: 42px; font-size: 16px; background: #7FE5B6; color: #0A2416; }
 
         .playlist-items {
             display: flex; flex-direction: column; gap: 6px;
@@ -503,15 +462,12 @@
     <!-- LỚP NỀN GIF ĐỘC LẬP -->
     <div class="bg-fixed-layer"></div>
 
-    <!-- KHUNG CHỨA YOUTUBE PLAYER ẨN ĐỂ PHÁT NHẠC GỐC CHUẨN 100% -->
-    <div id="youtube-player-hidden"></div>
-
     <!-- NÚT TRỞ VỀ GÓC TRÁI -->
     <div class="global-back-btn" id="globalBackBtn">← Trở về</div>
 
     <!-- NÚT MỞ HỘP NHẠC GÓC PHẢI -->
     <div class="global-audio-btn" id="globalAudioBtn" onclick="moModal('modal-music')">
-        <span id="audio-icon">🎵</span> <span id="audio-status-text">Hộp nhạc (Ngẫu nhiên)</span>
+        <span>🎵</span> <span>Hộp nhạc (Spotify)</span>
     </div>
 
     <!-- ================= TRANG 1: MỞ ĐẦU ================= -->
@@ -650,24 +606,20 @@
         </div>
     </div>
 
-    <!-- ================= MODAL: HỘP NHẠC (CHẾ ĐỘ TỰ ĐỘNG PHÁT NGẪU NHIÊN) ================= -->
+    <!-- ================= MODAL: HỘP NHẠC (SPOTIFY CHÍNH HÃNG) ================= -->
     <div class="modal-overlay" id="modal-music">
         <div class="modal-box">
             <button class="modal-close" onclick="dongModal('modal-music')">✕</button>
-            <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">🎵 Hộp Nhạc Trạm Nghỉ</h3>
+            <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">🎵 Hộp Nhạc Spotify</h3>
             
-            <div class="music-player-panel">
-                <div style="font-size:0.75em; color:#A8D5BA; margin-bottom:3px; letter-spacing:0.5px;">🔀 CHẾ ĐỘ PHÁT: NGẪU NHIÊN TỰ ĐỘNG</div>
-                <div class="now-playing-title" id="nowPlayingText">Đang chuẩn bị phát...</div>
-                <div class="player-controls">
-                    <button class="ctrl-btn" onclick="prevTrack()" title="Bài trước">⏮️</button>
-                    <button class="ctrl-btn play-btn" id="mainPlayBtn" onclick="togglePlayPause()" title="Phát/Tạm dừng">▶️</button>
-                    <button class="ctrl-btn" onclick="nextTrack()" title="Bài tiếp theo">⏭️</button>
-                </div>
-                <button class="btn-modal-action" style="padding:6px; font-size:12px; margin-top:8px; background-color:#558B6E; color:#fff;" onclick="playRandomTrack()">🔀 Đổi bài ngẫu nhiên khác</button>
+            <!-- Trình phát Spotify Iframe Embed -->
+            <div class="spotify-frame-container">
+                <iframe id="spotify-player-frame" src="https://open.spotify.com/embed/track/2lcoEH4rtmW78HzSTBx3b0?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
 
-            <div style="font-size:0.82em; color:#C8E6C9; margin-bottom:6px; font-weight:bold;">Danh sách 17 bài hát (Hàn, Trung, Việt, Thái):</div>
+            <button class="btn-modal-action" style="padding:7px; font-size:12px; margin-bottom:12px;" onclick="playRandomSpotifyTrack()">🔀 Đổi bài ngẫu nhiên khác</button>
+
+            <div style="font-size:0.82em; color:#C8E6C9; margin-bottom:6px; font-weight:bold;">Danh sách 20 bài hát Spotify của bạn:</div>
             <div class="playlist-items" id="playlistContainer"></div>
         </div>
     </div>
@@ -726,42 +678,34 @@
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
         const ADMIN_PIN = "1234";
 
-        const audioBtn = document.getElementById("globalAudioBtn");
         const backBtn = document.getElementById("globalBackBtn");
         
-        let ytPlayer = null;
-        let isPlaying = false;
-        let userManuallyMuted = false;
         let currentTrackIndex = 0;
         let selectedIcon = '🐱';
         let currentCharChat = null;
 
-        // DANH SÁCH 17 BÀI HÁT TỪ YOUTUBE (GỒM VIDEO ID CHUẨN CỦA TỪNG BÀI)
+        // DANH SÁCH 20 BÀI HÁT TỪ 20 LINK SPOTIFY CỦA BẠN
         const playList = [
-            // NHẠC HÀN
-            { title: "Like a Dream (꿈결같아서) - Minnie", lang: "🇰🇷", ytid: "0A1b_e1Y6W0" },
-            { title: "KNOCK - Lee Chae Yeon", lang: "🇰🇷", ytid: "5M2HqV166xQ" },
-            { title: "Typa Girl - BLACKPINK", lang: "🇰🇷", ytid: "UhxW9Njqqu0" },
-            { title: "Catch Catch! - YENA", lang: "🇰🇷", ytid: "NOiyDlWl534" },
-            
-            // NHẠC TRUNG
-            { title: "Khóa (锁) - Tăng Thuấn Hy & Trương Lượng Dĩnh", lang: "🇨🇳", ytid: "w5j8PqM8Fv4" },
-            { title: "Gió Đêm Nơi Góc Phố - Tăng Thuấn Hy & Diêu Hiểu Đường", lang: "🇨🇳", ytid: "WbJ4qA2nE7U" },
-            { title: "Nhìn Vào Mắt Anh Mà Nói - Trương Viễn & Diêu Hiểu Đường", lang: "🇨🇳", ytid: "r0zB0rV4d8c" },
-            { title: "Từ Trước Đã Nói - Bạch Tiểu Bạch & Diêu Hiểu Đường", lang: "🇨🇳", ytid: "Q5gA2vM7L8k" },
-            { title: "Thế Giới Ngày Mai - Uông Tô Lang", lang: "🇨🇳", ytid: "k5uT4r9K2x0" },
-            { title: "Huân Khói (烟熏) - Giang Hạo Nam", lang: "🇨🇳", ytid: "g6r2vQ5m7sA" },
-
-            // NHẠC VIỆT
-            { title: "Một Vì Sao - Hoàng Duyên x Jsol", lang: "🇻🇳", ytid: "e5zN2s_7X_E" },
-            { title: "5 Tháng - WEAN, Ali Hoàng Dương, Captain Boy", lang: "🇻🇳", ytid: "kRv7JuwjZVI" },
-            { title: "Laviem - Quang Hùng MasterD, Pháp Kiều", lang: "🇻🇳", ytid: "wnwwK_FCWAM" },
-            { title: "Thử Lòng Quân Tử - Phương Mỹ Chi x DTAP", lang: "🇻🇳", ytid: "UH21OnJwxZE" },
-            { title: "Hạnh Phúc Mới - Phạm Quỳnh Anh", lang: "🇻🇳", ytid: "Jb2qA4r5H_4" },
-            { title: "Đánh Đổi - Obito", lang: "🇻🇳", ytid: "q5W_1u8b9xA" },
-
-            // NHẠC THÁI
-            { title: "Lực Hút (แรงดึงดูด) - Studio Wabi Sabi", lang: "🇹🇭", ytid: "8wP9xO8s0E4" }
+            { id: "2lcoEH4rtmW78HzSTBx3b0", title: "Thử Lòng Quân Tử", artist: "Phương Mỹ Chi, DTAP, RHYDER", lang: "🇻🇳" },
+            { id: "3fw9v7CztM2mqu1jCtbg9f", title: "5 THÁNG", artist: "Ali Hoàng Dương, WEAN, Wren Evans", lang: "🇻🇳" },
+            { id: "5SDFTxET9I8w7EW3UPBcaU", title: "LAVIEM", artist: "Quang Hùng MasterD, Pháp Kiều, Captain Boy", lang: "🇻🇳" },
+            { id: "1IWEzoYndBj6ntPQ1nYiFP", title: "Hạnh Phúc Mới", artist: "Phạm Quỳnh Anh", lang: "🇻🇳" },
+            { id: "5KXRShxe6Y54ueBSnq3ck7", title: "Một Vì Sao", artist: "Hoàng Duyên x Jsol", lang: "🇻🇳" },
+            { id: "64PCybDxes3edHijrcsPV4", title: "Ngáo Ngơ", artist: "HIEUTHUHAI, ERIK, Anh Tú Atus, JSOL", lang: "🇻🇳" },
+            { id: "5blmHyl3XdWXQvCm3KLtPJ", title: "Like a Dream", artist: "Minnie ((G)I-DLE) - Lovely Runner OST", lang: "🇰🇷" },
+            { id: "4FhFCOPCb32nZvcZ1sn9i2", title: "KNOCK", artist: "Lee Chae Yeon", lang: "🇰🇷" },
+            { id: "4Kw1ykVLHoFQxOPSVd8R2E", title: "Typa Girl", artist: "BLACKPINK", lang: "🇰🇷" },
+            { id: "689yEgibhSiKHrLlYstLAP", title: "Gió Đêm Nơi Góc Phố", artist: "Tăng Thuấn Hy & Diêu Hiểu Đường", lang: "🇨🇳" },
+            { id: "2O9bMJticxbQ8FH3NiQ7Xh", title: "Catch Catch!", artist: "YENA", lang: "🇰🇷" },
+            { id: "2bAQsNqdo62T8akkIvWzGl", title: "RUDE!", artist: "Hearts2Hearts", lang: "🇰🇷" },
+            { id: "69X5zu5ar7mff7iPO6i1Jp", title: "Nhìn Vào Mắt Anh Mà Nói", artist: "Diêu Hiểu Đường & Trương Viễn", lang: "🇨🇳" },
+            { id: "1cgz7ebMOUWlhrLX8aGp5A", title: "Từ Trước Đã Nói", artist: "Bạch Tiểu Bạch & Diêu Hiểu Đường", lang: "🇨🇳" },
+            { id: "53gxDuUpupFAhuw0sSQ6iL", title: "Thế Giới Ngày Mai", artist: "Uông Tô Lang", lang: "🇨🇳" },
+            { id: "4B60m9LglJFJAELc2lHdSu", title: "Huân Khói", artist: "Giang Hạo Nam", lang: "🇨🇳" },
+            { id: "7hF0RyXlw5hztnPv4wIvVK", title: "Lực Hút (แรงดึงดูด)", artist: "Studio Wabi Sabi", lang: "🇹🇭" },
+            { id: "6QqrxJe1iQxwLY6he6FLFo", title: "Midnight Fiction", artist: "ILLIT", lang: "🇰🇷" },
+            { id: "2KslE17cAJNHTsI2MI0jb2", title: "Standing Next to You", artist: "Jung Kook (BTS)", lang: "🇰🇷" },
+            { id: "2DwUdMJ5uxv20EhAildreg", title: "Cookie", artist: "NewJeans", lang: "🇰🇷" }
         ];
 
         let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars')) || [];
@@ -773,96 +717,30 @@
             renderPlaylist();
             // Chọn trước 1 bài ngẫu nhiên khi vào web
             currentTrackIndex = Math.floor(Math.random() * playList.length);
+            loadSpotifyTrack(currentTrackIndex);
         };
 
-        // KHỞI TẠO TRÌNH PHÁT YOUTUBE ẨN
-        function onYouTubeIframeAPIReady() {
-            ytPlayer = new YT.Player('youtube-player-hidden', {
-                height: '1',
-                width: '1',
-                videoId: playList[currentTrackIndex].ytid,
-                playerVars: {
-                    'autoplay': 0,
-                    'controls': 0,
-                    'disablekb': 1,
-                    'fs': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            updateTrackUI();
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                document.getElementById("mainPlayBtn").innerText = "⏸️";
-                document.getElementById("audio-icon").innerText = "🎵";
-            } else if (event.data === YT.PlayerState.PAUSED) {
-                isPlaying = false;
-                document.getElementById("mainPlayBtn").innerText = "▶️";
-                document.getElementById("audio-icon").innerText = "🔇";
-            } else if (event.data === YT.PlayerState.ENDED) {
-                // TỰ ĐỘNG PHÁT BÀI NGẪU NHIÊN TIẾP THEO KHI HẾT BÀI
-                playRandomTrack();
+        /* ================= HỆ THỐNG PHÁT NHẠC SPOTIFY ================= */
+        function loadSpotifyTrack(index) {
+            currentTrackIndex = index;
+            const track = playList[currentTrackIndex];
+            const iframe = document.getElementById("spotify-player-frame");
+            if (iframe) {
+                iframe.src = `https://open.spotify.com/embed/track/${track.id}?utm_source=generator&theme=0`;
             }
-        }
-
-        function updateTrackUI() {
-            document.getElementById("nowPlayingText").innerText = "Đang phát: " + playList[currentTrackIndex].title;
             renderPlaylist();
         }
 
-        // HÀM PHÁT BÀI NGẪU NHIÊN (SHUFFLE)
-        function playRandomTrack() {
+        function playRandomSpotifyTrack() {
             let nextIndex = Math.floor(Math.random() * playList.length);
             if (nextIndex === currentTrackIndex) {
                 nextIndex = (currentTrackIndex + 1) % playList.length;
             }
-            currentTrackIndex = nextIndex;
-            updateTrackUI();
-            if (ytPlayer && ytPlayer.loadVideoById) {
-                ytPlayer.loadVideoById(playList[currentTrackIndex].ytid);
-                ytPlayer.playVideo();
-                isPlaying = true;
-                userManuallyMuted = false;
-            }
-        }
-
-        function togglePlayPause() {
-            if (!ytPlayer || !ytPlayer.playVideo) return;
-            if (isPlaying) {
-                ytPlayer.pauseVideo();
-                userManuallyMuted = true;
-            } else {
-                ytPlayer.playVideo();
-                userManuallyMuted = false;
-            }
-        }
-
-        function nextTrack() {
-            playRandomTrack();
-        }
-
-        function prevTrack() {
-            playRandomTrack();
+            loadSpotifyTrack(nextIndex);
         }
 
         function chonBaiHat(index) {
-            currentTrackIndex = index;
-            updateTrackUI();
-            if (ytPlayer && ytPlayer.loadVideoById) {
-                ytPlayer.loadVideoById(playList[currentTrackIndex].ytid);
-                ytPlayer.playVideo();
-                isPlaying = true;
-                userManuallyMuted = false;
-            }
+            loadSpotifyTrack(index);
         }
 
         function renderPlaylist() {
@@ -873,8 +751,8 @@
                 const row = document.createElement("div");
                 row.className = `track-row ${idx === currentTrackIndex ? 'active' : ''}`;
                 row.innerHTML = `
-                    <span><span class="track-lang-badge">${t.lang}</span>${t.title}</span>
-                    <span>${idx === currentTrackIndex && isPlaying ? '🔊' : '▶'}</span>
+                    <span><span class="track-lang-badge">${t.lang}</span><strong>${t.title}</strong> - <small style="opacity:0.8;">${t.artist}</small></span>
+                    <span>${idx === currentTrackIndex ? '🔊' : '▶'}</span>
                 `;
                 row.onclick = () => chonBaiHat(idx);
                 container.appendChild(row);
@@ -900,13 +778,6 @@
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // Tự động phát một bài NGẪU NHIÊN khi bấm rời Trang 1
-            if (soTrang > 1 && !isPlaying && !userManuallyMuted) {
-                if (ytPlayer && ytPlayer.playVideo) {
-                    ytPlayer.playVideo();
-                }
-            }
         }
 
         function moModal(id) { document.getElementById(id).style.display = "flex"; }
