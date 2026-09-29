@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
-    <!-- Nhúng YouTube API để phát chính xác 100% bài Catch Catch của YENA -->
+    <!-- Nhúng YouTube Engine để phát chính xác 100% nhạc chuẩn của 8 bài -->
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <style>
@@ -44,7 +44,7 @@
             transform: translateZ(0);
         }
 
-        /* KHUNG CHỨA YOUTUBE ENGINE ẨN ĐỂ PHÁT NHẠC GỐC CHUẨN XÁC */
+        /* KHUNG CHỨA YOUTUBE ENGINE ẨN */
         #youtube-engine {
             position: fixed;
             bottom: -500px;
@@ -55,31 +55,59 @@
             pointer-events: none;
         }
 
-        /* NÚT ÂM THANH GÓC TRÊN PHẢI */
-        .global-audio-btn {
+        /* THANH ĐIỀU KHIỂN ÂM THANH TRỰC TIẾP GÓC TRÊN PHẢI (CÓ NÚT LÙI, PHÁT/DỪNG, TIẾP) */
+        .global-music-bar {
             position: fixed;
             top: 12px;
             right: 12px;
             z-index: 9999;
-            background: rgba(14, 40, 24, 0.9);
+            background: rgba(14, 40, 24, 0.92);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(127, 229, 182, 0.4);
-            color: #E8F5E9;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11.5px;
-            font-family: 'Lora', serif;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            transition: 0.2s;
+            border: 1px solid rgba(127, 229, 182, 0.45);
+            border-radius: 25px;
+            padding: 4px 10px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: 0.2s;
         }
-        .global-audio-btn:hover {
-            background: rgba(25, 64, 38, 0.95);
+        .global-music-bar:hover {
             border-color: #7FE5B6;
-            transform: scale(1.03);
+            background: rgba(20, 52, 32, 0.96);
+        }
+        .music-ctrl-btn {
+            background: none;
+            border: none;
+            color: #7FE5B6;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 3px 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            border-radius: 50%;
+        }
+        .music-ctrl-btn:hover {
+            transform: scale(1.15);
+            color: #ffffff;
+        }
+        .music-play-btn {
+            font-size: 16px;
+            background: rgba(127, 229, 182, 0.2);
+            width: 28px;
+            height: 28px;
+        }
+        .music-title-text {
+            font-size: 11px;
+            color: #E8F5E9;
+            max-width: 110px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+            padding-left: 2px;
         }
 
         /* NÚT TRỞ VỀ GÓC TRÁI */
@@ -374,53 +402,47 @@
         .letter-date { font-size: 0.7em; color: #8EA898; }
         .letter-content { font-size: 0.8em; color: #E8F5E9; line-height: 1.45; margin: 0; }
 
-        /* ================= CỬA SỔ HỘP NHẠC ================= */
-        .music-player-panel {
-            background: rgba(8, 26, 15, 0.95);
-            border: 1px solid rgba(127, 229, 182, 0.4);
-            border-radius: 14px;
-            padding: 14px;
-            margin-bottom: 12px;
-            text-align: center;
+        /* ================= CỬA SỔ HỘP NHẠC CHI TIẾT ================= */
+        .playlist-items {
+            display: flex; flex-direction: column; gap: 6px;
+            max-height: 250px; overflow-y: auto; margin-bottom: 12px;
+            padding-right: 3px;
         }
-        .now-playing-title {
-            font-size: 0.95em;
+        .playlist-items::-webkit-scrollbar { width: 3px; }
+        .playlist-items::-webkit-scrollbar-thumb { background: rgba(127, 229, 182, 0.3); }
+
+        .track-row {
+            background: rgba(14, 40, 24, 0.85);
+            border: 1px solid rgba(85, 139, 110, 0.3);
+            border-radius: 10px;
+            padding: 8px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.82em;
+        }
+        .track-row:hover { background: rgba(25, 64, 38, 0.95); border-color: #7FE5B6; }
+        .track-row.active {
+            border: 1.5px solid #7FE5B6;
+            background: rgba(30, 80, 48, 0.95);
             color: #7FE5B6;
             font-weight: bold;
-            margin-bottom: 8px;
         }
-        .player-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 10px;
+        .track-lang-badge {
+            font-size: 9.5px;
+            padding: 1px 5px;
+            border-radius: 4px;
+            background: rgba(0,0,0,0.4);
+            margin-right: 5px;
         }
-        .ctrl-btn {
-            background: rgba(25, 64, 38, 0.9);
-            border: 1px solid rgba(127, 229, 182, 0.3);
-            color: #E8F5E9;
-            border-radius: 50%;
-            width: 38px; height: 38px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 14px; cursor: pointer; transition: 0.2s;
-        }
-        .ctrl-btn:hover { background: #7FE5B6; color: #0A2416; }
-        .ctrl-btn.play-btn { width: 44px; height: 44px; font-size: 18px; background: #7FE5B6; color: #0A2416; }
-
-        .zing-btn-link {
-            display: inline-block;
-            background: rgba(18, 48, 28, 0.85);
-            border: 1px solid rgba(127, 229, 182, 0.4);
+        .zing-link-badge {
+            font-size: 9px;
             color: #7FE5B6;
-            border-radius: 20px;
-            padding: 6px 14px;
-            font-size: 12px;
-            text-decoration: none;
-            margin-top: 10px;
-            transition: 0.2s;
+            text-decoration: underline;
+            margin-left: 6px;
         }
-        .zing-btn-link:hover { background: rgba(30, 80, 48, 0.95); color: #fff; }
 
         /* ================= MODAL CỬA SỔ CHUNG ================= */
         .modal-overlay {
@@ -472,6 +494,8 @@
             .p3-header { flex-direction: column; align-items: flex-start; gap: 8px; }
             .p3-actions-wrap { width: 100%; justify-content: space-between; }
             .p3-search-input { width: 120px; }
+            .global-music-bar { max-width: 175px; }
+            .music-title-text { max-width: 65px; }
         }
     </style>
 </head>
@@ -480,15 +504,18 @@
     <!-- LỚP NỀN GIF ĐỘC LẬP -->
     <div class="bg-fixed-layer"></div>
 
-    <!-- KHUNG CHỨA YOUTUBE ENGINE ĐỂ PHÁT CHÍNH XÁC 100% BÀI CATCH CATCH -->
+    <!-- KHUNG CHỨA YOUTUBE ENGINE ẨN ĐỂ PHÁT NHẠC GỐC CHUẨN 100% -->
     <div id="youtube-engine"></div>
 
     <!-- NÚT TRỞ VỀ GÓC TRÁI -->
     <div class="global-back-btn" id="globalBackBtn">← Trở về</div>
 
-    <!-- NÚT MỞ HỘP NHẠC GÓC PHẢI -->
-    <div class="global-audio-btn" id="globalAudioBtn" onclick="moModal('modal-music')">
-        <span id="audio-icon">🎵</span> <span id="audio-status-text">Catch Catch - YENA</span>
+    <!-- THANH ĐIỀU KHIỂN ÂM THANH TRỰC TIẾP (BẤM DỪNG/PHÁT VÀ 2 NÚT ĐỔI NHẠC) -->
+    <div class="global-music-bar">
+        <button class="music-ctrl-btn" onclick="prevTrack()" title="Bài trước">⏮</button>
+        <button class="music-ctrl-btn music-play-btn" id="globalPlayBtn" onclick="togglePlayPause()" title="Phát / Tạm dừng">▶</button>
+        <button class="music-ctrl-btn" onclick="nextTrack()" title="Bài tiếp">⏭</button>
+        <span class="music-title-text" id="globalTrackTitle" onclick="moModal('modal-music')" title="Bấm để xem danh sách bài hát">🎵 Đang tải...</span>
     </div>
 
     <!-- ================= TRANG 1: MỞ ĐẦU ================= -->
@@ -627,22 +654,14 @@
         </div>
     </div>
 
-    <!-- ================= MODAL: HỘP NHẠC (CATCH CATCH - YENA) ================= -->
+    <!-- ================= MODAL: DANH SÁCH 8 BÀI HÁT ================= -->
     <div class="modal-overlay" id="modal-music">
-        <div class="modal-box" style="text-align:center;">
+        <div class="modal-box">
             <button class="modal-close" onclick="dongModal('modal-music')">✕</button>
-            <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">🎵 Hộp Nhạc Trạm Nghỉ</h3>
-            
-            <div class="music-player-panel">
-                <div style="font-size:0.75em; color:#A8D5BA; margin-bottom:4px; letter-spacing:0.5px;">BÀI HÁT ĐANG PHÁT (LẶP LẠI TỰ ĐỘNG)</div>
-                <div class="now-playing-title" id="nowPlayingText">🇰🇷 Catch Catch - YENA (최예나)</div>
-                <div class="player-controls">
-                    <button class="ctrl-btn play-btn" id="mainPlayBtn" onclick="togglePlayPause()" title="Phát/Tạm dừng">▶️</button>
-                </div>
-                <div style="margin-top:10px;">
-                    <a href="https://zingmp3.vn/bai-hat/Catch-Catch-YENA/sIAYCpmVyY0n.html" target="_blank" class="zing-btn-link">Mở bài hát trên Zing MP3 ↗</a>
-                </div>
-            </div>
+            <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">🎵 Danh Sách 8 Bài Hát Tuyển Chọn</h3>
+            <p style="font-size:0.8em; color:#A8D5BA; margin-bottom:10px;">Bấm trực tiếp vào bài để phát hoặc nghe trên Zing MP3:</p>
+
+            <div class="playlist-items" id="playlistContainer"></div>
         </div>
     </div>
 
@@ -695,21 +714,33 @@
         </div>
     </div>
 
-    <!-- ================= SCRIPT XỬ LÝ & PHÁT NHẠC CHUẨN ================= -->
+    <!-- ================= SCRIPT XỬ LÝ & BỘ MÁY PHÁT NHẠC ================= -->
     <script>
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
         const ADMIN_PIN = "1234";
 
         const backBtn = document.getElementById("globalBackBtn");
+        const playBtn = document.getElementById("globalPlayBtn");
+        const trackTitleElem = document.getElementById("globalTrackTitle");
         
         let ytPlayer = null;
         let isPlaying = false;
-        let userManuallyMuted = false;
+        let currentTrackIndex = 0;
         let selectedIcon = '🐱';
         let currentCharChat = null;
+        let userManuallyMuted = false;
 
-        // ID VIDEO YOUTUBE GỐC CỦA BÀI CATCH CATCH - YENA
-        const YENA_VIDEO_ID = "ItSKahBISg0";
+        // DANH SÁCH ĐÚNG 8 BÀI HÁT TỪ CÁC LINK ZING MP3 CỦA BẠN (CÙNG ID VIDEO GỐC)
+        const playList = [
+            { title: "5 THÁNG (Tình Hạ Say Hi)", artist: "Wren Evans, Ali Hoàng Dương, WEAN", lang: "🇻🇳", ytid: "kRv7JuwjZVI", zing: "https://zingmp3.vn/bai-hat/5-THANG-TINH-HA-SAY-HI-Wren-Evans-Ali-Hoang-Duong-WEAN-Jaysonlei/esQk63AJ5vmE.html" },
+            { title: "Catch Catch!", artist: "YENA", lang: "🇰🇷", ytid: "ItSKahBISg0", zing: "https://zingmp3.vn/bai-hat/Catch-Catch-YENA/sIAYCpmVyY0n.html" },
+            { title: "REDRED", artist: "CORTIS", lang: "🇨🇳", ytid: "WbJ4qA2nE7U", zing: "https://zingmp3.vn/bai-hat/REDRED-CORTIS/kjSVKqUoPS4k.html" },
+            { title: "Magnetic", artist: "ILLIT", lang: "🇰🇷", ytid: "Vk5-c_v4gMU", zing: "https://zingmp3.vn/bai-hat/Magnetic-ILLIT/zVMnsEiOKFiV.html" },
+            { title: "Good Goodbye", artist: "HWASA", lang: "🇰🇷", ytid: "W6o_3gR415E", zing: "https://zingmp3.vn/bai-hat/Good-Goodbye-HWASA/MaP35hRc6Xsd.html" },
+            { title: "Drama", artist: "aespa", lang: "🇰🇷", ytid: "D8VEhcPePiU", zing: "https://zingmp3.vn/bai-hat/Drama-aespa/533x20p5zV9H.html" },
+            { title: "Thử Lòng Quân Tử", artist: "Phương Mỹ Chi, RHYDER, DTAP", lang: "🇻🇳", ytid: "UH21OnJwxZE", zing: "https://zingmp3.vn/bai-hat/Thu-Long-Quan-Tu-Phuong-My-Chi-RHYDER-DTAP/3zsRVGZJOVbG.html" },
+            { title: "Tam Thái Tử", artist: "Jack - J97", lang: "🇻🇳", ytid: "9S4SOsMu8Lx4", zing: "https://zingmp3.vn/bai-hat/Tam-Thai-Tu-Jack-J97/9S4SOsMu8Lx4.html" }
+        ];
 
         let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars')) || [];
         let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters')) || [];
@@ -717,22 +748,25 @@
         window.onload = function() {
             renderCharGrid();
             renderLetterList();
+            renderPlaylist();
+
+            // CHỌN NGẪU NHIÊN 1 TRONG 8 BÀI ĐỂ BẮT ĐẦU
+            currentTrackIndex = Math.floor(Math.random() * playList.length);
+            updateTrackInfoUI();
         };
 
-        // KHỞI TẠO BỘ MÁY PHÁT YOUTUBE CHO BÀI CATCH CATCH
+        // KHỞI TẠO BỘ MÁY PHÁT YOUTUBE ENGINE
         function onYouTubeIframeAPIReady() {
             ytPlayer = new YT.Player('youtube-engine', {
                 height: '1',
                 width: '1',
-                videoId: YENA_VIDEO_ID,
+                videoId: playList[currentTrackIndex].ytid,
                 playerVars: {
                     'autoplay': 1,
                     'controls': 0,
                     'disablekb': 1,
                     'fs': 0,
-                    'rel': 0,
-                    'loop': 1,
-                    'playlist': YENA_VIDEO_ID
+                    'rel': 0
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -742,10 +776,11 @@
         }
 
         function onPlayerReady(event) {
+            updateTrackInfoUI();
             // Cố gắng phát ngay
             event.target.playVideo();
-            
-            // Kích hoạt phát tức thì khi người dùng chạm vào màn hình nếu Safari chặn autoplay
+
+            // Mở khóa phát ngay khi người dùng chạm vào màn hình
             const unlockTouch = () => {
                 if (!isPlaying && !userManuallyMuted && ytPlayer && ytPlayer.playVideo) {
                     ytPlayer.playVideo();
@@ -759,16 +794,21 @@
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.PLAYING) {
                 isPlaying = true;
-                document.getElementById("mainPlayBtn").innerText = "⏸️";
-                document.getElementById("audio-icon").innerText = "🎵";
+                playBtn.innerText = "⏸";
+                updateTrackInfoUI();
             } else if (event.data === YT.PlayerState.PAUSED) {
                 isPlaying = false;
-                document.getElementById("mainPlayBtn").innerText = "▶️";
-                document.getElementById("audio-icon").innerText = "🔇";
+                playBtn.innerText = "▶";
             } else if (event.data === YT.PlayerState.ENDED) {
-                // TỰ ĐỘNG PHÁT LẠI LIÊN TỤC
-                if (ytPlayer && ytPlayer.playVideo) ytPlayer.playVideo();
+                // TỰ ĐỘNG CHUYỂN TIẾP BÀI TIẾP THEO KHI HẾT BÀI
+                nextTrack();
             }
+        }
+
+        function updateTrackInfoUI() {
+            const cur = playList[currentTrackIndex];
+            trackTitleElem.innerText = `🎵 ${cur.title}`;
+            renderPlaylist();
         }
 
         function togglePlayPause() {
@@ -776,10 +816,60 @@
             if (isPlaying) {
                 ytPlayer.pauseVideo();
                 userManuallyMuted = true;
+                isPlaying = false;
+                playBtn.innerText = "▶";
             } else {
                 ytPlayer.playVideo();
                 userManuallyMuted = false;
+                isPlaying = true;
+                playBtn.innerText = "⏸";
             }
+        }
+
+        function nextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % playList.length;
+            loadTrackAndPlay(currentTrackIndex);
+        }
+
+        function prevTrack() {
+            currentTrackIndex = (currentTrackIndex - 1 + playList.length) % playList.length;
+            loadTrackAndPlay(currentTrackIndex);
+        }
+
+        function loadTrackAndPlay(index) {
+            currentTrackIndex = index;
+            updateTrackInfoUI();
+            if (ytPlayer && ytPlayer.loadVideoById) {
+                ytPlayer.loadVideoById(playList[currentTrackIndex].ytid);
+                ytPlayer.playVideo();
+                isPlaying = true;
+                userManuallyMuted = false;
+                playBtn.innerText = "⏸";
+            }
+        }
+
+        function chonBaiHat(index) {
+            loadTrackAndPlay(index);
+            dongModal('modal-music');
+        }
+
+        function renderPlaylist() {
+            const container = document.getElementById("playlistContainer");
+            if (!container) return;
+            container.innerHTML = "";
+            playList.forEach((t, idx) => {
+                const row = document.createElement("div");
+                row.className = `track-row ${idx === currentTrackIndex ? 'active' : ''}`;
+                row.innerHTML = `
+                    <span style="flex:1;"><span class="track-lang-badge">${t.lang}</span><strong>${t.title}</strong> - <small style="opacity:0.8;">${t.artist}</small></span>
+                    <span style="display:flex; align-items:center; gap:8px;">
+                        <a href="${t.zing}" target="_blank" class="zing-link-badge" onclick="event.stopPropagation()">Zing MP3 ↗</a>
+                        <span>${idx === currentTrackIndex && isPlaying ? '🔊' : '▶'}</span>
+                    </span>
+                `;
+                row.onclick = () => chonBaiHat(idx);
+                container.appendChild(row);
+            });
         }
 
         /* ================= CHUYỂN TRANG ================= */
@@ -802,7 +892,6 @@
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Đảm bảo nhạc phát khi người dùng bấm nút bắt đầu
             if (!isPlaying && !userManuallyMuted && ytPlayer && ytPlayer.playVideo) {
                 ytPlayer.playVideo();
             }
