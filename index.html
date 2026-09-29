@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
-    <!-- Nhúng YouTube Engine để phát chính xác 100% nhạc chuẩn của 8 bài -->
+    <!-- Nhúng YouTube Engine để phát nhạc chuẩn 100% -->
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <style>
@@ -55,7 +55,7 @@
             pointer-events: none;
         }
 
-        /* THANH ĐIỀU KHIỂN ÂM THANH TRỰC TIẾP GÓC TRÊN PHẢI (CÓ NÚT LÙI, PHÁT/DỪNG, TIẾP) */
+        /* THANH ĐIỀU KHIỂN ÂM THANH TRỰC TIẾP GÓC TRÊN PHẢI */
         .global-music-bar {
             position: fixed;
             top: 12px;
@@ -654,11 +654,11 @@
         </div>
     </div>
 
-    <!-- ================= MODAL: DANH SÁCH 8 BÀI HÁT ================= -->
+    <!-- ================= MODAL: DANH SÁCH 2 BÀI HÁT ================= -->
     <div class="modal-overlay" id="modal-music">
         <div class="modal-box">
             <button class="modal-close" onclick="dongModal('modal-music')">✕</button>
-            <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">🎵 Danh Sách 8 Bài Hát Tuyển Chọn</h3>
+            <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">🎵 Danh Sách Bài Hát</h3>
             <p style="font-size:0.8em; color:#A8D5BA; margin-bottom:10px;">Bấm trực tiếp vào bài để phát hoặc nghe trên Zing MP3:</p>
 
             <div class="playlist-items" id="playlistContainer"></div>
@@ -730,16 +730,10 @@
         let currentCharChat = null;
         let userManuallyMuted = false;
 
-        // DANH SÁCH ĐÚNG 8 BÀI HÁT TỪ CÁC LINK ZING MP3 CỦA BẠN (CÙNG ID VIDEO GỐC)
+        // DANH SÁCH 2 BÀI HÁT CHUẨN
         const playList = [
-            { title: "5 THÁNG (Tình Hạ Say Hi)", artist: "Wren Evans, Ali Hoàng Dương, WEAN", lang: "🇻🇳", ytid: "kRv7JuwjZVI", zing: "https://zingmp3.vn/bai-hat/5-THANG-TINH-HA-SAY-HI-Wren-Evans-Ali-Hoang-Duong-WEAN-Jaysonlei/esQk63AJ5vmE.html" },
             { title: "Catch Catch!", artist: "YENA", lang: "🇰🇷", ytid: "ItSKahBISg0", zing: "https://zingmp3.vn/bai-hat/Catch-Catch-YENA/sIAYCpmVyY0n.html" },
-            { title: "REDRED", artist: "CORTIS", lang: "🇨🇳", ytid: "WbJ4qA2nE7U", zing: "https://zingmp3.vn/bai-hat/REDRED-CORTIS/kjSVKqUoPS4k.html" },
-            { title: "Magnetic", artist: "ILLIT", lang: "🇰🇷", ytid: "Vk5-c_v4gMU", zing: "https://zingmp3.vn/bai-hat/Magnetic-ILLIT/zVMnsEiOKFiV.html" },
-            { title: "Good Goodbye", artist: "HWASA", lang: "🇰🇷", ytid: "W6o_3gR415E", zing: "https://zingmp3.vn/bai-hat/Good-Goodbye-HWASA/MaP35hRc6Xsd.html" },
-            { title: "Drama", artist: "aespa", lang: "🇰🇷", ytid: "D8VEhcPePiU", zing: "https://zingmp3.vn/bai-hat/Drama-aespa/533x20p5zV9H.html" },
-            { title: "Thử Lòng Quân Tử", artist: "Phương Mỹ Chi, RHYDER, DTAP", lang: "🇻🇳", ytid: "UH21OnJwxZE", zing: "https://zingmp3.vn/bai-hat/Thu-Long-Quan-Tu-Phuong-My-Chi-RHYDER-DTAP/3zsRVGZJOVbG.html" },
-            { title: "Tam Thái Tử", artist: "Jack - J97", lang: "🇻🇳", ytid: "9S4SOsMu8Lx4", zing: "https://zingmp3.vn/bai-hat/Tam-Thai-Tu-Jack-J97/9S4SOsMu8Lx4.html" }
+            { title: "Magnetic", artist: "ILLIT", lang: "🇰🇷", ytid: "Vk5-c_v4gMU", zing: "https://zingmp3.vn/bai-hat/Magnetic-ILLIT/zVMnsEiOKFiV.html" }
         ];
 
         let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars')) || [];
@@ -750,7 +744,7 @@
             renderLetterList();
             renderPlaylist();
 
-            // CHỌN NGẪU NHIÊN 1 TRONG 8 BÀI ĐỂ BẮT ĐẦU
+            // CHỌN NGẪU NHIÊN 1 TRONG 2 BÀI ĐỂ BẮT ĐẦU
             currentTrackIndex = Math.floor(Math.random() * playList.length);
             updateTrackInfoUI();
         };
@@ -777,7 +771,6 @@
 
         function onPlayerReady(event) {
             updateTrackInfoUI();
-            // Cố gắng phát ngay
             event.target.playVideo();
 
             // Mở khóa phát ngay khi người dùng chạm vào màn hình
@@ -800,7 +793,7 @@
                 isPlaying = false;
                 playBtn.innerText = "▶";
             } else if (event.data === YT.PlayerState.ENDED) {
-                // TỰ ĐỘNG CHUYỂN TIẾP BÀI TIẾP THEO KHI HẾT BÀI
+                // TỰ ĐỘNG CHUYỂN BÀI KHI HẾT NHẠC
                 nextTrack();
             }
         }
