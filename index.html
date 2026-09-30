@@ -685,14 +685,10 @@
         </div>
     </div>
 
-    <!-- ================= SCRIPT XỬ LÝ & ĐỒNG BỘ ĐÁM MÂY ================= -->
+    <!-- ================= SCRIPT XỬ LÝ ================= -->
     <script>
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
         const ADMIN_PIN = "1234";
-
-        // KHO ĐÁM MÂY ĐỒNG BỘ TOÀN CẦU CHO TẤT CẢ THIẾT BỊ
-        const CLOUD_SYNC_ENDPOINT = "https://api.restful-api.dev/objects";
-        const CLOUD_RECORD_ID = "ff808181932badb401933682987a003f";
 
         const backBtn = document.getElementById("globalBackBtn");
         const playBtn = document.getElementById("globalPlayBtn");
@@ -711,7 +707,7 @@
             { title: "Magnetic", artist: "ILLIT", lang: "🇰🇷", ytid: "Vk5-c_v4gMU", zing: "https://zingmp3.vn/bai-hat/Magnetic-ILLIT/zVMnsEiOKFiV.html" }
         ];
 
-        // DANH SÁCH NHÂN VẬT GỐC MẶC ĐỊNH
+        // DANH SÁCH NHÂN VẬT GỐC MẶC ĐỊNH (LUÔN CÓ MẶT TRÊN MỌI THIẾT BỊ)
         const danhSachCharGoc = [
             {
                 id: 1711800000000,
@@ -725,60 +721,19 @@
             }
         ];
 
-        let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v8')) || danhSachCharGoc;
-        let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters_v8')) || [];
+        // SỬA LỖI LOGIC: ĐẢM BẢO THIẾT BỊ KHÁC LUÔN NẠP ĐẦY ĐỦ NHÂN VẬT GỐC
+        const cachedChars = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v9'));
+        let danhSachChar = (cachedChars && cachedChars.length > 0) ? cachedChars : danhSachCharGoc;
+        let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters_v9')) || [];
 
         window.onload = function() {
             renderCharGrid();
             renderLetterList();
             renderPlaylist();
 
-            // TỰ ĐỘNG KẾT NỐI VÀ TẢI DỮ LIỆU ĐÁM MÂY CHO MỌI THIẾT BỊ
-            taiDuLieuTuDamMay();
-
             currentTrackIndex = Math.floor(Math.random() * playList.length);
             updateTrackInfoUI();
         };
-
-        /* ================= TỰ ĐỘNG ĐỒNG BỘ ĐÁM MÂY ================= */
-        async function taiDuLieuTuDamMay() {
-            try {
-                const res = await fetch(`${CLOUD_SYNC_ENDPOINT}/${CLOUD_RECORD_ID}`);
-                if (res.ok) {
-                    const json = await res.json();
-                    if (json.data) {
-                        if (json.data.chars && json.data.chars.length > 0) {
-                            danhSachChar = json.data.chars;
-                            localStorage.setItem('ngay_day_mai_do_chars_v8', JSON.stringify(danhSachChar));
-                            renderCharGrid();
-                        }
-                        if (json.data.letters) {
-                            danhSachThu = json.data.letters;
-                            localStorage.setItem('ngay_day_mai_do_letters_v8', JSON.stringify(danhSachThu));
-                            renderLetterList();
-                        }
-                    }
-                }
-            } catch (err) {
-                console.log("Đang hiển thị dữ liệu lưu cục bộ.");
-            }
-        }
-
-        async function luuLenDamMay() {
-            try {
-                await fetch(`${CLOUD_SYNC_ENDPOINT}/${CLOUD_RECORD_ID}`, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        name: "ngay_day_mai_do_cloud_store",
-                        data: {
-                            chars: danhSachChar,
-                            letters: danhSachThu
-                        }
-                    })
-                });
-            } catch (e) {}
-        }
 
         function onYouTubeIframeAPIReady() {
             ytPlayer = new YT.Player('youtube-engine', {
@@ -944,7 +899,7 @@
             }
         }
 
-        /* ================= HÀM GỌI GOOGLE AI (THẾ HỆ MỚI 2.5 / 2.0) ================= */
+        /* ================= HÀM GỌI GOOGLE AI ĐA TẦNG ================= */
         async function goiAIThongMinh(prompt) {
             const endpoints = [
                 "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
@@ -1011,7 +966,6 @@
                 if (aiStory) {
                     fullStory = aiStory;
                 } else {
-                    // NẾU AI LỖI HOẶC HẾT LƯỢT: TỰ ĐỘNG GIỮ NGUYÊN 100% CÂU BẠN VỪA NHẬP!
                     fullStory = info;
                 }
             }
@@ -1028,11 +982,8 @@
             };
 
             danhSachChar.unshift(newChar);
-            localStorage.setItem('ngay_day_mai_do_chars_v8', JSON.stringify(danhSachChar));
+            localStorage.setItem('ngay_day_mai_do_chars_v9', JSON.stringify(danhSachChar));
             renderCharGrid();
-
-            // ĐỒNG BỘ LẬP TỨC LÊN ĐÁM MÂY ĐỂ MỌI THIẾT BỊ ĐỀU THẤY
-            luuLenDamMay();
 
             // Reset form
             document.getElementById("newCharName").value = "";
@@ -1044,7 +995,7 @@
             document.getElementById("newCharInfo").value = "";
             dongModal('modal-add-char');
 
-            alert(`🌿 Đã lưu dấu chân của "${name}" và đồng bộ lên đám mây thành công!`);
+            alert(`🌿 Đã lưu dấu chân của "${name}" vào trạm nghỉ thành công!`);
         }
 
         function renderCharGrid() {
@@ -1075,7 +1026,7 @@
             }
         }
 
-        // BẤM VÀO TÊN HOẶC ẢNH SẼ HIỆN CÂU CHUYỆN / CÂU NÓI ĐÃ NHẬP
+        // BẤM VÀO TÊN HOẶC ẢNH SẼ HIỆN NỘI DUNG ĐÃ NHẬP
         function xemChiTietById(id) {
             const char = danhSachChar.find(item => item.id === id);
             if (!char) return;
@@ -1137,9 +1088,8 @@
             if (pass === ADMIN_PIN) {
                 if (confirm("Bạn có chắc chắn muốn xóa dấu chân nhân vật này không?")) {
                     danhSachChar = danhSachChar.filter(item => item.id !== id);
-                    localStorage.setItem('ngay_day_mai_do_chars_v8', JSON.stringify(danhSachChar));
+                    localStorage.setItem('ngay_day_mai_do_chars_v9', JSON.stringify(danhSachChar));
                     renderCharGrid();
-                    luuLenDamMay();
                     alert("🌿 Đã xóa nhân vật thành công!");
                 }
             } else if (pass !== null) {
@@ -1212,10 +1162,9 @@
 
             const newLetter = { id: Date.now(), icon: selectedIcon, name, mood, content, date: dateStr };
             danhSachThu.unshift(newLetter);
-            localStorage.setItem('ngay_day_mai_do_letters_v8', JSON.stringify(danhSachThu));
+            localStorage.setItem('ngay_day_mai_do_letters_v9', JSON.stringify(danhSachThu));
 
             renderLetterList();
-            luuLenDamMay();
 
             document.getElementById('mailSender').value = "";
             document.getElementById('mailContent').value = "";
