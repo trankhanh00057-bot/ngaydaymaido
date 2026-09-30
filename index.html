@@ -310,7 +310,9 @@
             border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); width: 100%;
         }
-        .char-img-container { position: relative; width: 100%; height: 145px; background: #11281A; }
+        .char-img-container { 
+            position: relative; width: 100%; height: 145px; background: #11281A; cursor: pointer;
+        }
         .char-img { width: 100%; height: 100%; object-fit: cover; }
         .char-tag-overlay {
             position: absolute; bottom: 5px; left: 6px; background: rgba(0, 0, 0, 0.75);
@@ -323,7 +325,9 @@
         }
         .char-name {
             font-family: 'Playfair Display', serif; font-size: 1.25em; color: #FFFFFF; margin: 0 0 10px 0; font-weight: 600;
+            cursor: pointer; transition: 0.2s;
         }
+        .char-name:hover { color: #7FE5B6; text-decoration: underline; }
         
         /* CÁC NÚT THAO TÁC TRÊN THẺ */
         .char-actions {
@@ -630,13 +634,27 @@
             <label style="font-size:0.8em; color:#C8E6C9;">Link ảnh chân dung (Tùy chọn):</label>
             <input type="text" id="newCharImg" placeholder="https://... (để trống sẽ tự lấy ảnh mặc định)">
 
-            <label style="font-size:0.8em; color:#C8E6C9;">Những mảnh ghép / Ý tưởng cốt truyện:</label>
-            <textarea id="newCharInfo" placeholder="Nhập bối cảnh, sức mạnh, tính cách sơ lược..."></textarea>
+            <label style="font-size:0.8em; color:#C8E6C9;">Những mảnh ghép / Ý tưởng cốt truyện (Nhập 1 câu hoặc đoạn văn):</label>
+            <textarea id="newCharInfo" placeholder="Nhập bối cảnh, tính cách, hoặc 1 câu chuyện ngắn..."></textarea>
             
             <button class="btn-modal-action" onclick="taoNhanVat(true)">✨ Gieo mầm bằng Google AI</button>
             <button class="btn-secondary-action" onclick="taoNhanVat(false)">🌱 Tự lưu nhanh (Không dùng AI)</button>
             
             <div id="ai-loading" style="display:none; color:#C8E6C9; font-style:italic; margin-top:8px; text-align:center; font-size:0.82em;">Gió đang thổi... AI đang dệt cốt truyện...</div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: XEM CỐT TRUYỆN CHI TIẾT ================= -->
+    <div class="modal-overlay" id="modal-view-detail">
+        <div class="modal-box">
+            <button class="modal-close" onclick="dongModal('modal-view-detail')">✕</button>
+            <h3 id="detail-title" style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;"></h3>
+            <div id="detail-content" style="font-size:0.9em; line-height:1.6; white-space:pre-line; color:#E8F5E9; margin-top:12px; background:rgba(0,0,0,0.3); padding:12px; border-radius:10px;"></div>
+            
+            <div id="detail-chatlink-wrap" style="margin-top:14px; border-top:1px dashed rgba(255,255,255,0.3); padding-top:10px; display:none;">
+                <span style="font-size:0.82em; color:#7FE5B6; font-weight:bold;">🔗 Link đoạn chat:</span>
+                <div id="detail-links-list" style="margin-top:6px; display:flex; flex-direction:column; gap:6px;"></div>
+            </div>
         </div>
     </div>
 
@@ -667,14 +685,14 @@
         </div>
     </div>
 
-    <!-- ================= SCRIPT XỬ LÝ & ĐỒNG BỘ ĐÁM MÂY (CLOUD SYNC) ================= -->
+    <!-- ================= SCRIPT XỬ LÝ & ĐỒNG BỘ ĐÁM MÂY ================= -->
     <script>
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
         const ADMIN_PIN = "1234";
 
-        // KHO LƯU TRỮ ĐÁM MÂY TRỰC TUYẾN DÀNH CHO TRẠM NGHỈ (TỰ ĐỘNG ĐỒNG BỘ CHO TẤT CẢ MỌI NGƯỜI)
-        const CLOUD_STORAGE_URL = "https://api.restful-api.dev/objects";
-        const CLOUD_STORE_ID = "ff808181932badb4019335f6ea2c0032";
+        // KHO ĐÁM MÂY ĐỒNG BỘ TOÀN CẦU CHO TẤT CẢ THIẾT BỊ
+        const CLOUD_SYNC_ENDPOINT = "https://api.restful-api.dev/objects";
+        const CLOUD_RECORD_ID = "ff808181932badb401933682987a003f";
 
         const backBtn = document.getElementById("globalBackBtn");
         const playBtn = document.getElementById("globalPlayBtn");
@@ -693,8 +711,8 @@
             { title: "Magnetic", artist: "ILLIT", lang: "🇰🇷", ytid: "Vk5-c_v4gMU", zing: "https://zingmp3.vn/bai-hat/Magnetic-ILLIT/zVMnsEiOKFiV.html" }
         ];
 
-        // DANH SÁCH NHÂN VẬT MẶC ĐỊNH SẴN CÓ
-        const danhSachCharMacDinh = [
+        // DANH SÁCH NHÂN VẬT GỐC MẶC ĐỊNH
+        const danhSachCharGoc = [
             {
                 id: 1711800000000,
                 name: "Trần Hoàng Minh",
@@ -707,46 +725,48 @@
             }
         ];
 
-        let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v7')) || danhSachCharMacDinh;
-        let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters_v7')) || [];
+        let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v8')) || danhSachCharGoc;
+        let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters_v8')) || [];
 
         window.onload = function() {
             renderCharGrid();
             renderLetterList();
             renderPlaylist();
 
-            // TỰ ĐỘNG TẢI DỮ LIỆU ĐÁM MÂY MỚI NHẤT KHI MỞ WEB
-            taiDuLieuDamMay();
+            // TỰ ĐỘNG KẾT NỐI VÀ TẢI DỮ LIỆU ĐÁM MÂY CHO MỌI THIẾT BỊ
+            taiDuLieuTuDamMay();
 
             currentTrackIndex = Math.floor(Math.random() * playList.length);
             updateTrackInfoUI();
         };
 
         /* ================= TỰ ĐỘNG ĐỒNG BỘ ĐÁM MÂY ================= */
-        async function taiDuLieuDamMay() {
+        async function taiDuLieuTuDamMay() {
             try {
-                const res = await fetch(`${CLOUD_STORAGE_URL}/${CLOUD_STORE_ID}`);
+                const res = await fetch(`${CLOUD_SYNC_ENDPOINT}/${CLOUD_RECORD_ID}`);
                 if (res.ok) {
                     const json = await res.json();
-                    if (json.data && json.data.chars) {
-                        danhSachChar = json.data.chars;
-                        localStorage.setItem('ngay_day_mai_do_chars_v7', JSON.stringify(danhSachChar));
-                        renderCharGrid();
-                    }
-                    if (json.data && json.data.letters) {
-                        danhSachThu = json.data.letters;
-                        localStorage.setItem('ngay_day_mai_do_letters_v7', JSON.stringify(danhSachThu));
-                        renderLetterList();
+                    if (json.data) {
+                        if (json.data.chars && json.data.chars.length > 0) {
+                            danhSachChar = json.data.chars;
+                            localStorage.setItem('ngay_day_mai_do_chars_v8', JSON.stringify(danhSachChar));
+                            renderCharGrid();
+                        }
+                        if (json.data.letters) {
+                            danhSachThu = json.data.letters;
+                            localStorage.setItem('ngay_day_mai_do_letters_v8', JSON.stringify(danhSachThu));
+                            renderLetterList();
+                        }
                     }
                 }
             } catch (err) {
-                console.log("Đang dùng dữ liệu lưu trữ trên thiết bị.");
+                console.log("Đang hiển thị dữ liệu lưu cục bộ.");
             }
         }
 
-        async function dongBoLenDamMay() {
+        async function luuLenDamMay() {
             try {
-                await fetch(`${CLOUD_STORAGE_URL}/${CLOUD_STORE_ID}`, {
+                await fetch(`${CLOUD_SYNC_ENDPOINT}/${CLOUD_RECORD_ID}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -924,15 +944,16 @@
             }
         }
 
-        /* ================= HÀM GỌI GOOGLE AI ĐA TẦNG ================= */
+        /* ================= HÀM GỌI GOOGLE AI (THẾ HỆ MỚI 2.5 / 2.0) ================= */
         async function goiAIThongMinh(prompt) {
-            const models = [
-                "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent",
+            const endpoints = [
+                "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
                 "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+                "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent",
                 "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
             ];
 
-            for (let url of models) {
+            for (let url of endpoints) {
                 try {
                     const response = await fetch(`${url}?key=${API_KEY}`, {
                         method: "POST",
@@ -959,7 +980,7 @@
             const info = document.getElementById("newCharInfo").value.trim();
 
             if (!name || !info) {
-                alert("Vui lòng nhập tên và mảnh ghép ý tưởng của nhân vật nhé!");
+                alert("Vui lòng nhập tên và nội dung/ý tưởng nhân vật nhé!");
                 return;
             }
 
@@ -977,7 +998,7 @@
 
             if (dungAI) {
                 document.getElementById("ai-loading").style.display = "block";
-                const prompt = `Bạn là một nhà biên kịch và người kể chuyện sâu sắc. Hãy dệt nên cốt truyện hoàn chỉnh cho nhân vật "${name}" (${genre !== 'Không' ? 'Thể loại: ' + genre : ''}) với các thẻ: "${displayTags}" dựa trên thông tin: "${info}". 
+                const prompt = `Bạn là một nhà biên kịch sâu sắc. Hãy dệt nên cốt truyện hoàn chỉnh cho nhân vật "${name}" (${genre !== 'Không' ? 'Thể loại: ' + genre : ''}) với các thẻ: "${displayTags}" dựa trên thông tin: "${info}". 
                 Trình bày gồm 4 phần:
                 🌿 Ấn tượng đầu tiên
                 🍂 Chiều sâu tâm hồn
@@ -990,7 +1011,8 @@
                 if (aiStory) {
                     fullStory = aiStory;
                 } else {
-                    alert("⚠️ Tạm thời không thể kết nối tới AI, hệ thống đã lưu thông tin bạn vừa nhập!");
+                    // NẾU AI LỖI HOẶC HẾT LƯỢT: TỰ ĐỘNG GIỮ NGUYÊN 100% CÂU BẠN VỪA NHẬP!
+                    fullStory = info;
                 }
             }
 
@@ -1006,11 +1028,11 @@
             };
 
             danhSachChar.unshift(newChar);
-            localStorage.setItem('ngay_day_mai_do_chars_v7', JSON.stringify(danhSachChar));
+            localStorage.setItem('ngay_day_mai_do_chars_v8', JSON.stringify(danhSachChar));
             renderCharGrid();
 
-            // ĐỒNG BỘ NGAY LẬP TỨC LÊN ĐÁM MÂY ĐỂ AI CŨNG THẤY
-            dongBoLenDamMay();
+            // ĐỒNG BỘ LẬP TỨC LÊN ĐÁM MÂY ĐỂ MỌI THIẾT BỊ ĐỀU THẤY
+            luuLenDamMay();
 
             // Reset form
             document.getElementById("newCharName").value = "";
@@ -1036,12 +1058,12 @@
                     const card = document.createElement("div");
                     card.className = "char-card";
                     card.innerHTML = `
-                        <div class="char-img-container">
+                        <div class="char-img-container" onclick="xemChiTietById(${c.id})" title="Bấm để xem cốt truyện">
                             <img src="${c.img}" class="char-img" alt="${c.name}">
                             <div class="char-tag-overlay">${c.tags}</div>
                         </div>
                         <div class="char-body">
-                            <h3 class="char-name">${c.name}</h3>
+                            <h3 class="char-name" onclick="xemChiTietById(${c.id})" title="Bấm để xem cốt truyện">${c.name}</h3>
                             <div class="char-actions">
                                 <button class="btn-chat-expanded" onclick="xuLyTroChuyenById(${c.id})">💬 Trò chuyện</button>
                                 <button class="btn-delete-char" onclick="xoaNhanVatById(${c.id})" title="Xóa nhân vật">🗑️</button>
@@ -1051,6 +1073,33 @@
                     grid.appendChild(card);
                 });
             }
+        }
+
+        // BẤM VÀO TÊN HOẶC ẢNH SẼ HIỆN CÂU CHUYỆN / CÂU NÓI ĐÃ NHẬP
+        function xemChiTietById(id) {
+            const char = danhSachChar.find(item => item.id === id);
+            if (!char) return;
+
+            document.getElementById("detail-title").innerText = `🌿 ${char.name} (${char.tags})`;
+            document.getElementById("detail-content").innerText = char.story;
+
+            const chatLinkWrap = document.getElementById("detail-chatlink-wrap");
+            const linksList = document.getElementById("detail-links-list");
+            linksList.innerHTML = "";
+
+            let hasAnyLink = false;
+
+            if (char.chatLinkBL && char.chatLinkBL.trim().startsWith('http')) {
+                hasAnyLink = true;
+                linksList.innerHTML += `<a href="${char.chatLinkBL.trim()}" target="_blank" style="color:#7FE5B6; font-size:0.85em; text-decoration:underline;">🌿 Link chat Bản BL ↗</a>`;
+            }
+            if (char.chatLinkBG && char.chatLinkBG.trim().startsWith('http')) {
+                hasAnyLink = true;
+                linksList.innerHTML += `<a href="${char.chatLinkBG.trim()}" target="_blank" style="color:#F48FB1; font-size:0.85em; text-decoration:underline;">🌸 Link chat Bản BG ↗</a>`;
+            }
+
+            chatLinkWrap.style.display = hasAnyLink ? "block" : "none";
+            moModal("modal-view-detail");
         }
 
         function xuLyTroChuyenById(id) {
@@ -1088,13 +1137,13 @@
             if (pass === ADMIN_PIN) {
                 if (confirm("Bạn có chắc chắn muốn xóa dấu chân nhân vật này không?")) {
                     danhSachChar = danhSachChar.filter(item => item.id !== id);
-                    localStorage.setItem('ngay_day_mai_do_chars_v7', JSON.stringify(danhSachChar));
+                    localStorage.setItem('ngay_day_mai_do_chars_v8', JSON.stringify(danhSachChar));
                     renderCharGrid();
-                    dongBoLenDamMay();
+                    luuLenDamMay();
                     alert("🌿 Đã xóa nhân vật thành công!");
                 }
             } else if (pass !== null) {
-                alert("Mật khẩu không chính xác! Chỉ chủ trạm mới có quyền xóa nhân vật.");
+                alert("Mật khẩu không chính xác! Chỉ chủ trạm mới có quyền xóa.");
             }
         }
 
@@ -1163,11 +1212,10 @@
 
             const newLetter = { id: Date.now(), icon: selectedIcon, name, mood, content, date: dateStr };
             danhSachThu.unshift(newLetter);
-            localStorage.setItem('ngay_day_mai_do_letters_v7', JSON.stringify(danhSachThu));
-            renderLetterList();
+            localStorage.setItem('ngay_day_mai_do_letters_v8', JSON.stringify(danhSachThu));
 
-            // ĐỒNG BỘ LÁ THƯ LÊN ĐÁM MÂY ĐỂ MỌI NGƯỜI CÙNG ĐỌC
-            dongBoLenDamMay();
+            renderLetterList();
+            luuLenDamMay();
 
             document.getElementById('mailSender').value = "";
             document.getElementById('mailContent').value = "";
