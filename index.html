@@ -311,7 +311,7 @@
             border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); width: 100%;
         }
-        .char-img-container { position: relative; width: 100%; height: 140px; background: #11281A; }
+        .char-img-container { position: relative; width: 100%; height: 145px; background: #11281A; }
         .char-img { width: 100%; height: 100%; object-fit: cover; }
         .char-tag-overlay {
             position: absolute; bottom: 5px; left: 6px; background: rgba(0, 0, 0, 0.75);
@@ -323,22 +323,26 @@
             padding: 12px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; flex: 1;
         }
         .char-name {
-            font-family: 'Playfair Display', serif; font-size: 1.2em; color: #FFFFFF; margin: 0 0 4px 0; font-weight: 600;
+            font-family: 'Playfair Display', serif; font-size: 1.25em; color: #FFFFFF; margin: 0 0 10px 0; font-weight: 600;
         }
-        .char-story-snippet {
-            font-size: 0.8em; color: #C8E6C9; line-height: 1.4;
-            margin: 0 0 10px 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-        }
+        
+        /* CÁC NÚT THAO TÁC TRÊN THẺ */
         .char-actions {
             display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 8px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 8px; gap: 4px;
         }
-        .char-link-btn { font-size: 0.76em; color: #A8D5BA; cursor: pointer; }
+        .char-link-btn { font-size: 0.78em; color: #A8D5BA; cursor: pointer; text-decoration: none; }
+        .char-link-btn:hover { color: #7FE5B6; text-decoration: underline; }
         .btn-chat {
             background: rgba(18, 48, 28, 0.85); border: 1px solid rgba(127, 229, 182, 0.4);
-            border-radius: 12px; padding: 3px 9px; font-size: 10.5px;
+            border-radius: 12px; padding: 4px 10px; font-size: 11px;
             color: #E8F5E9; cursor: pointer; display: inline-flex; align-items: center; gap: 3px;
         }
+        .btn-chat:hover { background: rgba(30, 80, 48, 0.95); border-color: #7FE5B6; }
+        .btn-delete-char {
+            background: none; border: none; color: #EF9A9A; font-size: 13px; cursor: pointer; padding: 2px 4px; transition: 0.2s;
+        }
+        .btn-delete-char:hover { transform: scale(1.2); color: #FF5252; }
 
         /* TAB 2: HÒM THƯ */
         .form-title { font-size: 1.15em; font-weight: bold; color: #FFFFFF; margin: 0 0 2px 0; }
@@ -674,7 +678,7 @@
             { title: "Magnetic", artist: "ILLIT", lang: "🇰🇷", ytid: "Vk5-c_v4gMU", zing: "https://zingmp3.vn/bai-hat/Magnetic-ILLIT/zVMnsEiOKFiV.html" }
         ];
 
-        let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v3')) || [];
+        let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v4')) || [];
         let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters')) || [];
 
         window.onload = function() {
@@ -820,7 +824,6 @@
             }
         }
 
-        // HÀM CHUYỂN QUA LẠI GIỮA 2 TAB Ở TRANG 2
         function chuyenTab(tabName) {
             const tabDauChan = document.getElementById('tabContentDauChan');
             const tabHomThu = document.getElementById('tabContentHomThu');
@@ -903,19 +906,20 @@
 
             const newChar = { 
                 id: Date.now(), 
-                name, 
-                genre,
+                name: name, 
+                genre: genre,
                 tags: displayTags, 
-                chatLink,
-                img, 
+                chatLink: chatLink,
+                img: img, 
                 story: fullStory 
             };
 
             danhSachChar.unshift(newChar);
-            localStorage.setItem('ngay_day_mai_do_chars_v3', JSON.stringify(danhSachChar));
+            localStorage.setItem('ngay_day_mai_do_chars_v4', JSON.stringify(danhSachChar));
 
             renderCharGrid();
 
+            // Reset form
             document.getElementById("newCharName").value = "";
             document.getElementById("newCharGenre").value = "Không";
             document.getElementById("newCharTags").value = "";
@@ -944,10 +948,12 @@
                         </div>
                         <div class="char-body">
                             <h3 class="char-name">${c.name}</h3>
-                            <p class="char-story-snippet">${c.story.substring(0, 80)}...</p>
                             <div class="char-actions">
-                                <span class="char-link-btn" onclick="xemChiTiet('${c.name}', \`${c.story.replace(/`/g, "\\`")}\`, '${c.chatLink || ''}')">Cốt truyện</span>
-                                <button class="btn-chat" onclick="xuLyTroChuyen('${c.name}', \`${c.story.replace(/`/g, "\\`")}\`, '${c.chatLink || ''}')">💬 Trò chuyện</button>
+                                <span class="char-link-btn" onclick="xemChiTietById(${c.id})">Cốt truyện</span>
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    <button class="btn-chat" onclick="xuLyTroChuyenById(${c.id})">💬 Trò chuyện</button>
+                                    <button class="btn-delete-char" onclick="xoaNhanVatById(${c.id})" title="Xóa nhân vật">🗑️</button>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -956,29 +962,52 @@
             }
         }
 
-        function xuLyTroChuyen(name, story, chatLink) {
-            if (chatLink && chatLink.trim().startsWith('http')) {
-                window.open(chatLink.trim(), '_blank');
+        // XỬ LÝ TRÒ CHUYỆN BẰNG ID (MỞ LINK HOẶC GỌI AI CHAT)
+        function xuLyTroChuyenById(id) {
+            const char = danhSachChar.find(item => item.id === id);
+            if (!char) return;
+
+            if (char.chatLink && char.chatLink.trim().startsWith('http')) {
+                window.open(char.chatLink.trim(), '_blank');
             } else {
-                moTroChuyen(name, story);
+                moTroChuyen(char.name, char.story);
             }
         }
 
-        function xemChiTiet(name, story, chatLink) {
-            document.getElementById("detail-title").innerText = `🌿 Cốt truyện: ${name}`;
-            document.getElementById("detail-content").innerText = story;
+        // XEM CỐT TRUYỆN CHI TIẾT
+        function xemChiTietById(id) {
+            const char = danhSachChar.find(item => item.id === id);
+            if (!char) return;
+
+            document.getElementById("detail-title").innerText = `🌿 Cốt truyện: ${char.name}`;
+            document.getElementById("detail-content").innerText = char.story;
 
             const chatLinkWrap = document.getElementById("detail-chatlink-wrap");
             const chatLinkBtn = document.getElementById("detail-chatlink-btn");
-            if (chatLink && chatLink.trim().startsWith('http')) {
+            if (char.chatLink && char.chatLink.trim().startsWith('http')) {
                 chatLinkWrap.style.display = "block";
-                chatLinkBtn.href = chatLink.trim();
-                chatLinkBtn.innerText = chatLink.trim();
+                chatLinkBtn.href = char.chatLink.trim();
+                chatLinkBtn.innerText = char.chatLink.trim();
             } else {
                 chatLinkWrap.style.display = "none";
             }
 
             moModal("modal-view-detail");
+        }
+
+        // XÓA NHÂN VẬT (BẢO VỆ BẰNG MẬT KHẨU CHỦ TRẠM)
+        function xoaNhanVatById(id) {
+            const pass = prompt("🌿 Nhập mật khẩu chủ trạm để xóa nhân vật này:");
+            if (pass === ADMIN_PIN) {
+                if (confirm("Bạn có chắc chắn muốn xóa dấu chân nhân vật này không?")) {
+                    danhSachChar = danhSachChar.filter(item => item.id !== id);
+                    localStorage.setItem('ngay_day_mai_do_chars_v4', JSON.stringify(danhSachChar));
+                    renderCharGrid();
+                    alert("🌿 Đã xóa nhân vật thành công!");
+                }
+            } else if (pass !== null) {
+                alert("Mật khẩu không chính xác! Chỉ chủ trạm mới có quyền xóa nhân vật.");
+            }
         }
 
         function locNhanVat() {
