@@ -152,9 +152,9 @@
         /* KHUNG CHỨA TOÀN TRANG */
         .page-container {
             width: 100%;
-            max-width: 860px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 65px 14px 30px 14px;
+            padding: 65px 14px 35px 14px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -204,151 +204,131 @@
             margin-top: 16px; opacity: 0.9;
         }
 
-        /* ================= GIAO DIỆN TRANG 2 ================= */
-        #page2 { display: none; max-width: 680px; }
+        /* ================= GIAO DIỆN TRANG 2: HAI CỘT TRỰC TIẾP ================= */
+        #page2 { 
+            display: none; 
+            max-width: 1080px; 
+        }
         .p2-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.3em; color: #FFFFFF; margin: 0;
             text-shadow: 0 4px 15px rgba(0,0,0,0.7); font-weight: 500;
         }
         .p2-subtitle {
-            color: #DCE7E1; font-size: 0.9em; margin: 6px 0 18px 0;
+            color: #DCE7E1; font-size: 0.9em; margin: 6px 0 20px 0;
             font-style: italic; text-shadow: 0 2px 6px rgba(0,0,0,0.8);
         }
-        .search-container {
-            width: 100%; max-width: 440px; margin: 0 auto 20px auto; position: relative;
-        }
-        .search-input {
-            width: 100%; background: rgba(8, 26, 15, 0.8);
-            border: 1px solid rgba(85, 139, 110, 0.5);
-            border-radius: 25px; padding: 9px 16px 9px 36px;
-            color: #FFFFFF; font-family: 'Lora', serif; font-size: 14px;
-            outline: none; backdrop-filter: blur(4px);
-        }
-        .search-input::placeholder { color: #8EA898; }
-        .search-icon {
-            position: absolute; left: 13px; top: 50%;
-            transform: translateY(-50%); color: #8EA898; font-size: 13px;
+
+        /* BỐ CỤC 2 CỘT SONG SONG */
+        .two-columns-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            text-align: left;
+            align-items: start;
         }
 
-        .cards-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; margin: 0 auto;
-        }
-        .feature-card {
-            background: rgba(12, 36, 21, 0.92);
+        /* CỘT 1: DẤU CHÂN */
+        .col-card {
+            background: rgba(12, 36, 21, 0.94);
             border: 1px solid rgba(85, 139, 110, 0.35);
-            border-radius: 18px; padding: 18px; text-align: left;
-            display: flex; flex-direction: column; justify-content: space-between;
-            min-height: 165px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(8px); cursor: pointer; transition: all 0.2s ease; width: 100%;
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+            backdrop-filter: blur(8px);
+            width: 100%;
         }
-        .feature-card:active { transform: scale(0.98); }
-        .card-header { display: flex; justify-content: space-between; align-items: center; }
-        .icon-badge {
-            background: rgba(25, 64, 38, 0.8); border-radius: 10px;
-            width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-size: 14px;
+        .col-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 8px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
         }
-        .tag-pill {
-            background: rgba(18, 48, 28, 0.8); border: 1px solid rgba(85, 139, 110, 0.3);
-            border-radius: 15px; padding: 2px 9px; font-size: 11px; color: #A8D5BA;
+        .col-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4em;
+            color: #FFFFFF;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        .card-title {
-            font-family: 'Playfair Display', serif; font-size: 1.4em;
-            color: #FFFFFF; margin: 8px 0 4px 0; font-weight: 600;
-        }
-        .card-desc { font-size: 0.82em; color: #C8E6C9; margin: 0; line-height: 1.4; }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
-        .card-subtext { font-size: 0.78em; color: #A8D5BA; }
-        .btn-card {
-            background-color: #7FE5B6; color: #0A2416; border: none;
-            border-radius: 18px; padding: 5px 12px; font-size: 11.5px;
-            font-family: 'Lora', serif; font-weight: bold; cursor: pointer; pointer-events: none;
-        }
-
-        /* ================= GIAO DIỆN TRANG 3: DẤU CHÂN ================= */
-        #page3 { display: none; max-width: 860px; }
-        .p3-header {
-            display: flex; justify-content: space-between; align-items: flex-end;
-            margin-bottom: 18px; flex-wrap: wrap; gap: 10px; width: 100%;
-        }
-        .p3-title-wrap { display: flex; flex-direction: column; text-align: left; }
-        .p3-title-row { display: flex; align-items: center; gap: 8px; }
-        .p3-title {
-            font-family: 'Playfair Display', serif; font-size: 2em; color: #FFFFFF; margin: 0; font-weight: 600;
-        }
-        .p3-desc { font-size: 0.82em; color: #C8E6C9; margin: 2px 0 0 0; font-style: italic; }
-        .p3-actions-wrap { display: flex; align-items: center; gap: 8px; }
         .p3-search-input {
             background: rgba(8, 26, 15, 0.8); border: 1px solid rgba(85, 139, 110, 0.5);
-            border-radius: 20px; padding: 6px 12px 6px 30px; color: #FFFFFF;
-            font-family: 'Lora', serif; font-size: 13px; outline: none; width: 125px;
+            border-radius: 20px; padding: 5px 10px 5px 26px; color: #FFFFFF;
+            font-family: 'Lora', serif; font-size: 12px; outline: none; width: 110px;
         }
         .p3-search-box { position: relative; }
         .p3-search-box .icon {
-            position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 11px; color: #8EA898;
+            position: absolute; left: 8px; top: 50%; transform: translateY(-50%); font-size: 10px; color: #8EA898;
         }
         .btn-add-char {
             background-color: #7FE5B6; color: #0A2416; border: none;
-            border-radius: 20px; padding: 6px 14px; font-size: 12px;
+            border-radius: 20px; padding: 5px 12px; font-size: 11.5px;
             font-family: 'Lora', serif; font-weight: bold; cursor: pointer;
             display: inline-flex; align-items: center; gap: 4px;
         }
 
         .char-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 14px;
+            width: 100%;
+            max-height: 520px;
+            overflow-y: auto;
+            padding-right: 4px;
         }
+        .char-grid::-webkit-scrollbar { width: 3px; }
+        .char-grid::-webkit-scrollbar-thumb { background: rgba(127, 229, 182, 0.3); border-radius: 10px; }
+
         .empty-placeholder {
             grid-column: 1 / -1; padding: 35px 12px; text-align: center;
-            color: #C8E6C9; font-style: italic; font-size: 0.9em;
+            color: #C8E6C9; font-style: italic; font-size: 0.88em;
             background: rgba(12, 36, 21, 0.6); border: 1px dashed rgba(85, 139, 110, 0.4);
-            border-radius: 16px; line-height: 1.5; width: 100%;
+            border-radius: 14px; line-height: 1.5; width: 100%;
         }
         .char-card {
-            background: rgba(12, 36, 21, 0.92); border: 1px solid rgba(85, 139, 110, 0.4);
-            border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35); backdrop-filter: blur(8px); width: 100%;
+            background: rgba(10, 30, 18, 0.95); border: 1px solid rgba(85, 139, 110, 0.4);
+            border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); width: 100%;
         }
-        .char-img-container { position: relative; width: 100%; height: 140px; background: #11281A; }
+        .char-img-container { position: relative; width: 100%; height: 130px; background: #11281A; }
         .char-img { width: 100%; height: 100%; object-fit: cover; }
         .char-tag-overlay {
-            position: absolute; bottom: 6px; left: 8px; background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(4px); color: #FFFFFF; font-size: 10px;
+            position: absolute; bottom: 5px; left: 6px; background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px); color: #FFFFFF; font-size: 9.5px;
             padding: 2px 6px; border-radius: 4px; max-width: 85%;
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .char-body {
-            padding: 12px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; flex: 1;
+            padding: 10px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; flex: 1;
         }
         .char-name {
-            font-family: 'Playfair Display', serif; font-size: 1.2em; color: #FFFFFF; margin: 0 0 4px 0; font-weight: 600;
+            font-family: 'Playfair Display', serif; font-size: 1.15em; color: #FFFFFF; margin: 0 0 3px 0; font-weight: 600;
         }
         .char-story-snippet {
-            font-size: 0.8em; color: #C8E6C9; line-height: 1.4;
-            margin: 0 0 10px 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+            font-size: 0.78em; color: #C8E6C9; line-height: 1.4;
+            margin: 0 0 8px 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
         }
         .char-actions {
             display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 8px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 6px;
         }
-        .char-link-btn { font-size: 0.76em; color: #A8D5BA; cursor: pointer; }
+        .char-link-btn { font-size: 0.74em; color: #A8D5BA; cursor: pointer; }
         .btn-chat {
             background: rgba(18, 48, 28, 0.85); border: 1px solid rgba(127, 229, 182, 0.4);
-            border-radius: 12px; padding: 3px 9px; font-size: 10.5px;
+            border-radius: 12px; padding: 2px 8px; font-size: 10px;
             color: #E8F5E9; cursor: pointer; display: inline-flex; align-items: center; gap: 3px;
         }
 
-        /* ================= GIAO DIỆN TRANG 4: HÒM THƯ ================= */
-        #page4 { display: none; max-width: 860px; }
-        .mailbox-layout {
-            display: grid; grid-template-columns: 1fr 1.15fr; gap: 16px;
-            text-align: left; margin: 12px auto 0 auto; width: 100%;
-        }
-        .mailbox-form-card, .mailbox-list-card {
-            background: rgba(12, 36, 21, 0.94); border: 1px solid rgba(85, 139, 110, 0.35);
-            border-radius: 16px; padding: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.35); backdrop-filter: blur(8px); width: 100%;
-        }
+        /* CỘT 2: HÒM THƯ */
         .form-title { font-size: 1.1em; font-weight: bold; color: #FFFFFF; margin: 0 0 2px 0; }
-        .form-subtitle { font-size: 0.78em; color: #A8D5BA; margin: 0 0 14px 0; }
+        .form-subtitle { font-size: 0.78em; color: #A8D5BA; margin: 0 0 12px 0; }
         .form-label-row {
             display: flex; justify-content: space-between; align-items: center; font-size: 0.82em; font-weight: bold; color: #E8F5E9; margin-bottom: 5px;
         }
@@ -356,93 +336,73 @@
         
         .icon-scroll-bar {
             display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;
-            padding: 4px 2px 8px 2px; margin-bottom: 10px; width: 100%;
+            padding: 4px 2px 8px 2px; margin-bottom: 8px; width: 100%;
         }
         .icon-scroll-bar::-webkit-scrollbar { height: 3px; }
         .icon-scroll-bar::-webkit-scrollbar-thumb { background: rgba(127, 229, 182, 0.4); border-radius: 10px; }
         .icon-opt {
             background: rgba(18, 48, 28, 0.85); border: 1px solid rgba(85, 139, 110, 0.4);
-            border-radius: 8px; width: 32px; height: 32px; min-width: 32px;
-            display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; flex-shrink: 0;
+            border-radius: 8px; width: 30px; height: 30px; min-width: 30px;
+            display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; flex-shrink: 0;
         }
         .icon-opt.active { border: 2px solid #7FE5B6; background: rgba(35, 95, 58, 0.95); }
 
         .mail-input, .mail-select, .mail-textarea {
             width: 100%; background: rgba(8, 26, 15, 0.8);
             border: 1px solid rgba(85, 139, 110, 0.5); border-radius: 10px;
-            padding: 8px 10px; color: #FFFFFF; font-family: 'Lora', serif; font-size: 14px; margin-bottom: 12px; outline: none;
+            padding: 7px 10px; color: #FFFFFF; font-family: 'Lora', serif; font-size: 13.5px; margin-bottom: 10px; outline: none;
         }
-        .mail-textarea { min-height: 75px; resize: vertical; margin-bottom: 6px; }
+        .mail-textarea { min-height: 65px; resize: vertical; margin-bottom: 6px; }
         .btn-send-mail {
             background-color: #7FE5B6; color: #0A2416; border: none;
-            border-radius: 16px; padding: 9px; width: 100%; font-size: 13px; font-family: 'Lora', serif; font-weight: bold; cursor: pointer;
+            border-radius: 16px; padding: 8px; width: 100%; font-size: 12.5px; font-family: 'Lora', serif; font-weight: bold; cursor: pointer;
         }
 
         .list-header-row {
-            display: flex; justify-content: space-between; align-items: center; font-size: 0.75em; color: #A8D5BA; font-weight: bold; margin-bottom: 12px;
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.75em; color: #A8D5BA; font-weight: bold; margin: 14px 0 8px 0;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 10px;
         }
         .letters-container {
-            display: flex; flex-direction: column; gap: 10px; max-height: 380px; overflow-y: auto; padding-right: 2px;
+            display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; padding-right: 2px;
         }
         .letters-container::-webkit-scrollbar { width: 3px; }
         .letters-container::-webkit-scrollbar-thumb { background: rgba(127, 229, 182, 0.3); border-radius: 10px; }
         .letter-item {
-            background: rgba(8, 26, 15, 0.8); border: 1px solid rgba(85, 139, 110, 0.4); border-radius: 10px; padding: 10px;
+            background: rgba(8, 26, 15, 0.8); border: 1px solid rgba(85, 139, 110, 0.4); border-radius: 10px; padding: 8px 10px;
         }
-        .letter-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .letter-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
         .user-info { display: flex; align-items: center; gap: 5px; }
         .user-avatar-badge {
-            background: rgba(25, 64, 38, 0.8); border-radius: 5px; width: 22px; height: 22px;
-            display: flex; align-items: center; justify-content: center; font-size: 12px;
+            background: rgba(25, 64, 38, 0.8); border-radius: 5px; width: 20px; height: 20px;
+            display: flex; align-items: center; justify-content: center; font-size: 11px;
         }
-        .user-name { font-weight: bold; color: #FFFFFF; font-size: 0.84em; }
+        .user-name { font-weight: bold; color: #FFFFFF; font-size: 0.82em; }
         .mood-tag {
-            background: rgba(22, 60, 36, 0.9); border: 1px solid rgba(127, 229, 182, 0.3); color: #7FE5B6; font-size: 9.5px; padding: 1px 5px; border-radius: 6px;
+            background: rgba(22, 60, 36, 0.9); border: 1px solid rgba(127, 229, 182, 0.3); color: #7FE5B6; font-size: 9px; padding: 1px 5px; border-radius: 6px;
         }
-        .letter-date { font-size: 0.7em; color: #8EA898; }
-        .letter-content { font-size: 0.8em; color: #E8F5E9; line-height: 1.45; margin: 0; }
+        .letter-date { font-size: 0.68em; color: #8EA898; }
+        .letter-content { font-size: 0.78em; color: #E8F5E9; line-height: 1.45; margin: 0; }
 
-        /* ================= CỬA SỔ HỘP NHẠC CHI TIẾT ================= */
+        /* ================= CỬA SỔ HỘP NHẠC ================= */
         .playlist-items {
-            display: flex; flex-direction: column; gap: 6px;
-            max-height: 250px; overflow-y: auto; margin-bottom: 12px;
-            padding-right: 3px;
+            display: flex; flex-direction: column; gap: 6px; max-height: 250px; overflow-y: auto; margin-bottom: 12px; padding-right: 3px;
         }
         .playlist-items::-webkit-scrollbar { width: 3px; }
         .playlist-items::-webkit-scrollbar-thumb { background: rgba(127, 229, 182, 0.3); }
 
         .track-row {
-            background: rgba(14, 40, 24, 0.85);
-            border: 1px solid rgba(85, 139, 110, 0.3);
-            border-radius: 10px;
-            padding: 8px 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 0.82em;
+            background: rgba(14, 40, 24, 0.85); border: 1px solid rgba(85, 139, 110, 0.3);
+            border-radius: 10px; padding: 8px 10px; display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; transition: 0.2s; font-size: 0.82em;
         }
         .track-row:hover { background: rgba(25, 64, 38, 0.95); border-color: #7FE5B6; }
         .track-row.active {
-            border: 1.5px solid #7FE5B6;
-            background: rgba(30, 80, 48, 0.95);
-            color: #7FE5B6;
-            font-weight: bold;
+            border: 1.5px solid #7FE5B6; background: rgba(30, 80, 48, 0.95); color: #7FE5B6; font-weight: bold;
         }
         .track-lang-badge {
-            font-size: 9.5px;
-            padding: 1px 5px;
-            border-radius: 4px;
-            background: rgba(0,0,0,0.4);
-            margin-right: 5px;
+            font-size: 9.5px; padding: 1px 5px; border-radius: 4px; background: rgba(0,0,0,0.4); margin-right: 5px;
         }
-        .zing-link-badge {
-            font-size: 9px;
-            color: #7FE5B6;
-            text-decoration: underline;
-            margin-left: 6px;
-        }
+        .zing-link-badge { font-size: 9px; color: #7FE5B6; text-decoration: underline; margin-left: 6px; }
 
         /* ================= MODAL CỬA SỔ CHUNG ================= */
         .modal-overlay {
@@ -485,15 +445,11 @@
         .bubble-char { align-self: flex-start; background: rgba(255, 255, 255, 0.15); color: #E8F5E9; border: 1px solid rgba(255, 255, 255, 0.2); }
 
         /* ================= TỐI ƯU ĐIỆN THOẠI ================= */
-        @media (max-width: 680px) {
+        @media (max-width: 820px) {
             .page-container { padding: 55px 12px 25px 12px; }
             .title-main { font-size: 1.95em; }
             .p2-title { font-size: 1.95em; }
-            .cards-grid { grid-template-columns: 1fr; width: 100%; }
-            .mailbox-layout { grid-template-columns: 1fr; width: 100%; }
-            .p3-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-            .p3-actions-wrap { width: 100%; justify-content: space-between; }
-            .p3-search-input { width: 120px; }
+            .two-columns-layout { grid-template-columns: 1fr; }
             .global-music-bar { max-width: 175px; }
             .music-title-text { max-width: 65px; }
         }
@@ -536,81 +492,33 @@
         <div class="footer-quote">~ Một bước chân, một câu chuyện ~</div>
     </div>
 
-    <!-- ================= TRANG 2: NGÀY ĐÂY MAI ĐÓ ================= -->
+    <!-- ================= TRANG 2: NGÀY ĐÂY MAI ĐÓ (2 CỘT SONG SONG TRỰC TIẾP) ================= -->
     <div class="page-container" id="page2">
         <h1 class="p2-title">Ngày đây mai đó</h1>
         <div class="p2-subtitle">Nơi lưu lại những câu chuyện và vài dòng nhắn gửi.</div>
 
-        <div class="search-container">
-            <span class="search-icon">🔍</span>
-            <input type="text" class="search-input" placeholder="Tìm kiếm nhân vật, cốt truyện, lá thư..." onkeydown="if(event.key==='Enter') chuyenTrang(3)">
-        </div>
-
-        <div class="cards-grid">
-            <div class="feature-card" onclick="chuyenTrang(3)">
-                <div>
-                    <div class="card-header">
-                        <div class="icon-badge">🌿</div>
-                        <div class="tag-pill" id="char-count-pill">0 nhân vật 🍃</div>
-                    </div>
-                    <div class="card-title">Dấu chân</div>
-                    <p class="card-desc">Mỗi ô là một câu chuyện đợi bạn khám phá.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="card-subtext">Khám phá các nhân vật</span>
-                    <button class="btn-card">Xem nhân vật →</button>
-                </div>
-            </div>
-
-            <div class="feature-card" onclick="chuyenTrang(4)">
-                <div>
-                    <div class="card-header">
-                        <div class="icon-badge">📮</div>
-                        <div class="tag-pill" id="mail-count-pill-p2">0 lá thư 🕊️</div>
-                    </div>
-                    <div class="card-title">Hòm Thư</div>
-                    <p class="card-desc">Gửi vài dòng góp ý, tâm tình, cảm nghĩ tại đây.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="card-subtext">Nhắn gửi tâm tình</span>
-                    <button class="btn-card">Mở hòm thư →</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= TRANG 3: BỘ SƯU TẬP DẤU CHÂN ================= -->
-    <div class="page-container" id="page3">
-        <div class="p3-header">
-            <div class="p3-title-wrap">
-                <div class="p3-title-row">
-                    <span style="font-size: 1.6em;">🌿</span>
-                    <h1 class="p3-title">Dấu chân</h1>
-                </div>
-                <p class="p3-desc">Mỗi ô là một câu chuyện đợi bạn khám phá.</p>
-            </div>
+        <div class="two-columns-layout">
             
-            <div class="p3-actions-wrap">
-                <div class="p3-search-box">
-                    <span class="icon">🔍</span>
-                    <input type="text" class="p3-search-input" id="filterInput" placeholder="Lọc nhân vật..." oninput="locNhanVat()">
+            <!-- CỘT 1: DẤU CHÂN -->
+            <div class="col-card">
+                <div class="col-header">
+                    <div class="col-title">🌿 Dấu chân</div>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                        <div class="p3-search-box">
+                            <span class="icon">🔍</span>
+                            <input type="text" class="p3-search-input" id="filterInput" placeholder="Lọc nhân vật..." oninput="locNhanVat()">
+                        </div>
+                        <button class="btn-add-char" onclick="kiemTraQuyenThemChar()">+ Thêm</button>
+                    </div>
                 </div>
-                <button class="btn-add-char" onclick="kiemTraQuyenThemChar()">+ Thêm nhân vật</button>
+
+                <div class="char-grid" id="charGrid"></div>
             </div>
-        </div>
 
-        <div class="char-grid" id="charGrid"></div>
-    </div>
-
-    <!-- ================= TRANG 4: HÒM THƯ ================= -->
-    <div class="page-container" id="page4">
-        <h1 class="p2-title" style="font-size: 2.3em; margin-bottom: 2px;">📮 Hòm Thư</h1>
-        <div class="p2-subtitle" style="margin-bottom: 12px;">Gửi vài dòng góp ý, tâm tình, cảm nghĩ tại đây.</div>
-
-        <div class="mailbox-layout">
-            <div class="mailbox-form-card">
-                <h3 class="form-title">✍️ Viết thư gửi về trạm</h3>
-                <p class="form-subtitle">Gửi ý kiến đóng góp hoặc đôi dòng chia sẻ</p>
+            <!-- CỘT 2: HÒM THƯ -->
+            <div class="col-card">
+                <h3 class="form-title">📮 Hòm Thư Trạm Nghỉ</h3>
+                <p class="form-subtitle">Gửi vài dòng góp ý, tâm tình, cảm nghĩ tại đây.</p>
 
                 <div class="form-label-row">
                     <span>👤 Biệt danh</span>
@@ -641,9 +549,7 @@
                 <textarea class="mail-textarea" id="mailContent" placeholder="Nhập nội dung chia sẻ hoặc góp ý của bạn..."></textarea>
 
                 <button class="btn-send-mail" onclick="guiLaThuMoi()">🍃 Gửi thư về trạm</button>
-            </div>
 
-            <div class="mailbox-list-card">
                 <div class="list-header-row">
                     <span id="mail-list-header-count">NHỮNG LÁ THƯ ĐÃ GỬI (0)</span>
                     <span>Lưu trữ tin nhắn</span>
@@ -651,10 +557,11 @@
 
                 <div class="letters-container" id="lettersList"></div>
             </div>
+
         </div>
     </div>
 
-    <!-- ================= MODAL: DANH SÁCH 2 BÀI HÁT ================= -->
+    <!-- ================= MODAL: DANH SÁCH BÀI HÁT ================= -->
     <div class="modal-overlay" id="modal-music">
         <div class="modal-box">
             <button class="modal-close" onclick="dongModal('modal-music')">✕</button>
@@ -665,7 +572,7 @@
         </div>
     </div>
 
-    <!-- ================= MODAL: THÊM NHÂN VẬT (CÓ CHỌN THỂ LOẠI & LINK ĐOẠN CHAT) ================= -->
+    <!-- ================= MODAL: THÊM NHÂN VẬT ================= -->
     <div class="modal-overlay" id="modal-add-char">
         <div class="modal-box">
             <button class="modal-close" onclick="dongModal('modal-add-char')">✕</button>
@@ -674,7 +581,6 @@
             <label style="font-size:0.8em; color:#C8E6C9;">Tên nhân vật (Hạt giống):</label>
             <input type="text" id="newCharName" placeholder="Ví dụ: Dạ Nguyệt, Tiêu Dao, Kazuha...">
 
-            <!-- CHỌN THỂ LOẠI BL, BG HOẶC KHÔNG -->
             <label style="font-size:0.8em; color:#C8E6C9;">Thể loại:</label>
             <select id="newCharGenre">
                 <option value="Không">Không (Không phân loại)</option>
@@ -685,7 +591,6 @@
             <label style="font-size:0.8em; color:#C8E6C9;">Hashtag bổ sung (Tùy chọn):</label>
             <input type="text" id="newCharTags" placeholder="#Cổ trang, Trầm tính, Kiếm khách...">
 
-            <!-- LINK DẪN ĐẾN ĐOẠN CHAT -->
             <label style="font-size:0.8em; color:#C8E6C9;">Link dẫn đến đoạn chat (Tùy chọn):</label>
             <input type="url" id="newCharChatLink" placeholder="https://... (Link Character.ai, C.AI, bot, web...)">
             
@@ -883,17 +788,12 @@
             document.getElementById("page1").style.display = (soTrang === 1) ? "flex" : "none";
             document.getElementById("p1-logo").style.display = (soTrang === 1) ? "inline-flex" : "none";
             document.getElementById("page2").style.display = (soTrang === 2) ? "flex" : "none";
-            document.getElementById("page3").style.display = (soTrang === 3) ? "flex" : "none";
-            document.getElementById("page4").style.display = (soTrang === 4) ? "flex" : "none";
 
             if (soTrang === 1) {
                 backBtn.style.display = "none";
             } else if (soTrang === 2) {
                 backBtn.style.display = "inline-flex";
                 backBtn.onclick = () => chuyenTrang(1);
-            } else if (soTrang === 3 || soTrang === 4) {
-                backBtn.style.display = "inline-flex";
-                backBtn.onclick = () => chuyenTrang(2);
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -929,7 +829,6 @@
                 return;
             }
 
-            // Gắn tag tự động theo thể loại BL / BG
             let displayTags = "";
             if (genre === "BL") displayTags += "#BL";
             else if (genre === "BG") displayTags += "#BG";
@@ -980,7 +879,6 @@
 
             renderCharGrid();
 
-            // Reset form
             document.getElementById("newCharName").value = "";
             document.getElementById("newCharGenre").value = "Không";
             document.getElementById("newCharTags").value = "";
@@ -997,7 +895,7 @@
             grid.innerHTML = "";
 
             if (danhSachChar.length === 0) {
-                grid.innerHTML = `<div class="empty-placeholder">Chưa có dấu chân nào được lưu lại...<br>Chủ trạm hãy bấm "+ Thêm nhân vật" để bắt đầu dệt nên câu chuyện đầu tiên nhé 🍃</div>`;
+                grid.innerHTML = `<div class="empty-placeholder">Chưa có dấu chân nào...<br>Chủ trạm hãy bấm "+ Thêm" để tạo nhân vật đầu tiên nhé 🍃</div>`;
             } else {
                 danhSachChar.forEach(c => {
                     const card = document.createElement("div");
@@ -1009,9 +907,9 @@
                         </div>
                         <div class="char-body">
                             <h3 class="char-name">${c.name}</h3>
-                            <p class="char-story-snippet">${c.story.substring(0, 100)}...</p>
+                            <p class="char-story-snippet">${c.story.substring(0, 80)}...</p>
                             <div class="char-actions">
-                                <span class="char-link-btn" onclick="xemChiTiet('${c.name}', \`${c.story.replace(/`/g, "\\`")}\`, '${c.chatLink || ''}')">Xem cốt truyện & link</span>
+                                <span class="char-link-btn" onclick="xemChiTiet('${c.name}', \`${c.story.replace(/`/g, "\\`")}\`, '${c.chatLink || ''}')">Cốt truyện</span>
                                 <button class="btn-chat" onclick="xuLyTroChuyen('${c.name}', \`${c.story.replace(/`/g, "\\`")}\`, '${c.chatLink || ''}')">💬 Trò chuyện</button>
                             </div>
                         </div>
@@ -1019,13 +917,8 @@
                     grid.appendChild(card);
                 });
             }
-
-            const count = danhSachChar.length;
-            const countPill = document.getElementById('char-count-pill');
-            if (countPill) countPill.innerText = `${count} nhân vật 🍃`;
         }
 
-        // Xử lý khi bấm nút "Trò chuyện" trên thẻ nhân vật
         function xuLyTroChuyen(name, story, chatLink) {
             if (chatLink && chatLink.trim().startsWith('http')) {
                 window.open(chatLink.trim(), '_blank');
@@ -1136,7 +1029,7 @@
             container.innerHTML = "";
 
             if (danhSachThu.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:22px 10px; color:#A8D5BA; font-style:italic; font-size:0.82em;">Hòm thư đang trống... Hãy là người đầu tiên gửi gắm đôi dòng tâm tình nhé 💌</div>`;
+                container.innerHTML = `<div style="text-align:center; padding:15px 10px; color:#A8D5BA; font-style:italic; font-size:0.8em;">Hòm thư đang trống... Hãy gửi gắm lá thư đầu tiên nhé 💌</div>`;
             } else {
                 danhSachThu.forEach(l => {
                     const item = document.createElement("div");
@@ -1158,8 +1051,6 @@
 
             const count = danhSachThu.length;
             document.getElementById('mail-list-header-count').innerText = `NHỮNG LÁ THƯ ĐÃ GỬI (${count})`;
-            const countP2 = document.getElementById('mail-count-pill-p2');
-            if (countP2) countP2.innerText = `${count} lá thư 🕊️`;
         }
     </script>
 </body>
