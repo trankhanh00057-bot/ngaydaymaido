@@ -325,20 +325,21 @@
             font-family: 'Playfair Display', serif; font-size: 1.25em; color: #FFFFFF; margin: 0 0 10px 0; font-weight: 600;
         }
         
+        /* CÁC NÚT THAO TÁC TRÊN THẺ: NÚT TRÒ CHUYỆN ĐÃ ĐƯỢC MỞ RỘNG TO HẾT CỠ */
         .char-actions {
             display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 8px; gap: 4px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 8px; gap: 8px;
         }
-        .char-link-btn { font-size: 0.78em; color: #A8D5BA; cursor: pointer; text-decoration: none; }
-        .char-link-btn:hover { color: #7FE5B6; text-decoration: underline; }
-        .btn-chat {
+        .btn-chat-expanded {
+            flex: 1;
             background: rgba(18, 48, 28, 0.85); border: 1px solid rgba(127, 229, 182, 0.4);
-            border-radius: 12px; padding: 4px 10px; font-size: 11px;
-            color: #E8F5E9; cursor: pointer; display: inline-flex; align-items: center; gap: 3px;
+            border-radius: 14px; padding: 6px 12px; font-size: 12px; font-weight: 500;
+            color: #E8F5E9; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+            transition: 0.2s;
         }
-        .btn-chat:hover { background: rgba(30, 80, 48, 0.95); border-color: #7FE5B6; }
+        .btn-chat-expanded:hover { background: rgba(30, 80, 48, 0.95); border-color: #7FE5B6; }
         .btn-delete-char {
-            background: none; border: none; color: #EF9A9A; font-size: 13px; cursor: pointer; padding: 2px 4px; transition: 0.2s;
+            background: none; border: none; color: #EF9A9A; font-size: 15px; cursor: pointer; padding: 4px 6px; transition: 0.2s;
         }
         .btn-delete-char:hover { transform: scale(1.2); color: #FF5252; }
 
@@ -346,7 +347,8 @@
         .form-title { font-size: 1.15em; font-weight: bold; color: #FFFFFF; margin: 0 0 2px 0; }
         .form-subtitle { font-size: 0.8em; color: #A8D5BA; margin: 0 0 14px 0; }
         .form-label-row {
-            display: flex; justify-content: space-between; align-items: center; font-size: 0.82em; font-weight: bold; color: #E8F5E9; margin-bottom: 5px;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.82em; font-weight: bold; color: #E8F5E9; margin-bottom: 5px;
         }
         .chosen-icon-text { font-size: 0.75em; color: #7FE5B6; font-weight: normal; }
         
@@ -450,6 +452,15 @@
             background: rgba(255, 255, 255, 0.15); color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 16px; padding: 8px; font-family: 'Lora', serif; width: 100%; margin-top: 6px; cursor: pointer;
         }
+
+        /* Nút lựa chọn bản BL / BG trong Modal */
+        .btn-version-choice {
+            display: block; width: 100%; margin-top: 10px; padding: 12px;
+            background: rgba(25, 64, 38, 0.9); border: 1px solid #7FE5B6;
+            color: #ffffff; border-radius: 12px; font-family: 'Lora', serif;
+            font-size: 13.5px; font-weight: bold; text-align: center; cursor: pointer; transition: 0.2s;
+        }
+        .btn-version-choice:hover { background: #7FE5B6; color: #0A2416; }
 
         /* Chat box */
         .chat-messages {
@@ -591,27 +602,33 @@
         </div>
     </div>
 
-    <!-- ================= MODAL: THÊM NHÂN VẬT ================= -->
+    <!-- ================= MODAL: THÊM NHÂN VẬT (2 LINK CHAT BL & BG) ================= -->
     <div class="modal-overlay" id="modal-add-char">
         <div class="modal-box">
             <button class="modal-close" onclick="dongModal('modal-add-char')">✕</button>
             <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">🌿 Thêm Dấu Chân Mới</h3>
             
             <label style="font-size:0.8em; color:#C8E6C9;">Tên nhân vật (Hạt giống):</label>
-            <input type="text" id="newCharName" placeholder="Ví dụ: Dạ Nguyệt, Tiêu Dao, Kazuha...">
+            <input type="text" id="newCharName" placeholder="Ví dụ: Trần Hoàng Minh, Kazuha...">
 
+            <!-- CHỌN THỂ LOẠI BL, BL/BG HOẶC BG -->
             <label style="font-size:0.8em; color:#C8E6C9;">Thể loại:</label>
             <select id="newCharGenre">
-                <option value="Không">Không (Không phân loại)</option>
                 <option value="BL">BL (Boy Love)</option>
-                <option value="BG">BG (Boy Girl / Ngôn tình)</option>
+                <option value="BL/BG">BL/BG (Cả BL & BG)</option>
+                <option value="BG">BG (Boy Girl)</option>
+                <option value="Không">Không phân loại</option>
             </select>
             
             <label style="font-size:0.8em; color:#C8E6C9;">Hashtag bổ sung (Tùy chọn):</label>
-            <input type="text" id="newCharTags" placeholder="#Cổ trang, Trầm tính, Kiếm khách...">
+            <input type="text" id="newCharTags" placeholder="Slow burn, hàng xóm, đời thường...">
 
-            <label style="font-size:0.8em; color:#C8E6C9;">Link dẫn đến đoạn chat (Tùy chọn):</label>
-            <input type="url" id="newCharChatLink" placeholder="https://... (Link Character.ai, C.AI, bot, web...)">
+            <!-- 2 Ô LINK RIÊNG BIỆT -->
+            <label style="font-size:0.8em; color:#C8E6C9;">Link chat bản BL (Tùy chọn):</label>
+            <input type="url" id="newCharChatLinkBL" placeholder="https://... Link đoạn chat bản BL">
+
+            <label style="font-size:0.8em; color:#C8E6C9;">Link chat bản BG (Tùy chọn):</label>
+            <input type="url" id="newCharChatLinkBG" placeholder="https://... Link đoạn chat bản BG">
             
             <label style="font-size:0.8em; color:#C8E6C9;">Link ảnh chân dung (Tùy chọn):</label>
             <input type="text" id="newCharImg" placeholder="https://... (để trống sẽ tự lấy ảnh mặc định)">
@@ -626,20 +643,19 @@
         </div>
     </div>
 
-    <!-- ================= MODAL: XEM CỐT TRUYỆN ================= -->
-    <div class="modal-overlay" id="modal-view-detail">
-        <div class="modal-box">
-            <button class="modal-close" onclick="dongModal('modal-view-detail')">✕</button>
-            <h3 id="detail-title" style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;"></h3>
-            <div id="detail-content" style="font-size:0.88em; line-height:1.55; white-space:pre-line; color:#E8F5E9; margin-top:10px;"></div>
-            <div id="detail-chatlink-wrap" style="margin-top:14px; border-top:1px dashed rgba(255,255,255,0.3); padding-top:10px; display:none;">
-                <span style="font-size:0.82em; color:#7FE5B6;">🔗 Đoạn chat nhân vật:</span>
-                <a id="detail-chatlink-btn" href="#" target="_blank" style="color:#ffffff; font-size:0.85em; text-decoration:underline; display:block; margin-top:4px; word-break:break-all;">Mở liên kết chat ↗</a>
-            </div>
+    <!-- ================= MODAL: CHỌN BẢN BL HOẶC BG KHI BẤM TRÒ CHUYỆN ================= -->
+    <div class="modal-overlay" id="modal-choose-version">
+        <div class="modal-box" style="text-align:center;">
+            <button class="modal-close" onclick="dongModal('modal-choose-version')">✕</button>
+            <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">💬 Chọn Phiên Bản Chat</h3>
+            <p id="choose-char-desc" style="font-size:0.88em; color:#E8F5E9; margin-bottom:14px;">Nhân vật này có 2 phiên bản trò chuyện:</p>
+            
+            <button class="btn-version-choice" id="btnChoiceBL" onclick="moLinkChatDirect('BL')">🌿 Trò chuyện Bản BL ↗</button>
+            <button class="btn-version-choice" id="btnChoiceBG" onclick="moLinkChatDirect('BG')" style="border-color:#F48FB1; color:#FCE4EC;">🌸 Trò chuyện Bản BG ↗</button>
         </div>
     </div>
 
-    <!-- ================= MODAL: TRÒ CHUYỆN VỚI NHÂN VẬT ================= -->
+    <!-- ================= MODAL: TRÒ CHUYỆN VỚI NHÂN VẬT (AI) ================= -->
     <div class="modal-overlay" id="modal-chat-char">
         <div class="modal-box">
             <button class="modal-close" onclick="dongModal('modal-chat-char')">✕</button>
@@ -654,11 +670,8 @@
         </div>
     </div>
 
-    <!-- ================= SCRIPT XỬ LÝ & BỘ MÁY PHÁT NHẠC ================= -->
+    <!-- ================= SCRIPT XỬ LÝ ================= -->
     <script>
-        // ==========================================
-        // DÁN MÃ API GOOGLE MỚI CỦA BẠN VÀO ĐÂY NẾU MÃ CŨ BỊ KHÓA:
-        // ==========================================
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
         const ADMIN_PIN = "1234";
 
@@ -671,6 +684,7 @@
         let currentTrackIndex = 0;
         let selectedIcon = '🐱';
         let currentCharChat = null;
+        let selectedCharForChoice = null;
         let userManuallyMuted = false;
 
         const playList = [
@@ -678,7 +692,7 @@
             { title: "Magnetic", artist: "ILLIT", lang: "🇰🇷", ytid: "Vk5-c_v4gMU", zing: "https://zingmp3.vn/bai-hat/Magnetic-ILLIT/zVMnsEiOKFiV.html" }
         ];
 
-        let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v4')) || [];
+        let danhSachChar = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v5')) || [];
         let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters')) || [];
 
         window.onload = function() {
@@ -854,12 +868,13 @@
             }
         }
 
-        /* ================= QUẢN LÝ NHÂN VẬT & GỌI AI CHI TIẾT ================= */
+        /* ================= QUẢN LÝ NHÂN VẬT ================= */
         async function taoNhanVat(dungAI) {
             const name = document.getElementById("newCharName").value.trim();
             const genre = document.getElementById("newCharGenre").value;
             const customTags = document.getElementById("newCharTags").value.trim();
-            const chatLink = document.getElementById("newCharChatLink").value.trim();
+            const chatLinkBL = document.getElementById("newCharChatLinkBL").value.trim();
+            const chatLinkBG = document.getElementById("newCharChatLinkBG").value.trim();
             let img = document.getElementById("newCharImg").value.trim() || "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80";
             const info = document.getElementById("newCharInfo").value.trim();
 
@@ -868,9 +883,11 @@
                 return;
             }
 
+            // Gắn tag hiển thị chuẩn
             let displayTags = "";
-            if (genre === "BL") displayTags += "#BL";
-            else if (genre === "BG") displayTags += "#BG";
+            if (genre === "BL") displayTags = "#BL";
+            else if (genre === "BL/BG") displayTags = "#BL/BG";
+            else if (genre === "BG") displayTags = "#BG";
 
             if (customTags) {
                 displayTags += (displayTags ? ", " : "") + customTags;
@@ -899,7 +916,7 @@
                     document.getElementById("ai-loading").style.display = "none";
 
                     if (data.error) {
-                        alert("⚠️ Lỗi Google AI: " + data.error.message + "\n(Hệ thống sẽ lưu tạm thông tin gốc bạn nhập)");
+                        alert("⚠️ Lỗi Google AI: " + data.error.message + "\n(Hệ thống sẽ lưu nội dung thô bạn vừa nhập)");
                     } else if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
                         fullStory = data.candidates[0].content.parts[0].text.replace(/\*\*/g, '');
                     }
@@ -914,20 +931,23 @@
                 name: name, 
                 genre: genre,
                 tags: displayTags, 
-                chatLink: chatLink,
+                chatLinkBL: chatLinkBL,
+                chatLinkBG: chatLinkBG,
                 img: img, 
                 story: fullStory 
             };
 
             danhSachChar.unshift(newChar);
-            localStorage.setItem('ngay_day_mai_do_chars_v4', JSON.stringify(danhSachChar));
+            localStorage.setItem('ngay_day_mai_do_chars_v5', JSON.stringify(danhSachChar));
 
             renderCharGrid();
 
+            // Reset form
             document.getElementById("newCharName").value = "";
-            document.getElementById("newCharGenre").value = "Không";
+            document.getElementById("newCharGenre").value = "BL";
             document.getElementById("newCharTags").value = "";
-            document.getElementById("newCharChatLink").value = "";
+            document.getElementById("newCharChatLinkBL").value = "";
+            document.getElementById("newCharChatLinkBG").value = "";
             document.getElementById("newCharImg").value = "";
             document.getElementById("newCharInfo").value = "";
             dongModal('modal-add-char');
@@ -953,11 +973,8 @@
                         <div class="char-body">
                             <h3 class="char-name">${c.name}</h3>
                             <div class="char-actions">
-                                <span class="char-link-btn" onclick="xemChiTietById(${c.id})">Cốt truyện</span>
-                                <div style="display:flex; align-items:center; gap:6px;">
-                                    <button class="btn-chat" onclick="xuLyTroChuyenById(${c.id})">💬 Trò chuyện</button>
-                                    <button class="btn-delete-char" onclick="xoaNhanVatById(${c.id})" title="Xóa nhân vật">🗑️</button>
-                                </div>
+                                <button class="btn-chat-expanded" onclick="xuLyTroChuyenById(${c.id})">💬 Trò chuyện</button>
+                                <button class="btn-delete-char" onclick="xoaNhanVatById(${c.id})" title="Xóa nhân vật">🗑️</button>
                             </div>
                         </div>
                     `;
@@ -966,43 +983,46 @@
             }
         }
 
+        // XỬ LÝ TRÒ CHUYỆN THÔNG MINH CHO CẢ 2 LINK BL VÀ BG
         function xuLyTroChuyenById(id) {
             const char = danhSachChar.find(item => item.id === id);
             if (!char) return;
 
-            if (char.chatLink && char.chatLink.trim().startsWith('http')) {
-                window.open(char.chatLink.trim(), '_blank');
+            const hasBL = char.chatLinkBL && char.chatLinkBL.trim().startsWith('http');
+            const hasBG = char.chatLinkBG && char.chatLinkBG.trim().startsWith('http');
+
+            if (hasBL && hasBG) {
+                // Có cả 2 bản: Mở popup cho người dùng chọn
+                selectedCharForChoice = char;
+                document.getElementById("choose-char-desc").innerText = `Nhân vật ${char.name} có 2 phiên bản trò chuyện:`;
+                moModal('modal-choose-version');
+            } else if (hasBL) {
+                window.open(char.chatLinkBL.trim(), '_blank');
+            } else if (hasBG) {
+                window.open(char.chatLinkBG.trim(), '_blank');
             } else {
+                // Không có link nào -> mở chat AI
                 moTroChuyen(char.name, char.story);
             }
         }
 
-        function xemChiTietById(id) {
-            const char = danhSachChar.find(item => item.id === id);
-            if (!char) return;
-
-            document.getElementById("detail-title").innerText = `🌿 Cốt truyện: ${char.name}`;
-            document.getElementById("detail-content").innerText = char.story;
-
-            const chatLinkWrap = document.getElementById("detail-chatlink-wrap");
-            const chatLinkBtn = document.getElementById("detail-chatlink-btn");
-            if (char.chatLink && char.chatLink.trim().startsWith('http')) {
-                chatLinkWrap.style.display = "block";
-                chatLinkBtn.href = char.chatLink.trim();
-                chatLinkBtn.innerText = char.chatLink.trim();
-            } else {
-                chatLinkWrap.style.display = "none";
+        function moLinkChatDirect(type) {
+            if (!selectedCharForChoice) return;
+            if (type === 'BL' && selectedCharForChoice.chatLinkBL) {
+                window.open(selectedCharForChoice.chatLinkBL.trim(), '_blank');
+            } else if (type === 'BG' && selectedCharForChoice.chatLinkBG) {
+                window.open(selectedCharForChoice.chatLinkBG.trim(), '_blank');
             }
-
-            moModal("modal-view-detail");
+            dongModal('modal-choose-version');
         }
 
+        // XÓA NHÂN VẬT
         function xoaNhanVatById(id) {
             const pass = prompt("🌿 Nhập mật khẩu chủ trạm để xóa nhân vật này:");
             if (pass === ADMIN_PIN) {
                 if (confirm("Bạn có chắc chắn muốn xóa dấu chân nhân vật này không?")) {
                     danhSachChar = danhSachChar.filter(item => item.id !== id);
-                    localStorage.setItem('ngay_day_mai_do_chars_v4', JSON.stringify(danhSachChar));
+                    localStorage.setItem('ngay_day_mai_do_chars_v5', JSON.stringify(danhSachChar));
                     renderCharGrid();
                     alert("🌿 Đã xóa nhân vật thành công!");
                 }
@@ -1020,13 +1040,13 @@
             });
         }
 
-        /* ================= TRÒ CHUYỆN VỚI CHAR ================= */
+        /* ================= TRÒ CHUYỆN VỚI CHAR (AI) ================= */
         function moTroChuyen(name, story) {
             currentCharChat = { name, story };
             document.getElementById("chat-title").innerText = `💬 Trò chuyện cùng ${name}`;
             const box = document.getElementById("chatMessages");
             box.innerHTML = `<div class="chat-bubble bubble-char">Chào bạn, ta là ${name}. Thật vui khi gặp bạn tại trạm nghỉ ngày hôm nay...</div>`;
-            moModal("modal-chat-char");
+            moModal('modal-chat-char');
         }
 
         async function guiTinNhanChoChar() {
