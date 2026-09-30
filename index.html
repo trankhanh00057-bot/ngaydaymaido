@@ -184,7 +184,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* ================= TAB 1: DẤU CHÂN (TÁCH KHUNG HOÀN TOÀN) ================= */
+        /* ================= TAB 1: DẤU CHÂN ================= */
         .dauchan-wrapper {
             width: 100%;
         }
@@ -302,73 +302,45 @@
         }
         .btn-delete-char:hover { transform: scale(1.2); color: #FF5252; }
 
-        /* ================= TAB 2: HÒM THƯ TRỰC TUYẾN TOÀN CẦU ================= */
-        .homthu-box {
+        /* ================= TAB 2: HÒM THƯ NGL LINK ================= */
+        .ngl-box {
             width: 100%;
+            max-width: 520px;
+            margin: 0 auto;
             background: rgba(12, 36, 21, 0.94);
             border: 1px solid rgba(85, 139, 110, 0.35);
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 22px 18px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.35);
             backdrop-filter: blur(8px);
-            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
-        .form-title { font-size: 1.2em; font-weight: bold; color: #FFFFFF; margin: 0 0 2px 0; }
-        .form-subtitle { font-size: 0.82em; color: #A8D5BA; margin: 0 0 14px 0; }
-        .form-label-row {
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.85em; font-weight: bold; color: #E8F5E9; margin-bottom: 5px;
+        .ngl-iframe {
+            width: 100%;
+            height: 520px;
+            border: 1.5px solid rgba(127, 229, 182, 0.45);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            background: #ffffff;
+            margin-top: 12px;
         }
-        .chosen-icon-text { font-size: 0.78em; color: #7FE5B6; font-weight: normal; }
-        
-        .icon-scroll-bar {
-            display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;
-            padding: 4px 2px 8px 2px; margin-bottom: 10px; width: 100%;
+        .btn-ngl-external {
+            display: inline-block;
+            background: #7FE5B6;
+            color: #0A2416;
+            font-weight: bold;
+            font-family: 'Lora', serif;
+            text-decoration: none;
+            padding: 9px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-top: 12px;
+            transition: 0.2s;
         }
-        .icon-scroll-bar::-webkit-scrollbar { height: 3px; }
-        .icon-scroll-bar::-webkit-scrollbar-thumb { background: rgba(127, 229, 182, 0.4); border-radius: 10px; }
-        .icon-opt {
-            background: rgba(18, 48, 28, 0.85); border: 1px solid rgba(85, 139, 110, 0.4);
-            border-radius: 8px; width: 34px; height: 34px; min-width: 34px;
-            display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; flex-shrink: 0;
-        }
-        .icon-opt.active { border: 2px solid #7FE5B6; background: rgba(35, 95, 58, 0.95); }
-
-        .mail-input, .mail-select, .mail-textarea {
-            width: 100%; background: rgba(8, 26, 15, 0.8);
-            border: 1px solid rgba(85, 139, 110, 0.5); border-radius: 10px;
-            padding: 9px 12px; color: #FFFFFF; font-family: 'Lora', serif; font-size: 14px; margin-bottom: 12px; outline: none;
-        }
-        .mail-textarea { min-height: 80px; resize: vertical; margin-bottom: 6px; }
-        .btn-send-mail {
-            background-color: #7FE5B6; color: #0A2416; border: none;
-            border-radius: 16px; padding: 10px; width: 100%; font-size: 13.5px; font-family: 'Lora', serif; font-weight: bold; cursor: pointer;
-        }
-
-        .list-header-row {
-            display: flex; justify-content: space-between; align-items: center; font-size: 0.78em; color: #A8D5BA; font-weight: bold; margin: 18px 0 10px 0;
-            border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 12px;
-        }
-        .letters-container {
-            display: flex; flex-direction: column; gap: 10px; max-height: 340px; overflow-y: auto; padding-right: 2px;
-        }
-        .letters-container::-webkit-scrollbar { width: 3px; }
-        .letters-container::-webkit-scrollbar-thumb { background: rgba(127, 229, 182, 0.3); border-radius: 10px; }
-        .letter-item {
-            background: rgba(8, 26, 15, 0.8); border: 1px solid rgba(85, 139, 110, 0.4); border-radius: 10px; padding: 12px;
-        }
-        .letter-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .user-info { display: flex; align-items: center; gap: 6px; }
-        .user-avatar-badge {
-            background: rgba(25, 64, 38, 0.8); border-radius: 5px; width: 24px; height: 24px;
-            display: flex; align-items: center; justify-content: center; font-size: 13px;
-        }
-        .user-name { font-weight: bold; color: #FFFFFF; font-size: 0.88em; }
-        .mood-tag {
-            background: rgba(22, 60, 36, 0.9); border: 1px solid rgba(127, 229, 182, 0.3); color: #7FE5B6; font-size: 10px; padding: 1px 6px; border-radius: 6px;
-        }
-        .letter-date { font-size: 0.72em; color: #8EA898; }
-        .letter-content { font-size: 0.84em; color: #E8F5E9; line-height: 1.5; margin: 0; }
+        .btn-ngl-external:hover { background: #A3F0CC; transform: scale(1.02); }
 
         /* ================= MODAL CỬA SỔ CHUNG ================= */
         .modal-overlay {
@@ -473,47 +445,15 @@
             <div class="char-grid" id="charGrid"></div>
         </div>
 
-        <!-- NỘI DUNG TAB 2: HÒM THƯ (KẾT NỐI MÁY CHỦ TOÀN CẦU) -->
-        <div class="homthu-box" id="tabContentHomThu" style="display: none;">
-            <h3 class="form-title">📮 Hòm Thư Trạm Nghỉ</h3>
-            <p class="form-subtitle">Gửi vài dòng góp ý, tâm tình, cảm nghĩ tại đây (Công khai toàn cầu).</p>
-
-            <div class="form-label-row">
-                <span>👤 Biệt danh</span>
-                <span class="chosen-icon-text">Icon đã chọn: <span id="current-chosen-icon">🐱</span></span>
-            </div>
-
-            <div class="icon-scroll-bar" id="iconBar">
-                <div class="icon-opt active" onclick="chonIcon('🐱', this)">🐱</div>
-                <div class="icon-opt" onclick="chonIcon('🐰', this)">🐰</div>
-                <div class="icon-opt" onclick="chonIcon('🐻', this)">🐻</div>
-                <div class="icon-opt" onclick="chonIcon('🐤', this)">🐤</div>
-                <div class="icon-opt" onclick="chonIcon('🦊', this)">🦊</div>
-                <div class="icon-opt" onclick="chonIcon('🐼', this)">🐼</div>
-                <div class="icon-opt" onclick="chonIcon('🐸', this)">🐸</div>
-                <div class="icon-opt" onclick="chonIcon('🐧', this)">🐧</div>
-                <div class="icon-opt" onclick="chonIcon('🐹', this)">🐹</div>
-            </div>
-
-            <input type="text" class="mail-input" id="mailSender" placeholder="🐱 Nhập biệt danh của bạn...">
-
-            <div class="form-label-row"><span>💌 Tem cảm xúc</span></div>
-            <select class="mail-select" id="mailMood">
-                <option value="Hài lòng">Hài lòng</option>
-                <option value="Không hài lòng">Không hài lòng</option>
-            </select>
-
-            <div class="form-label-row"><span>📝 Lời nhắn / Góp ý</span></div>
-            <textarea class="mail-textarea" id="mailContent" placeholder="Nhập nội dung chia sẻ hoặc góp ý của bạn..."></textarea>
-
-            <button class="btn-send-mail" id="btnSendLetter" onclick="guiLaThuMoi()">🍃 Gửi thư về trạm</button>
-
-            <div class="list-header-row">
-                <span id="mail-list-header-count">NHỮNG LÁ THƯ ĐÃ GỬI (0)</span>
-                <span style="font-size:0.9em; cursor:pointer; color:#7FE5B6;" onclick="taiThuTuMayChuToanCau()" title="Tải lại thư mới nhất">🔄 Cập nhật thư mới</span>
-            </div>
-
-            <div class="letters-container" id="lettersList"></div>
+        <!-- NỘI DUNG TAB 2: HÒM THƯ NGL CHÍNH THỨC -->
+        <div class="ngl-box" id="tabContentHomThu" style="display: none;">
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.4em; color:#7FE5B6; margin-bottom:4px;">📮 Hòm Thư Ẩn Danh</h3>
+            <p style="font-size:0.88em; color:#C8E6C9; margin-bottom:8px;">Gửi lại đôi dòng tâm tình hoặc góp ý ẩn danh trực tiếp qua NGL nhé:</p>
+            
+            <!-- Nhúng trực tiếp khung NGL -->
+            <iframe src="https://ngl.link/ngaydaymaido/gas" class="ngl-iframe" title="Hòm thư NGL"></iframe>
+            
+            <a href="https://ngl.link/ngaydaymaido/gas" target="_blank" class="btn-ngl-external">💌 Mở trang gửi NGL trên tab mới ↗</a>
         </div>
 
     </div>
@@ -525,7 +465,7 @@
             <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">🌿 Thêm Dấu Chân Mới</h3>
             
             <label style="font-size:0.8em; color:#C8E6C9;">Tên nhân vật (Hạt giống):</label>
-            <input type="text" id="newCharName" placeholder="Ví dụ: Trần Hoàng Minh, Lee Do-hyun...">
+            <input type="text" id="newCharName" placeholder="Ví dụ: Lee Do-hyun, Trần Hoàng Minh...">
 
             <label style="font-size:0.8em; color:#C8E6C9;">Thể loại:</label>
             <select id="newCharGenre">
@@ -569,31 +509,16 @@
         </div>
     </div>
 
-    <!-- ================= SCRIPT XỬ LÝ & ĐỒNG BỘ MÁY CHỦ TOÀN CẦU ================= -->
+    <!-- ================= SCRIPT XỬ LÝ ================= -->
     <script>
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
         const ADMIN_PIN = "1234";
 
-        // MÁY CHỦ DATABASE TOÀN CẦU CHO HÒM THƯ (HOẠT ĐỘNG 100% TRỰC TUYẾN)
-        const FIREBASE_DB_URL = "https://ngay-day-mai-do-default-rtdb.asia-southeast1.firebasedatabase.app/letters.json";
-
         const backBtn = document.getElementById("globalBackBtn");
-        
-        let selectedIcon = '🐱';
         let selectedCharForChoice = null;
 
-        // DANH SÁCH NHÂN VẬT GỐC MẶC ĐỊNH
+        // DANH SÁCH NHÂN VẬT GỐC (SẮP XẾP: CÁI LÊN SAU NẰM TRÊN, CÁI LÊN TRƯỚC NẰM DƯỚI)
         const danhSachCharGoc = [
-            {
-                id: 1711800000001,
-                name: "Trần Hoàng Minh",
-                genre: "BL",
-                tags: "#BL, Slow burn, hàng xóm, đời thường",
-                chatLinkBL: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221j9e5YzNRzjh6i9sFmKNleQ-N74ubk_iJ%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
-                chatLinkBG: "",
-                img: "https://scontent.fsgn18-1.fna.fbcdn.net/v/t39.30808-6/777447664_122095400475449844_3244830687070722656_n.jpg?stp=dst-jpg_tt6&cstp=mx1242x1155&ctp=s1242x1155&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_ohc=x39z8ztcYAgQ7kNvwHdxl9e&_nc_oc=AdodF7Jugb-FUr5qCNOYTndAQ8exIX2hQ-rFzFzFKrzoNDe4tAaofOUkqTROohq587m3Rol25-mpOiMQgHiiq7oY&_nc_zt=23&_nc_ht=scontent.fsgn18-1.fna&_nc_gid=tZ_vGsPoH04rEdbJtrckSQ&_nc_ss=7b2a8&oh=00_AQPEbIBEML7l7DYY9R6JvwSDpAswVFy6RxtDI3ll4aX_yQ&oe=6AC2B8C7",
-                story: '"Xe hư phần nào tao sửa phần đó, tính đúng giá thợ. Còn cái chậu bông này... mày nợ tao một ly cà phê đó nghen."'
-            },
             {
                 id: 1711800000002,
                 name: "Lee Do-hyun",
@@ -603,38 +528,26 @@
                 chatLinkBG: "",
                 img: "https://scontent.fsgn18-1.fna.fbcdn.net/v/t39.30808-6/788689873_122105465097449844_1258444501193229698_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2048&ctp=s2048x2048&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_ohc=V3cyz7ctyU0Q7kNvwEU7UYz&_nc_oc=AdrR31tlA82DNGMArlhu4kDvV3taAVKJrw-XHGvRA4yqP1UqXQXBz1sgZpuD_hfv4ymIlPzSL4ybxZGU1VMoZaCx&_nc_zt=23&_nc_ht=scontent.fsgn18-1.fna&_nc_gid=-1QgnHft-kuHzWwAJ1dH8A&_nc_ss=7b2a8&oh=00_AQNQGPqp2pD-9u9TV5DZLKw39EQaxGJpUgG-TTL0ICa1WA&oe=6AC2A18B",
                 story: "Mối quan hệ bí mật giữa ánh hào quang showbiz và những cảm xúc giấu kín sau ánh đèn sân khấu..."
+            },
+            {
+                id: 1711800000001,
+                name: "Trần Hoàng Minh",
+                genre: "BL",
+                tags: "#BL, Slow burn, hàng xóm, đời thường",
+                chatLinkBL: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221j9e5YzNRzjh6i9sFmKNleQ-N74ubk_iJ%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
+                chatLinkBG: "",
+                img: "https://scontent.fsgn18-1.fna.fbcdn.net/v/t39.30808-6/777447664_122095400475449844_3244830687070722656_n.jpg?stp=dst-jpg_tt6&cstp=mx1242x1155&ctp=s1242x1155&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_ohc=x39z8ztcYAgQ7kNvwHdxl9e&_nc_oc=AdodF7Jugb-FUr5qCNOYTndAQ8exIX2hQ-rFzFzFKrzoNDe4tAaofOUkqTROohq587m3Rol25-mpOiMQgHiiq7oY&_nc_zt=23&_nc_ht=scontent.fsgn18-1.fna&_nc_gid=tZ_vGsPoH04rEdbJtrckSQ&_nc_ss=7b2a8&oh=00_AQPEbIBEML7l7DYY9R6JvwSDpAswVFy6RxtDI3ll4aX_yQ&oe=6AC2B8C7",
+                story: '"Xe hư phần nào tao sửa phần đó, tính đúng giá thợ. Còn cái chậu bông này... mày nợ tao một ly cà phê đó nghen."'
             }
         ];
 
-        const cachedChars = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v14'));
+        // LÀM MỚI BỘ NHỚ ĐỂ ĐỒNG BỘ ĐÚNG THỨ TỰ CHO TẤT CẢ THIẾT BỊ
+        const cachedChars = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_ordered'));
         let danhSachChar = (cachedChars && cachedChars.length > 0) ? cachedChars : danhSachCharGoc;
-        let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters_v14')) || [];
 
         window.onload = function() {
             renderCharGrid();
-            renderLetterList();
-            taiThuTuMayChuToanCau(); // Tải thư đám mây ngay khi mở trang
         };
-
-        /* ================= TỰ ĐỘNG ĐỒNG BỘ HÒM THƯ TOÀN CẦU (FIREBASE) ================= */
-        async function taiThuTuMayChuToanCau() {
-            try {
-                const res = await fetch(FIREBASE_DB_URL);
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data) {
-                        const lettersFromCloud = Array.isArray(data) ? data : Object.values(data);
-                        if (lettersFromCloud.length > 0) {
-                            danhSachThu = lettersFromCloud.reverse();
-                            localStorage.setItem('ngay_day_mai_do_letters_v14', JSON.stringify(danhSachThu));
-                            renderLetterList();
-                        }
-                    }
-                }
-            } catch (err) {
-                console.log("Đang đọc thư từ bộ nhớ lưu trữ.");
-            }
-        }
 
         /* ================= CHUYỂN TRANG & CHUYỂN TAB ================= */
         function chuyenTrang(soTrang) {
@@ -668,7 +581,6 @@
                 tabHomThu.style.display = 'block';
                 btnDauChan.classList.remove('active');
                 btnHomThu.classList.add('active');
-                taiThuTuMayChuToanCau(); // Tải lại thư mới nhất khi chuyển qua tab hòm thư
             }
         }
 
@@ -766,8 +678,9 @@
                 story: fullStory 
             };
 
+            // NHÂN VẬT MỚI TẠO LUÔN ĐƯỢC ĐẨY LÊN ĐẦU (CÁI CŨ HƠN TỰ CHÌM XUỐNG DƯỚI)
             danhSachChar.unshift(newChar);
-            localStorage.setItem('ngay_day_mai_do_chars_v14', JSON.stringify(danhSachChar));
+            localStorage.setItem('ngay_day_mai_do_chars_ordered', JSON.stringify(danhSachChar));
             renderCharGrid();
 
             // Reset form
@@ -788,7 +701,7 @@
             grid.innerHTML = "";
 
             if (danhSachChar.length === 0) {
-                grid.innerHTML = `<div class="empty-placeholder">Chưa có dấu chân nào...<br>Chủ trạm hãy bấm "+ Thêm" để tạo nhân vật đầu tiên nhé 🍃</div>`;
+                grid.innerHTML = `<div class="empty-placeholder">Chưa có dấu chân nào...<br>Chủ trạm hãy bấm "+ Thêm nhân vật" để tạo nhân vật đầu tiên nhé 🍃</div>`;
             } else {
                 danhSachChar.forEach(c => {
                     let btnText = "💬 BL";
@@ -852,7 +765,7 @@
             if (pass === ADMIN_PIN) {
                 if (confirm("Bạn có chắc chắn muốn xóa dấu chân nhân vật này không?")) {
                     danhSachChar = danhSachChar.filter(item => item.id !== id);
-                    localStorage.setItem('ngay_day_mai_do_chars_v14', JSON.stringify(danhSachChar));
+                    localStorage.setItem('ngay_day_mai_do_chars_ordered', JSON.stringify(danhSachChar));
                     renderCharGrid();
                     alert("🌿 Đã xóa nhân vật thành công!");
                 }
@@ -868,87 +781,6 @@
                 const text = card.innerText.toLowerCase();
                 card.style.display = text.includes(query) ? "flex" : "none";
             });
-        }
-
-        /* ================= QUẢN LÝ HÒM THƯ (KẾT NỐI MÁY CHỦ TOÀN CẦU) ================= */
-        function chonIcon(icon, el) {
-            selectedIcon = icon;
-            document.getElementById('current-chosen-icon').innerText = icon;
-            document.getElementById('mailSender').placeholder = `${icon} Nhập biệt danh của bạn...`;
-            document.querySelectorAll('.icon-opt').forEach(item => item.classList.remove('active'));
-            el.classList.add('active');
-        }
-
-        async function guiLaThuMoi() {
-            const name = document.getElementById('mailSender').value.trim();
-            const mood = document.getElementById('mailMood').value;
-            const content = document.getElementById('mailContent').value.trim();
-
-            if (!name || !content) {
-                alert("Vui lòng nhập biệt danh và lời nhắn trước khi gửi nhé!");
-                return;
-            }
-
-            const sendBtn = document.getElementById('btnSendLetter');
-            sendBtn.innerText = "Đang gửi lên đám mây...";
-            sendBtn.disabled = true;
-
-            const today = new Date();
-            const dateStr = `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()}`;
-
-            const newLetter = { id: Date.now(), icon: selectedIcon, name, mood, content, date: dateStr };
-            
-            // 1. Cập nhật tại chỗ
-            danhSachThu.unshift(newLetter);
-            localStorage.setItem('ngay_day_mai_do_letters_v14', JSON.stringify(danhSachThu));
-            renderLetterList();
-
-            // 2. GỬI LÊN MÁY CHỦ FIREBASE TOÀN CẦU ĐỂ TẤT CẢ MỌI NGƯỜI ĐỀU THẤY
-            try {
-                await fetch(FIREBASE_DB_URL, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newLetter)
-                });
-            } catch (err) {
-                console.log("Lỗi gửi máy chủ:", err);
-            }
-
-            sendBtn.innerText = "🍃 Gửi thư về trạm";
-            sendBtn.disabled = false;
-
-            document.getElementById('mailSender').value = "";
-            document.getElementById('mailContent').value = "";
-            alert("🌿 Lá thư của bạn đã được gửi công khai lên trạm nghỉ toàn cầu!");
-        }
-
-        function renderLetterList() {
-            const container = document.getElementById('lettersList');
-            container.innerHTML = "";
-
-            if (danhSachThu.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:20px 10px; color:#A8D5BA; font-style:italic; font-size:0.85em;">Hòm thư đang trống... Hãy gửi gắm lá thư đầu tiên nhé 💌</div>`;
-            } else {
-                danhSachThu.forEach(l => {
-                    const item = document.createElement("div");
-                    item.className = "letter-item";
-                    item.innerHTML = `
-                        <div class="letter-item-header">
-                            <div class="user-info">
-                                <div class="user-avatar-badge">${l.icon}</div>
-                                <span class="user-name">${l.name}</span>
-                                <span class="mood-tag">${l.mood}</span>
-                            </div>
-                            <span class="letter-date">${l.date}</span>
-                        </div>
-                        <p class="letter-content">${l.content}</p>
-                    `;
-                    container.appendChild(item);
-                });
-            }
-
-            const count = danhSachThu.length;
-            document.getElementById('mail-list-header-count').innerText = `NHỮNG LÁ THƯ ĐÃ GỬI (${count})`;
         }
     </script>
 </body>
