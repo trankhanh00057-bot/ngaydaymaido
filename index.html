@@ -707,24 +707,24 @@
             { title: "Magnetic", artist: "ILLIT", lang: "🇰🇷", ytid: "Vk5-c_v4gMU", zing: "https://zingmp3.vn/bai-hat/Magnetic-ILLIT/zVMnsEiOKFiV.html" }
         ];
 
-        // DANH SÁCH NHÂN VẬT GỐC MẶC ĐỊNH (LUÔN CÓ MẶT TRÊN MỌI THIẾT BỊ)
+        // DANH SÁCH NHÂN VẬT GỐC CHUẨN CỦA BẠN (CỐ ĐỊNH CHO TẤT CẢ MỌI THIẾT BỊ)
         const danhSachCharGoc = [
             {
-                id: 1711800000000,
+                id: 1711800000001,
                 name: "Trần Hoàng Minh",
                 genre: "BL",
                 tags: "#BL, Slow burn, hàng xóm, đời thường",
-                chatLinkBL: "https://aistudio.google.com/",
+                chatLinkBL: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221j9e5YzNRzjh6i9sFmKNleQ-N74ubk_iJ%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "",
-                img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
-                story: "Minh sinh ra và lớn lên ở một cù lao nhỏ miệt vườn, tính tình trầm tĩnh, tháo vát và mang nhiều tâm sự giấu kín..."
+                img: "https://scontent.fsgn18-1.fna.fbcdn.net/v/t39.30808-6/777447664_122095400475449844_3244830687070722656_n.jpg?stp=dst-jpg_tt6&cstp=mx1242x1155&ctp=s1242x1155&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_ohc=x39z8ztcYAgQ7kNvwHdxl9e&_nc_oc=AdodF7Jugb-FUr5qCNOYTndAQ8exIX2hQ-rFzFzFKrzoNDe4tAaofOUkqTROohq587m3Rol25-mpOiMQgHiiq7oY&_nc_zt=23&_nc_ht=scontent.fsgn18-1.fna&_nc_gid=tZ_vGsPoH04rEdbJtrckSQ&_nc_ss=7b2a8&oh=00_AQPEbIBEML7l7DYY9R6JvwSDpAswVFy6RxtDI3ll4aX_yQ&oe=6AC2B8C7",
+                story: '"Xe hư phần nào tao sửa phần đó, tính đúng giá thợ. Còn cái chậu bông này... mày nợ tao một ly cà phê đó nghen."'
             }
         ];
 
-        // SỬA LỖI LOGIC: ĐẢM BẢO THIẾT BỊ KHÁC LUÔN NẠP ĐẦY ĐỦ NHÂN VẬT GỐC
-        const cachedChars = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v9'));
+        // ĐẢM BẢO MỌI THIẾT BỊ MỞ LÊN ĐỀU THẤY NGAY NHÂN VẬT GỐC
+        const cachedChars = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v10'));
         let danhSachChar = (cachedChars && cachedChars.length > 0) ? cachedChars : danhSachCharGoc;
-        let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters_v9')) || [];
+        let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters_v10')) || [];
 
         window.onload = function() {
             renderCharGrid();
@@ -899,7 +899,7 @@
             }
         }
 
-        /* ================= HÀM GỌI GOOGLE AI ĐA TẦNG ================= */
+        /* ================= HÀM GỌI GOOGLE AI ================= */
         async function goiAIThongMinh(prompt) {
             const endpoints = [
                 "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
@@ -982,7 +982,7 @@
             };
 
             danhSachChar.unshift(newChar);
-            localStorage.setItem('ngay_day_mai_do_chars_v9', JSON.stringify(danhSachChar));
+            localStorage.setItem('ngay_day_mai_do_chars_v10', JSON.stringify(danhSachChar));
             renderCharGrid();
 
             // Reset form
@@ -1010,7 +1010,7 @@
                     card.className = "char-card";
                     card.innerHTML = `
                         <div class="char-img-container" onclick="xemChiTietById(${c.id})" title="Bấm để xem cốt truyện">
-                            <img src="${c.img}" class="char-img" alt="${c.name}">
+                            <img src="${c.img}" class="char-img" alt="${c.name}" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80'">
                             <div class="char-tag-overlay">${c.tags}</div>
                         </div>
                         <div class="char-body">
@@ -1026,7 +1026,6 @@
             }
         }
 
-        // BẤM VÀO TÊN HOẶC ẢNH SẼ HIỆN NỘI DUNG ĐÃ NHẬP
         function xemChiTietById(id) {
             const char = danhSachChar.find(item => item.id === id);
             if (!char) return;
@@ -1088,7 +1087,7 @@
             if (pass === ADMIN_PIN) {
                 if (confirm("Bạn có chắc chắn muốn xóa dấu chân nhân vật này không?")) {
                     danhSachChar = danhSachChar.filter(item => item.id !== id);
-                    localStorage.setItem('ngay_day_mai_do_chars_v9', JSON.stringify(danhSachChar));
+                    localStorage.setItem('ngay_day_mai_do_chars_v10', JSON.stringify(danhSachChar));
                     renderCharGrid();
                     alert("🌿 Đã xóa nhân vật thành công!");
                 }
@@ -1162,7 +1161,7 @@
 
             const newLetter = { id: Date.now(), icon: selectedIcon, name, mood, content, date: dateStr };
             danhSachThu.unshift(newLetter);
-            localStorage.setItem('ngay_day_mai_do_letters_v9', JSON.stringify(danhSachThu));
+            localStorage.setItem('ngay_day_mai_do_letters_v10', JSON.stringify(danhSachThu));
 
             renderLetterList();
 
