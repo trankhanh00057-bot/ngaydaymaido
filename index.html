@@ -140,6 +140,40 @@
             margin-top: 16px; opacity: 0.9;
         }
 
+        /* NÚT MẠNG XÃ HỘI TRANG 1 */
+        .social-links-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(14, 40, 24, 0.85);
+            border: 1px solid rgba(127, 229, 182, 0.4);
+            color: #E8F5E9;
+            text-decoration: none;
+            padding: 7px 16px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-family: 'Lora', serif;
+            font-weight: 500;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.25s ease;
+        }
+        .social-btn:hover {
+            background: rgba(25, 64, 38, 0.95);
+            border-color: #7FE5B6;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+        }
+
         /* ================= GIAO DIỆN TRANG 2 ================= */
         #page2 { 
             display: none; 
@@ -288,11 +322,11 @@
         }
 
         .char-actions {
-            display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 12px; gap: 8px;
+            display: flex; justify-content: center; align-items: center;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 12px;
         }
         .btn-chat-expanded {
-            flex: 1;
+            width: 100%;
             background: rgba(18, 48, 28, 0.85); border: 1px solid rgba(127, 229, 182, 0.45);
             border-radius: 14px; padding: 8px 12px; font-size: 13px; font-weight: bold;
             font-family: 'Lora', serif;
@@ -300,10 +334,6 @@
             transition: 0.2s;
         }
         .btn-chat-expanded:hover { background: rgba(30, 80, 48, 0.95); border-color: #7FE5B6; }
-        .btn-delete-char {
-            background: none; border: none; color: #EF9A9A; font-size: 16px; cursor: pointer; padding: 4px 6px; transition: 0.2s;
-        }
-        .btn-delete-char:hover { transform: scale(1.2); color: #FF5252; }
 
         /* ================= TAB 2: HÒM THƯ NGL LINK ================= */
         .ngl-box {
@@ -403,6 +433,16 @@
         </div>
         <button class="btn-wander" onclick="chuyenTrang(2)">Đi dạo đó đây</button>
         <div class="footer-quote">~ Một bước chân, một câu chuyện ~</div>
+
+        <!-- PHẦN MẠNG XÃ HỘI TRANG ĐẦU -->
+        <div class="social-links-wrapper">
+            <a href="https://www.facebook.com/p/Ng%C3%A0y-%C4%90%C3%A2y-Mai-%C4%90%C3%B3-61593495327758/" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <span>📘</span> Facebook
+            </a>
+            <a href="https://discord.com/users/1238439209124102208" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <span>👾</span> Discord
+            </a>
+        </div>
     </div>
 
     <!-- ================= TRANG 2: NGÀY ĐÂY MAI ĐÓ ================= -->
@@ -455,11 +495,10 @@
 
     <!-- ================= SCRIPT XỬ LÝ ================= -->
     <script>
-        const ADMIN_PIN = "1234";
         const backBtn = document.getElementById("globalBackBtn");
         let selectedCharForChoice = null;
 
-        // DANH SÁCH NHÂN VẬT GỐC (ĐÃ SỬA CHUẨN CÚ PHÁP ĐẦY ĐỦ 9 NHÂN VẬT)
+        // DANH SÁCH NHÂN VẬT GỐC (ĐẦY ĐỦ 9 NHÂN VẬT)
         const danhSachCharGoc = [
             {
                 id: 1711800000009,
@@ -553,8 +592,8 @@
             }
         ];
 
-        // LÀM MỚI BỘ NHỚ V16 ĐỂ TẤT CẢ THIẾT BỊ ĐỒNG BỘ ĐẦY ĐỦ 9 NHÂN VẬT
-        const cachedChars = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v16'));
+        // LÀM MỚI BỘ NHỚ V17 ĐỂ ĐỒNG BỘ ĐẦY ĐỦ
+        const cachedChars = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v17'));
         let danhSachChar = (cachedChars && cachedChars.length > 0) ? cachedChars : danhSachCharGoc;
 
         window.onload = function() {
@@ -624,7 +663,6 @@
                             <div class="char-quote-desc">${c.story}</div>
                             <div class="char-actions">
                                 <button class="btn-chat-expanded" onclick="xuLyTroChuyenById(${c.id})">${btnText}</button>
-                                <button class="btn-delete-char" onclick="xoaNhanVatById(${c.id})" title="Xóa nhân vật">🗑️</button>
                             </div>
                         </div>
                     `;
@@ -664,20 +702,6 @@
                 window.open(selectedCharForChoice.chatLinkBG.trim(), '_blank');
             }
             dongModal('modal-choose-version');
-        }
-
-        function xoaNhanVatById(id) {
-            const pass = prompt("🌿 Nhập mật khẩu chủ trạm để xóa nhân vật này:");
-            if (pass === ADMIN_PIN) {
-                if (confirm("Bạn có chắc chắn muốn xóa dấu chân nhân vật này không?")) {
-                    danhSachChar = danhSachChar.filter(item => item.id !== id);
-                    localStorage.setItem('ngay_day_mai_do_chars_v16', JSON.stringify(danhSachChar));
-                    renderCharGrid();
-                    alert("🌿 Đã xóa nhân vật thành công!");
-                }
-            } else if (pass !== null) {
-                alert("Mật khẩu không chính xác! Chỉ chủ trạm mới có quyền xóa.");
-            }
         }
 
         function locNhanVat() {
