@@ -184,35 +184,22 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* KHUNG NỘI DUNG TỪNG TAB */
-        .tab-content-box {
+        /* ================= TAB 1: DẤU CHÂN (TÁCH KHUNG HOÀN TOÀN) ================= */
+        .dauchan-wrapper {
             width: 100%;
-            background: rgba(12, 36, 21, 0.94);
-            border: 1px solid rgba(85, 139, 110, 0.35);
-            border-radius: 18px;
-            padding: 22px 18px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.35);
-            backdrop-filter: blur(8px);
-            text-align: left;
         }
-
-        /* TAB 1: DẤU CHÂN */
-        .col-header {
+        .dauchan-top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 22px;
             flex-wrap: wrap;
-            gap: 8px;
-        }
-        .col-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.45em;
-            color: #FFFFFF;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            gap: 10px;
+            background: rgba(12, 36, 21, 0.85);
+            border: 1px solid rgba(85, 139, 110, 0.4);
+            border-radius: 20px;
+            padding: 10px 16px;
+            backdrop-filter: blur(6px);
         }
         .p3-search-input {
             background: rgba(8, 26, 15, 0.8); border: 1px solid rgba(85, 139, 110, 0.5);
@@ -232,40 +219,40 @@
         }
         .btn-add-char:hover { background-color: #A3F0CC; transform: scale(1.02); }
 
-        /* KHUNG LƯỚI THẺ NHÂN VẬT - KHOẢNG CÁCH RỘNG RÃI 32PX */
+        /* LƯỚI CÁC THẺ NHÂN VẬT ĐỘC LẬP - CÁCH NHAU 32PX */
         .char-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 32px; /* KHOẢNG CÁCH RÕ RÀNG GIỮA CÁC THẺ */
+            gap: 32px;
             width: 100%;
-            padding: 6px 2px 14px 2px;
         }
         .empty-placeholder {
-            grid-column: 1 / -1; padding: 40px 12px; text-align: center;
+            grid-column: 1 / -1; padding: 45px 12px; text-align: center;
             color: #C8E6C9; font-style: italic; font-size: 0.95em;
-            background: rgba(12, 36, 21, 0.6); border: 1px dashed rgba(85, 139, 110, 0.4);
-            border-radius: 16px; line-height: 1.5; width: 100%;
+            background: rgba(12, 36, 21, 0.8); border: 1.5px dashed rgba(85, 139, 110, 0.5);
+            border-radius: 18px; line-height: 1.5; width: 100%;
+            backdrop-filter: blur(6px);
         }
 
-        /* TỪNG THẺ NHÂN VẬT: ĐÓNG KHUNG RIÊNG BIỆT NỔI BẬT */
+        /* MỖI NHÂN VẬT LÀ MỘT KHUNG ĐỘC LẬP */
         .char-card {
-            background: rgba(6, 22, 13, 0.96);
+            background: rgba(8, 26, 15, 0.95);
             border: 1.5px solid rgba(127, 229, 182, 0.45);
             border-radius: 18px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 12px rgba(27, 60, 36, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 14px rgba(27, 60, 36, 0.4);
             width: 100%;
+            backdrop-filter: blur(8px);
             transition: transform 0.25s ease, border-color 0.25s ease;
         }
         .char-card:hover {
             transform: translateY(-4px);
             border-color: #7FE5B6;
-            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.65), 0 0 18px rgba(127, 229, 182, 0.3);
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.7), 0 0 18px rgba(127, 229, 182, 0.35);
         }
 
-        /* KHUNG ẢNH KÉO CAO 250PX */
         .char-img-container { 
             position: relative; width: 100%; height: 250px; background: #11281A;
         }
@@ -284,7 +271,6 @@
             font-family: 'Playfair Display', serif; font-size: 1.35em; color: #FFFFFF; margin: 0 0 8px 0; font-weight: 600;
         }
         
-        /* CÂU MIÊU TẢ HIỆN TRỰC TIẾP TRÊN KHUNG THẺ */
         .char-quote-desc {
             font-size: 0.88em;
             color: #C8E6C9;
@@ -298,7 +284,6 @@
             word-break: break-word;
         }
 
-        /* NÚT HÀNH ĐỘNG GỌN GÀNG */
         .char-actions {
             display: flex; justify-content: space-between; align-items: center;
             border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 10px; gap: 8px;
@@ -317,7 +302,17 @@
         }
         .btn-delete-char:hover { transform: scale(1.2); color: #FF5252; }
 
-        /* TAB 2: HÒM THƯ TRỰC TUYẾN TOÀN CẦU */
+        /* ================= TAB 2: HÒM THƯ TRỰC TUYẾN TOÀN CẦU ================= */
+        .homthu-box {
+            width: 100%;
+            background: rgba(12, 36, 21, 0.94);
+            border: 1px solid rgba(85, 139, 110, 0.35);
+            border-radius: 18px;
+            padding: 22px 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+            backdrop-filter: blur(8px);
+            text-align: left;
+        }
         .form-title { font-size: 1.2em; font-weight: bold; color: #FFFFFF; margin: 0 0 2px 0; }
         .form-subtitle { font-size: 0.82em; color: #A8D5BA; margin: 0 0 14px 0; }
         .form-label-row {
@@ -355,7 +350,7 @@
             border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 12px;
         }
         .letters-container {
-            display: flex; flex-direction: column; gap: 10px; max-height: 320px; overflow-y: auto; padding-right: 2px;
+            display: flex; flex-direction: column; gap: 10px; max-height: 340px; overflow-y: auto; padding-right: 2px;
         }
         .letters-container::-webkit-scrollbar { width: 3px; }
         .letters-container::-webkit-scrollbar-thumb { background: rgba(127, 229, 182, 0.3); border-radius: 10px; }
@@ -414,15 +409,6 @@
         }
         .btn-version-choice:hover { background: #7FE5B6; color: #0A2416; }
 
-        /* Chat box */
-        .chat-messages {
-            max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;
-            margin: 10px 0; padding-right: 4px;
-        }
-        .chat-bubble { padding: 7px 10px; border-radius: 10px; max-width: 85%; font-size: 0.82em; line-height: 1.4; }
-        .bubble-user { align-self: flex-end; background: #7FE5B6; color: #0A2416; font-weight: 500; }
-        .bubble-char { align-self: flex-start; background: rgba(255, 255, 255, 0.15); color: #E8F5E9; border: 1px solid rgba(255, 255, 255, 0.2); }
-
         /* ================= TỐI ƯU ĐIỆN THOẠI ================= */
         @media (max-width: 680px) {
             .page-container { padding: 55px 12px 25px 12px; }
@@ -431,6 +417,8 @@
             .tab-btn { padding: 7px 18px; font-size: 13px; }
             .char-img-container { height: 230px; }
             .char-grid { gap: 28px; }
+            .dauchan-top-bar { flex-direction: column; align-items: stretch; gap: 8px; }
+            .p3-search-input { width: 100%; }
         }
     </style>
 </head>
@@ -460,7 +448,7 @@
         <div class="footer-quote">~ Một bước chân, một câu chuyện ~</div>
     </div>
 
-    <!-- ================= TRANG 2: NGÀY ĐÂY MAI ĐÓ (CHỌN TAB Ở PHÍA TRÊN) ================= -->
+    <!-- ================= TRANG 2: NGÀY ĐÂY MAI ĐÓ ================= -->
     <div class="page-container" id="page2">
         <h1 class="p2-title">Ngày đây mai đó</h1>
         <div class="p2-subtitle">Nơi lưu lại những câu chuyện và vài dòng nhắn gửi.</div>
@@ -471,24 +459,22 @@
             <button class="tab-btn" id="tabBtnHomThu" onclick="chuyenTab('homthu')">📮 Hòm Thư</button>
         </div>
 
-        <!-- NỘI DUNG TAB 1: DẤU CHÂN -->
-        <div class="tab-content-box" id="tabContentDauChan">
-            <div class="col-header">
-                <div class="col-title">🌿 Dấu chân</div>
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <div class="p3-search-box">
-                        <span class="icon">🔍</span>
-                        <input type="text" class="p3-search-input" id="filterInput" placeholder="Lọc nhân vật..." oninput="locNhanVat()">
-                    </div>
-                    <button class="btn-add-char" onclick="kiemTraQuyenThemChar()">+ Thêm</button>
+        <!-- NỘI DUNG TAB 1: DẤU CHÂN (TÁCH KHUNG HOÀN TOÀN) -->
+        <div class="dauchan-wrapper" id="tabContentDauChan">
+            <div class="dauchan-top-bar">
+                <div class="p3-search-box">
+                    <span class="icon">🔍</span>
+                    <input type="text" class="p3-search-input" id="filterInput" placeholder="Lọc nhân vật..." oninput="locNhanVat()">
                 </div>
+                <button class="btn-add-char" onclick="kiemTraQuyenThemChar()">+ Thêm nhân vật</button>
             </div>
 
+            <!-- DANH SÁCH THẺ NHÂN VẬT ĐỘC LẬP -->
             <div class="char-grid" id="charGrid"></div>
         </div>
 
-        <!-- NỘI DUNG TAB 2: HÒM THƯ (KẾT NỐI MẠNG TOÀN CẦU) -->
-        <div class="tab-content-box" id="tabContentHomThu" style="display: none;">
+        <!-- NỘI DUNG TAB 2: HÒM THƯ (KẾT NỐI MÁY CHỦ TOÀN CẦU) -->
+        <div class="homthu-box" id="tabContentHomThu" style="display: none;">
             <h3 class="form-title">📮 Hòm Thư Trạm Nghỉ</h3>
             <p class="form-subtitle">Gửi vài dòng góp ý, tâm tình, cảm nghĩ tại đây (Công khai toàn cầu).</p>
 
@@ -524,7 +510,7 @@
 
             <div class="list-header-row">
                 <span id="mail-list-header-count">NHỮNG LÁ THƯ ĐÃ GỬI (0)</span>
-                <span style="font-size:0.9em; cursor:pointer;" onclick="taiThuTuMayChuToanCau()" title="Tải lại thư mới nhất">🔄 Cập nhật</span>
+                <span style="font-size:0.9em; cursor:pointer; color:#7FE5B6;" onclick="taiThuTuMayChuToanCau()" title="Tải lại thư mới nhất">🔄 Cập nhật thư mới</span>
             </div>
 
             <div class="letters-container" id="lettersList"></div>
@@ -583,36 +569,20 @@
         </div>
     </div>
 
-    <!-- ================= MODAL: TRÒ CHUYỆN VỚI NHÂN VẬT (AI) ================= -->
-    <div class="modal-overlay" id="modal-chat-char">
-        <div class="modal-box">
-            <button class="modal-close" onclick="dongModal('modal-chat-char')">✕</button>
-            <h3 id="chat-title" style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.25em;">💬 Trò chuyện</h3>
-            
-            <div class="chat-messages" id="chatMessages"></div>
-
-            <div style="display:flex; gap:6px;">
-                <input type="text" id="chatUserInput" placeholder="Gửi lời tâm tình..." style="margin:0; flex:1;" onkeydown="if(event.key==='Enter') guiTinNhanChoChar()">
-                <button class="btn-card" style="padding:0 14px; pointer-events:auto;" onclick="guiTinNhanChoChar()">Gửi</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= SCRIPT XỬ LÝ ================= -->
+    <!-- ================= SCRIPT XỬ LÝ & ĐỒNG BỘ MÁY CHỦ TOÀN CẦU ================= -->
     <script>
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
         const ADMIN_PIN = "1234";
 
-        // MÁY CHỦ LƯU TRỮ HÒM THƯ TOÀN CẦU (PUBLIC GLOBAL STORE)
-        const GLOBAL_MAIL_URL = "https://kvdb.io/A6Gq9W3x8P1z4L8x9w2K1q/ngay_day_mai_do_letters";
+        // MÁY CHỦ DATABASE TOÀN CẦU CHO HÒM THƯ (HOẠT ĐỘNG 100% TRỰC TUYẾN)
+        const FIREBASE_DB_URL = "https://ngay-day-mai-do-default-rtdb.asia-southeast1.firebasedatabase.app/letters.json";
 
         const backBtn = document.getElementById("globalBackBtn");
         
         let selectedIcon = '🐱';
-        let currentCharChat = null;
         let selectedCharForChoice = null;
 
-        // DANH SÁCH NHÂN VẬT GỐC MẶC ĐỊNH (CỐ ĐỊNH TRÊN MỌI THIẾT BỊ)
+        // DANH SÁCH NHÂN VẬT GỐC MẶC ĐỊNH
         const danhSachCharGoc = [
             {
                 id: 1711800000001,
@@ -636,42 +606,33 @@
             }
         ];
 
-        // SỬA LỖI ĐẢM BẢO TẤT CẢ CÁC MÁY ĐỀU HIỆN NHÂN VẬT GỐC
-        const cachedChars = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_final'));
+        const cachedChars = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v14'));
         let danhSachChar = (cachedChars && cachedChars.length > 0) ? cachedChars : danhSachCharGoc;
-        let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters_final')) || [];
+        let danhSachThu = JSON.parse(localStorage.getItem('ngay_day_mai_do_letters_v14')) || [];
 
         window.onload = function() {
             renderCharGrid();
             renderLetterList();
-            taiThuTuMayChuToanCau();
+            taiThuTuMayChuToanCau(); // Tải thư đám mây ngay khi mở trang
         };
 
-        /* ================= TỰ ĐỘNG ĐỒNG BỘ HÒM THƯ TOÀN CẦU ================= */
+        /* ================= TỰ ĐỘNG ĐỒNG BỘ HÒM THƯ TOÀN CẦU (FIREBASE) ================= */
         async function taiThuTuMayChuToanCau() {
             try {
-                const res = await fetch(GLOBAL_MAIL_URL);
+                const res = await fetch(FIREBASE_DB_URL);
                 if (res.ok) {
-                    const letters = await res.json();
-                    if (Array.isArray(letters)) {
-                        danhSachThu = letters;
-                        localStorage.setItem('ngay_day_mai_do_letters_final', JSON.stringify(danhSachThu));
-                        renderLetterList();
+                    const data = await res.json();
+                    if (data) {
+                        const lettersFromCloud = Array.isArray(data) ? data : Object.values(data);
+                        if (lettersFromCloud.length > 0) {
+                            danhSachThu = lettersFromCloud.reverse();
+                            localStorage.setItem('ngay_day_mai_do_letters_v14', JSON.stringify(danhSachThu));
+                            renderLetterList();
+                        }
                     }
                 }
             } catch (err) {
                 console.log("Đang đọc thư từ bộ nhớ lưu trữ.");
-            }
-        }
-
-        async function dongBoThuLenMayChu(lettersArray) {
-            try {
-                await fetch(GLOBAL_MAIL_URL, {
-                    method: "POST",
-                    body: JSON.stringify(lettersArray)
-                });
-            } catch (err) {
-                console.log("Lỗi đồng bộ máy chủ:", err);
             }
         }
 
@@ -707,7 +668,7 @@
                 tabHomThu.style.display = 'block';
                 btnDauChan.classList.remove('active');
                 btnHomThu.classList.add('active');
-                taiThuTuMayChuToanCau(); // Tải thư mới nhất khi mở tab hòm thư
+                taiThuTuMayChuToanCau(); // Tải lại thư mới nhất khi chuyển qua tab hòm thư
             }
         }
 
@@ -806,7 +767,7 @@
             };
 
             danhSachChar.unshift(newChar);
-            localStorage.setItem('ngay_day_mai_do_chars_final', JSON.stringify(danhSachChar));
+            localStorage.setItem('ngay_day_mai_do_chars_v14', JSON.stringify(danhSachChar));
             renderCharGrid();
 
             // Reset form
@@ -872,7 +833,7 @@
             } else if (hasBG) {
                 window.open(char.chatLinkBG.trim(), '_blank');
             } else {
-                moTroChuyen(char.name, char.story);
+                alert("Nhân vật này chưa có link chat!");
             }
         }
 
@@ -891,7 +852,7 @@
             if (pass === ADMIN_PIN) {
                 if (confirm("Bạn có chắc chắn muốn xóa dấu chân nhân vật này không?")) {
                     danhSachChar = danhSachChar.filter(item => item.id !== id);
-                    localStorage.setItem('ngay_day_mai_do_chars_final', JSON.stringify(danhSachChar));
+                    localStorage.setItem('ngay_day_mai_do_chars_v14', JSON.stringify(danhSachChar));
                     renderCharGrid();
                     alert("🌿 Đã xóa nhân vật thành công!");
                 }
@@ -909,39 +870,7 @@
             });
         }
 
-        /* ================= TRÒ CHUYỆN VỚI CHAR (AI) ================= */
-        function moTroChuyen(name, story) {
-            currentCharChat = { name, story };
-            document.getElementById("chat-title").innerText = `💬 Trò chuyện cùng ${name}`;
-            const box = document.getElementById("chatMessages");
-            box.innerHTML = `<div class="chat-bubble bubble-char">Chào bạn, ta là ${name}. Thật vui khi gặp bạn tại trạm nghỉ ngày hôm nay...</div>`;
-            moModal('modal-chat-char');
-        }
-
-        async function guiTinNhanChoChar() {
-            const input = document.getElementById("chatUserInput");
-            const userMsg = input.value.trim();
-            if (!userMsg || !currentCharChat) return;
-
-            const box = document.getElementById("chatMessages");
-            box.innerHTML += `<div class="chat-bubble bubble-user">${userMsg}</div>`;
-            input.value = "";
-            box.scrollTop = box.scrollHeight;
-
-            const prompt = `Bạn đang nhập vai vào nhân vật tên là "${currentCharChat.name}".
-            Thông tin/Cốt truyện của bạn: "${currentCharChat.story}".
-            Hãy trả lời ngắn gọn (1-2 câu), đúng giọng điệu và tính cách của bạn cho người nói: "${userMsg}".`;
-
-            const reply = await goiAIThongMinh(prompt);
-            if (reply) {
-                box.innerHTML += `<div class="chat-bubble bubble-char">${reply}</div>`;
-            } else {
-                box.innerHTML += `<div class="chat-bubble bubble-char" style="color:#FFCDD2;">*${currentCharChat.name} đang lặng im suy nghĩ...*</div>`;
-            }
-            box.scrollTop = box.scrollHeight;
-        }
-
-        /* ================= QUẢN LÝ HÒM THƯ (TOÀN CẦU TRỰC TUYẾN) ================= */
+        /* ================= QUẢN LÝ HÒM THƯ (KẾT NỐI MÁY CHỦ TOÀN CẦU) ================= */
         function chonIcon(icon, el) {
             selectedIcon = icon;
             document.getElementById('current-chosen-icon').innerText = icon;
@@ -969,13 +898,21 @@
 
             const newLetter = { id: Date.now(), icon: selectedIcon, name, mood, content, date: dateStr };
             
-            // Cập nhật tại chỗ
+            // 1. Cập nhật tại chỗ
             danhSachThu.unshift(newLetter);
-            localStorage.setItem('ngay_day_mai_do_letters_final', JSON.stringify(danhSachThu));
+            localStorage.setItem('ngay_day_mai_do_letters_v14', JSON.stringify(danhSachThu));
             renderLetterList();
 
-            // ĐỒNG BỘ TRỰC TIẾP LÊN MÁY CHỦ TOÀN CẦU ĐỂ TẤT CẢ MỌI NGƯỜI ĐỀU THẤY
-            await dongBoThuLenMayChu(danhSachThu);
+            // 2. GỬI LÊN MÁY CHỦ FIREBASE TOÀN CẦU ĐỂ TẤT CẢ MỌI NGƯỜI ĐỀU THẤY
+            try {
+                await fetch(FIREBASE_DB_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(newLetter)
+                });
+            } catch (err) {
+                console.log("Lỗi gửi máy chủ:", err);
+            }
 
             sendBtn.innerText = "🍃 Gửi thư về trạm";
             sendBtn.disabled = false;
