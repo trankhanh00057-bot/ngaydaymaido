@@ -29,6 +29,13 @@
             background: transparent;
         }
 
+        /* KHÓA CUỘN KHI Ở TRANG 1 */
+        body.lock-scroll {
+            height: 100vh;
+            overflow: hidden !important;
+            touch-action: none;
+        }
+
         /* LỚP NỀN GIF ĐỘC LẬP */
         .bg-fixed-layer {
             position: fixed;
@@ -85,27 +92,28 @@
             gap: 5px;
         }
 
-        /* KHUNG CHỨA TOÀN TRANG MỞ RỘNG */
+        /* KHUNG CHỨA TOÀN TRANG */
         .page-container {
             width: 100%;
-            max-width: 1100px;
             margin: 0 auto;
-            padding: 65px 16px 40px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
         }
 
-        /* ================= GIAO DIỆN TRANG 1 ================= */
+        /* ================= GIAO DIỆN TRANG 1 (CỐ ĐỊNH 100%, KHÔNG CUỘN) ================= */
         #page1 {
             max-width: 540px;
-            min-height: 85vh;
+            height: 100vh;
+            max-height: 100vh;
+            overflow: hidden;
             justify-content: center;
+            padding: 20px 16px;
         }
         .title-main {
             font-family: 'Playfair Display', serif;
-            font-size: 2.4em;
+            font-size: 2.35em;
             font-weight: 600;
             color: #FFFFFF;
             line-height: 1.25;
@@ -129,7 +137,7 @@
         .btn-wander {
             background-color: #558B6E; color: #FFFFFF;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 25px; padding: 10px 30px;
+            border-radius: 25px; padding: 10px 32px;
             font-size: 14.5px; font-family: 'Lora', serif; font-weight: 600;
             cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
             transition: 0.2s;
@@ -137,47 +145,59 @@
         .btn-wander:active { transform: scale(0.98); }
         .footer-quote {
             font-size: 0.8em; color: #DCE7E1; font-style: italic;
-            margin-top: 16px; opacity: 0.9;
+            margin-top: 14px; opacity: 0.85;
         }
 
-        /* NÚT MẠNG XÃ HỘI TRANG 1 */
+        /* KHU VỰC ICON FACEBOOK & DISCORD (CÁCH XA NÚT CHÍNH) */
         .social-links-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-top: 18px;
-            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 42px; /* KHOẢNG CÁCH XA ĐỂ KHÔNG BỊ BẤM NHẦM */
         }
         .social-btn {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: rgba(14, 40, 24, 0.85);
-            border: 1px solid rgba(127, 229, 182, 0.4);
+            gap: 7px;
+            background: rgba(10, 32, 19, 0.88);
+            border: 1px solid rgba(127, 229, 182, 0.35);
             color: #E8F5E9;
             text-decoration: none;
-            padding: 7px 16px;
-            border-radius: 20px;
-            font-size: 12.5px;
+            padding: 8px 18px;
+            border-radius: 22px;
+            font-size: 12px;
             font-family: 'Lora', serif;
             font-weight: 500;
-            backdrop-filter: blur(6px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
             transition: all 0.25s ease;
         }
-        .social-btn:hover {
-            background: rgba(25, 64, 38, 0.95);
-            border-color: #7FE5B6;
-            color: #FFFFFF;
+        .social-btn svg {
+            width: 17px;
+            height: 17px;
+            transition: transform 0.2s;
+        }
+        .social-btn.fb:hover {
+            background: rgba(24, 119, 242, 0.25);
+            border-color: #1877F2;
+            color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 6px 18px rgba(24, 119, 242, 0.4);
+        }
+        .social-btn.discord:hover {
+            background: rgba(88, 101, 242, 0.25);
+            border-color: #5865F2;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(88, 101, 242, 0.4);
         }
 
-        /* ================= GIAO DIỆN TRANG 2 ================= */
+        /* ================= GIAO DIỆN TRANG 2 (CUỘN THOẢI MÁI) ================= */
         #page2 { 
             display: none; 
-            max-width: 1100px; 
+            max-width: 1100px;
+            padding: 65px 16px 45px 16px;
         }
         .p2-title {
             font-family: 'Playfair Display', serif;
@@ -196,7 +216,7 @@
             border: 1px solid rgba(127, 229, 182, 0.4);
             border-radius: 30px;
             padding: 4px;
-            margin-bottom: 22px;
+            margin-bottom: 24px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
         .tab-btn {
@@ -400,8 +420,14 @@
 
         /* ================= TỐI ƯU ĐIỆN THOẠI ================= */
         @media (max-width: 680px) {
-            .page-container { padding: 55px 12px 25px 12px; }
-            .title-main { font-size: 2em; }
+            #page1 { padding: 16px 12px; }
+            .title-main { font-size: 1.95em; }
+            .desc-text { font-size: 0.88em; margin: 10px 0; }
+            .leaf-divider { margin-bottom: 14px; }
+            .social-links-wrapper { margin-top: 32px; gap: 12px; }
+            .social-btn { padding: 7px 14px; font-size: 11.5px; }
+            
+            #page2 { padding: 55px 12px 25px 12px; }
             .p2-title { font-size: 2em; }
             .tab-btn { padding: 7px 18px; font-size: 13px; }
             .char-img-container { height: 350px; }
@@ -409,7 +435,7 @@
         }
     </style>
 </head>
-<body>
+<body class="lock-scroll">
 
     <!-- LỚP NỀN GIF ĐỘC LẬP -->
     <div class="bg-fixed-layer"></div>
@@ -417,7 +443,7 @@
     <!-- NÚT TRỞ VỀ GÓC TRÁI -->
     <div class="global-back-btn" id="globalBackBtn">← Trở về</div>
 
-    <!-- ================= TRANG 1: MỞ ĐẦU ================= -->
+    <!-- ================= TRANG 1: MỞ ĐẦU (CỐ ĐỊNH, KHÔNG CUỘN) ================= -->
     <div class="top-nav-logo" id="p1-logo"><span>🍃</span> Đây đó</div>
 
     <div class="page-container" id="page1">
@@ -434,18 +460,26 @@
         <button class="btn-wander" onclick="chuyenTrang(2)">Đi dạo đó đây</button>
         <div class="footer-quote">~ Một bước chân, một câu chuyện ~</div>
 
-        <!-- PHẦN MẠNG XÃ HỘI TRANG ĐẦU -->
+        <!-- PHẦN MẠNG XÃ HỘI TRANG ĐẦU CÓ ICON CHUẨN & CÁCH XA NÚT CHÍNH -->
         <div class="social-links-wrapper">
-            <a href="https://www.facebook.com/p/Ng%C3%A0y-%C4%90%C3%A2y-Mai-%C4%90%C3%B3-61593495327758/" target="_blank" rel="noopener noreferrer" class="social-btn">
-                <span>📘</span> Facebook
+            <a href="https://www.facebook.com/p/Ng%C3%A0y-%C4%90%C3%A2y-Mai-%C4%90%C3%B3-61593495327758/" target="_blank" rel="noopener noreferrer" class="social-btn fb">
+                <!-- Icon Facebook Vector chuẩn -->
+                <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+                Facebook
             </a>
-            <a href="https://discord.com/users/1238439209124102208" target="_blank" rel="noopener noreferrer" class="social-btn">
-                <span>👾</span> Discord
+            <a href="https://discord.com/users/1238439209124102208" target="_blank" rel="noopener noreferrer" class="social-btn discord">
+                <!-- Icon Discord Vector chuẩn -->
+                <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                </svg>
+                Discord
             </a>
         </div>
     </div>
 
-    <!-- ================= TRANG 2: NGÀY ĐÂY MAI ĐÓ ================= -->
+    <!-- ================= TRANG 2: NGÀY ĐÂY MAI ĐÓ (CUỘN THOẢI MÁI) ================= -->
     <div class="page-container" id="page2">
         <h1 class="p2-title">Ngày đây mai đó</h1>
         <div class="p2-subtitle">Nơi lưu lại những câu chuyện và vài dòng nhắn gửi.</div>
@@ -592,23 +626,25 @@
             }
         ];
 
-        // LÀM MỚI BỘ NHỚ V17 ĐỂ ĐỒNG BỘ ĐẦY ĐỦ
-        const cachedChars = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v17'));
+        // LÀM MỚI BỘ NHỚ V18 ĐỂ ĐỒNG BỘ ĐẦY ĐỦ
+        const cachedChars = JSON.parse(localStorage.getItem('ngay_day_mai_do_chars_v18'));
         let danhSachChar = (cachedChars && cachedChars.length > 0) ? cachedChars : danhSachCharGoc;
 
         window.onload = function() {
             renderCharGrid();
         };
 
-        /* ================= CHUYỂN TRANG & CHUYỂN TAB ================= */
+        /* ================= CHUYỂN TRANG & ĐIỀU KHIỂN KHÓA CUỘN ================= */
         function chuyenTrang(soTrang) {
             document.getElementById("page1").style.display = (soTrang === 1) ? "flex" : "none";
             document.getElementById("p1-logo").style.display = (soTrang === 1) ? "inline-flex" : "none";
             document.getElementById("page2").style.display = (soTrang === 2) ? "flex" : "none";
 
             if (soTrang === 1) {
+                document.body.classList.add("lock-scroll"); // Khóa cuộn trang 1
                 backBtn.style.display = "none";
             } else if (soTrang === 2) {
+                document.body.classList.remove("lock-scroll"); // Cho phép cuộn trang 2
                 backBtn.style.display = "inline-flex";
                 backBtn.onclick = () => chuyenTrang(1);
             }
