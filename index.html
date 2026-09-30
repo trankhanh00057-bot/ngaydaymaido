@@ -219,7 +219,7 @@
             font-style: italic; text-shadow: 0 2px 6px rgba(0,0,0,0.8);
         }
 
-        /* THANH TAB CHUYỂN ĐỔI Ở PHÍA TRÊN */
+        /* THANH TAB CHUYỂN ĐỔI */
         .tab-switch-container {
             display: inline-flex;
             background: rgba(10, 30, 18, 0.85);
@@ -248,7 +248,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* KHUNG NỘI DUNG TỪNG TAB */
         .tab-content-box {
             width: 100%;
             background: rgba(12, 36, 21, 0.94);
@@ -326,7 +325,6 @@
             font-family: 'Playfair Display', serif; font-size: 1.25em; color: #FFFFFF; margin: 0 0 10px 0; font-weight: 600;
         }
         
-        /* CÁC NÚT THAO TÁC TRÊN THẺ */
         .char-actions {
             display: flex; justify-content: space-between; align-items: center;
             border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 8px; gap: 4px;
@@ -658,6 +656,9 @@
 
     <!-- ================= SCRIPT XỬ LÝ & BỘ MÁY PHÁT NHẠC ================= -->
     <script>
+        // ==========================================
+        // DÁN MÃ API GOOGLE MỚI CỦA BẠN VÀO ĐÂY NẾU MÃ CŨ BỊ KHÓA:
+        // ==========================================
         const API_KEY = "AIzaSyB_LjXX0mBGhOiVxWkwJ2_tq-TVILZPG0o";
         const ADMIN_PIN = "1234";
 
@@ -672,7 +673,6 @@
         let currentCharChat = null;
         let userManuallyMuted = false;
 
-        // DANH SÁCH 2 BÀI HÁT CHUẨN
         const playList = [
             { title: "Catch Catch!", artist: "YENA", lang: "🇰🇷", ytid: "ItSKahBISg0", zing: "https://zingmp3.vn/bai-hat/Catch-Catch-YENA/sIAYCpmVyY0n.html" },
             { title: "Magnetic", artist: "ILLIT", lang: "🇰🇷", ytid: "Vk5-c_v4gMU", zing: "https://zingmp3.vn/bai-hat/Magnetic-ILLIT/zVMnsEiOKFiV.html" }
@@ -690,7 +690,6 @@
             updateTrackInfoUI();
         };
 
-        // KHỞI TẠO BỘ MÁY PHÁT YOUTUBE ENGINE
         function onYouTubeIframeAPIReady() {
             ytPlayer = new YT.Player('youtube-engine', {
                 height: '1',
@@ -855,7 +854,7 @@
             }
         }
 
-        /* ================= QUẢN LÝ NHÂN VẬT ================= */
+        /* ================= QUẢN LÝ NHÂN VẬT & GỌI AI CHI TIẾT ================= */
         async function taoNhanVat(dungAI) {
             const name = document.getElementById("newCharName").value.trim();
             const genre = document.getElementById("newCharGenre").value;
@@ -895,12 +894,18 @@
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
                     });
+                    
                     const data = await response.json();
                     document.getElementById("ai-loading").style.display = "none";
-                    fullStory = data.candidates[0].content.parts[0].text.replace(/\*\*/g, '');
+
+                    if (data.error) {
+                        alert("⚠️ Lỗi Google AI: " + data.error.message + "\n(Hệ thống sẽ lưu tạm thông tin gốc bạn nhập)");
+                    } else if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                        fullStory = data.candidates[0].content.parts[0].text.replace(/\*\*/g, '');
+                    }
                 } catch (error) {
                     document.getElementById("ai-loading").style.display = "none";
-                    alert("Lỗi gọi AI! Sẽ lưu nội dung thô của bạn.");
+                    alert("⚠️ Không thể kết nối tới Google AI! Sẽ lưu nội dung thô bạn vừa nhập.");
                 }
             }
 
@@ -919,7 +924,6 @@
 
             renderCharGrid();
 
-            // Reset form
             document.getElementById("newCharName").value = "";
             document.getElementById("newCharGenre").value = "Không";
             document.getElementById("newCharTags").value = "";
@@ -962,7 +966,6 @@
             }
         }
 
-        // XỬ LÝ TRÒ CHUYỆN BẰNG ID (MỞ LINK HOẶC GỌI AI CHAT)
         function xuLyTroChuyenById(id) {
             const char = danhSachChar.find(item => item.id === id);
             if (!char) return;
@@ -974,7 +977,6 @@
             }
         }
 
-        // XEM CỐT TRUYỆN CHI TIẾT
         function xemChiTietById(id) {
             const char = danhSachChar.find(item => item.id === id);
             if (!char) return;
@@ -995,7 +997,6 @@
             moModal("modal-view-detail");
         }
 
-        // XÓA NHÂN VẬT (BẢO VỆ BẰNG MẬT KHẨU CHỦ TRẠM)
         function xoaNhanVatById(id) {
             const pass = prompt("🌿 Nhập mật khẩu chủ trạm để xóa nhân vật này:");
             if (pass === ADMIN_PIN) {
@@ -1019,7 +1020,7 @@
             });
         }
 
-        /* ================= TRÒ CHUYỆN VỚI CHAR (GOOGLE AI) ================= */
+        /* ================= TRÒ CHUYỆN VỚI CHAR ================= */
         function moTroChuyen(name, story) {
             currentCharChat = { name, story };
             document.getElementById("chat-title").innerText = `💬 Trò chuyện cùng ${name}`;
