@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- CHỐNG FACEBOOK CHẶN LINK ẢNH TRÊN ĐIỆN THOẠI -->
+    <meta name="referrer" content="no-referrer">
     <title>Ngày đây mai đó</title>
     
     <!-- Nhúng Font chữ Playfair Display & Lora -->
@@ -300,6 +302,7 @@
             box-shadow: 0 14px 35px rgba(0, 0, 0, 0.7), 0 0 18px rgba(127, 229, 182, 0.35);
         }
 
+        /* KHUNG ẢNH CHÂN DUNG */
         .char-img-container { 
             position: relative; 
             width: 100%; 
@@ -643,7 +646,6 @@
             }
         ];
 
-        // ĐỌC TRỰC TIẾP KHÔNG DÙNG LOCALSTORAGE CACHE CŨ ĐỂ LUÔN CẬP NHẬT 100%
         let danhSachChar = danhSachCharGoc;
 
         window.onload = function() {
@@ -707,7 +709,7 @@
                     card.className = "char-card";
                     card.innerHTML = `
                         <div class="char-img-container">
-                            <img src="${c.img}" class="char-img" alt="${c.name}" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80'">
+                            <img src="${c.img}" class="char-img" alt="${c.name}" referrerpolicy="no-referrer" loading="lazy">
                             <div class="char-tag-overlay">${c.tags}</div>
                         </div>
                         <div class="char-body">
