@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <!-- CHỐNG FACEBOOK & TRÌNH DUYỆT CHẶN LINK ẢNH -->
+    <!-- CHỐNG CHẶN ẢNH TỪ HOST NGOÀI -->
     <meta name="referrer" content="no-referrer">
     <title>Ngày đây mai đó</title>
     
@@ -100,7 +100,6 @@
             transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* TRẠNG THÁI ẨN / HIỆN CỦA TRANG */
         .page-hidden {
             display: none !important;
             opacity: 0 !important;
@@ -355,49 +354,97 @@
             width: 100%;
         }
 
+        /* ================= THIẾT KẾ THẺ NHÂN VẬT DẠNG POSTER ĐỒNG NHẤT ================= */
         .char-card {
-            background: rgba(8, 26, 15, 0.95);
-            border: 1.5px solid rgba(226, 168, 59, 0.45);
-            border-radius: 18px;
+            position: relative;
+            background: #081a0f; /* Màu nền đồng nhất */
+            border: 1.5px solid rgba(226, 168, 59, 0.4);
+            border-radius: 22px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 14px rgba(27, 60, 36, 0.4);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65), 0 0 15px rgba(27, 60, 36, 0.4);
             width: 100%;
-            transition: transform 0.25s ease, border-color 0.25s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .char-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
             border-color: #E2A83B;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(226, 168, 59, 0.3);
         }
 
-        .char-img-container { 
-            position: relative; 
-            width: 100%; 
-            height: 380px; 
-            background: #11281A;
-            border-bottom: 1px solid rgba(226, 168, 59, 0.2);
+        /* KHUNG CHỨA ẢNH & DẢI ĐỔ BÓNG NHẠT DẦN */
+        .char-img-box {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            background: #081a0f;
         }
-        .char-img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            object-position: center top; 
+        .char-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
         }
-        .char-tag-overlay {
-            position: absolute; bottom: 10px; left: 10px; background: rgba(0, 0, 0, 0.85);
-            color: #FFFFFF; font-size: 11px;
-            font-family: 'Be Vietnam Pro', sans-serif;
-            padding: 4px 10px; border-radius: 6px; max-width: 90%;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        
+        /* Lớp đổ bóng mờ nhạt dần hòa tan vào nền thẻ */
+        .char-img-fade {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 70%; /* Độ dốc bóng mờ 70% từ thân dưới ảnh */
+            background: linear-gradient(
+                to bottom,
+                rgba(8, 26, 15, 0) 0%,
+                rgba(8, 26, 15, 0.25) 30%,
+                rgba(8, 26, 15, 0.75) 65%,
+                rgba(8, 26, 15, 0.96) 88%,
+                #081a0f 100%
+            );
+            pointer-events: none;
         }
-        .char-body {
-            padding: 16px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; flex: 1;
+
+        /* KHU VỰC NỘI DUNG: KÉO LÊN HÒA NHỊP VỚI BÓNG ĐỔ */
+        .char-content {
+            position: relative;
+            z-index: 2;
+            margin-top: -45px; /* Đẩy chữ Tên đè lên phần bóng mờ của ảnh */
+            padding: 0 18px 20px 18px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            background: #081a0f;
         }
+
+        /* 1. TÊN NHÂN VẬT */
         .char-name {
-            font-family: 'Playfair Display', serif; font-size: 1.35em; color: #FFF8EB; margin: 0 0 8px 0; font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45em;
+            color: #FFF9ED;
+            margin: 0 0 6px 0;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), 0 0 12px rgba(226, 168, 59, 0.35);
         }
+
+        /* 2. TAGS (NẰM NGAY DƯỚI TÊN) */
+        .char-tags {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 12px;
+            color: #E2A83B;
+            margin: 0 0 14px 0;
+            font-weight: 500;
+            line-height: 1.4;
+            opacity: 0.95;
+            letter-spacing: 0.2px;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* 3. TRÍCH DẪN */
         .char-quote-desc {
             font-family: 'Lora', serif;
             font-size: 0.9em;
@@ -410,20 +457,37 @@
             border-radius: 8px;
             border-left: 2.5px solid #E2A83B;
             word-break: break-word;
+            flex: 1;
         }
+
+        /* 4. NÚT HÀNH ĐỘNG */
         .char-actions {
-            display: flex; justify-content: center; align-items: center;
-            border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top: 1px dashed rgba(255, 255, 255, 0.18);
+            padding-top: 12px;
         }
         .btn-chat-expanded {
             width: 100%;
-            background: rgba(18, 48, 28, 0.85); border: 1px solid rgba(226, 168, 59, 0.45);
-            border-radius: 14px; padding: 8px 12px; font-size: 13px; font-weight: bold;
+            background: rgba(18, 48, 28, 0.85);
+            border: 1px solid rgba(226, 168, 59, 0.5);
+            border-radius: 14px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: bold;
             font-family: 'Be Vietnam Pro', sans-serif;
-            color: #FFFDF7; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+            color: #FFFDF7;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             transition: 0.2s;
         }
-        .btn-chat-expanded:hover { background: #E2A83B; color: #0A2013; }
+        .btn-chat-expanded:hover {
+            background: #E2A83B;
+            color: #0A2013;
+        }
 
         /* TAB 2: HÒM THƯ NGL */
         .ngl-box {
@@ -505,7 +569,7 @@
             #page2 { padding: 55px 12px 25px 12px; }
             .p2-title { font-size: 1.95em; }
             .tab-btn { padding: 7px 18px; font-size: 13px; }
-            .char-img-container { height: 350px; }
+            .char-img-box { height: 350px; }
             .char-grid { gap: 28px; grid-template-columns: 1fr; }
         }
     </style>
@@ -718,7 +782,7 @@
             renderCharGrid();
         };
 
-        /* ================= CHUYỂN CẢNH MƯỢT KHÔNG CÓ KHOẢNG CHẾT ================= */
+        /* ================= CHUYỂN CẢNH MƯỢT (KHÔNG KHOẢNG TRỐNG) ================= */
         let isTransitioning = false;
 
         function chuyenTrang(soTrang) {
@@ -729,13 +793,11 @@
             const p2 = document.getElementById("page2");
 
             if (soTrang === 2) {
-                // Bật Trang 2 lên đồng thời để không bao giờ có khoảng trống màn hình
                 p2.classList.remove("page-hidden");
                 p2.style.opacity = "0";
                 p2.style.transform = "translate3d(0, 18px, 0)";
-                void p2.offsetWidth; // Buộc trình duyệt nhận diện trạng thái
+                void p2.offsetWidth;
 
-                // ĐỒNG THỜI: Trang 1 mờ nhẹ & Trang 2 trượt vào êm ái
                 p1.style.opacity = "0";
                 p1.style.transform = "translate3d(0, -18px, 0)";
 
@@ -752,7 +814,6 @@
                 }, 400);
 
             } else {
-                // Quay lại Trang 1
                 p1.classList.remove("page-hidden");
                 p1.style.opacity = "0";
                 p1.style.transform = "translate3d(0, -18px, 0)";
@@ -798,6 +859,7 @@
         function moModal(id) { document.getElementById(id).style.display = "flex"; }
         function dongModal(id) { document.getElementById(id).style.display = "none"; }
 
+        /* ================= RENDER DỮ LIỆU NHÂN VẬT THÀNH POSTER LIỀN MẠCH ================= */
         function renderCharGrid() {
             const grid = document.getElementById("charGrid");
             grid.innerHTML = "";
@@ -814,13 +876,19 @@
                     const card = document.createElement("div");
                     card.className = "char-card";
                     card.innerHTML = `
-                        <div class="char-img-container">
+                        <div class="char-img-box">
                             <img src="${c.img}" class="char-img" alt="${c.name}" referrerpolicy="no-referrer" loading="lazy">
-                            <div class="char-tag-overlay">${c.tags}</div>
+                            <!-- Lớp phủ bóng mờ nhạt dần xuống -->
+                            <div class="char-img-fade"></div>
                         </div>
-                        <div class="char-body">
+                        <div class="char-content">
+                            <!-- Tên nhân vật nổi bật ngay sau bóng mờ -->
                             <h3 class="char-name">${c.name}</h3>
+                            <!-- Tag nhân vật nối tiếp bên dưới tên -->
+                            <div class="char-tags">${c.tags}</div>
+                            <!-- Lời dẫn truyện -->
                             <div class="char-quote-desc">${c.story}</div>
+                            <!-- Nút trò chuyện -->
                             <div class="char-actions">
                                 <button class="btn-chat-expanded" onclick="xuLyTroChuyenById(${c.id})">${btnText}</button>
                             </div>
