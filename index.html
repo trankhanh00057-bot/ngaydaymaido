@@ -29,7 +29,7 @@
             color: #ffffff;
             min-height: 100vh;
             min-height: 100dvh;
-            background: transparent !important;
+            background: #03130a !important;
         }
 
         /* KHÓA CUỘN KHI Ở TRANG 1 */
@@ -40,22 +40,49 @@
             touch-action: none;
         }
 
-        /* ================= LỚP MÀN SƯƠNG ĐIỆN ẢNH CHUYỂN CẢNH (CINEMATIC VEIL) ================= */
-        .cinematic-veil {
+        /* ================= 1. MÀN CHUYỂN CẢNH KHI VỪA BẤM VÀO LINK (INTRO SPLASH) ================= */
+        #siteIntroCurtain {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(14, 45, 26, 0.75) 0%, rgba(4, 20, 11, 0.92) 100%);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            z-index: 99998;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #092718 0%, #020e07 100%);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), 
+                        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                        visibility 0.75s;
         }
-        .cinematic-veil.active {
-            opacity: 1;
-            pointer-events: all;
+        #siteIntroCurtain.curtain-fade-out {
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.06);
+            pointer-events: none;
+        }
+        .intro-loader-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .intro-loader-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9em;
+            font-weight: 800;
+            letter-spacing: 4px;
+            color: #FFFDF7;
+            text-shadow: 0 0 15px rgba(255, 235, 170, 0.8), 0 0 35px rgba(226, 180, 80, 0.55);
+            animation: pulseIntroTitle 1.3s ease-in-out infinite alternate;
+        }
+        .intro-loader-line {
+            width: 65px;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, #E2A83B, #FFFFFF, #E2A83B, transparent);
+            box-shadow: 0 0 8px rgba(226, 180, 80, 0.7);
+        }
+        @keyframes pulseIntroTitle {
+            0% { opacity: 0.75; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1.02); }
         }
 
         /* ẢNH NỀN MỜ SIÊU NHẸ (1PX) */
@@ -99,7 +126,7 @@
             transform: scale(1.03);
         }
 
-        /* KHUNG CHỨA TOÀN TRANG */
+        /* ================= 2. CHUYỂN CẢNH MƯỢT MÀ LIỀN MẠCH (PARALLAX FLOAT) ================= */
         .page-container {
             width: 100%;
             margin: 0 auto;
@@ -107,6 +134,44 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            /* Chuyển động lướt êm ái, không giật */
+            transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                        filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform, filter;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+        }
+
+        /* Trang 1 lướt lên và tan vào sương */
+        #page1.page-float-up {
+            opacity: 0 !important;
+            transform: translateY(-40px) scale(0.96) !important;
+            filter: blur(8px) !important;
+            pointer-events: none;
+        }
+
+        /* Trang 2 chuẩn bị trôi từ dưới lên */
+        #page2.page-prepare-from-bottom {
+            opacity: 0 !important;
+            transform: translateY(45px) scale(0.97) !important;
+            filter: blur(8px) !important;
+        }
+
+        /* Trang 2 trượt xuống khi bấm quay về */
+        #page2.page-float-down {
+            opacity: 0 !important;
+            transform: translateY(45px) scale(0.97) !important;
+            filter: blur(8px) !important;
+            pointer-events: none;
+        }
+
+        /* Trang 1 chuẩn bị từ trên đáp xuống */
+        #page1.page-prepare-from-top {
+            opacity: 0 !important;
+            transform: translateY(-40px) scale(0.96) !important;
+            filter: blur(8px) !important;
         }
 
         /* ================= GIAO DIỆN TRANG 1 ================= */
@@ -134,7 +199,7 @@
             width: 100%;
         }
 
-        /* ================= HIỆU ỨNG VỆT SÁNG QUÉT QUA & HÀO QUANG ================= */
+        /* ================= VỆT SÁNG LƯỚT QUA & HÀO QUANG ================= */
         @keyframes textShineSweep {
             0% {
                 background-position: 180% 0;
@@ -168,7 +233,6 @@
             display: inline-block;
             white-space: nowrap;
 
-            /* NỀN KEM SÁNG VỚI VỆT SÁNG TRẮNG TINH LƯỚT QUA */
             background: linear-gradient(
                 115deg,
                 #FFFDF7 0%,
@@ -186,7 +250,7 @@
             animation: textShineSweep 5.5s ease-in-out infinite, etherealGlow 3.5s ease-in-out infinite;
         }
 
-        /* ĐƯỜNG KẺ ÁNH SÁNG TINH TẾ */
+        /* ĐƯỜNG KẺ ÁNH SÁNG */
         .leaf-divider {
             display: flex;
             align-items: center;
@@ -201,7 +265,7 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
         }
 
-        /* CÂU QUOTE: DANCING SCRIPT UỐN LƯỢN NGHỆ THUẬT */
+        /* CÂU QUOTE: DANCING SCRIPT */
         .footer-quote {
             font-family: 'Dancing Script', cursive;
             font-size: 1.5em;
@@ -580,8 +644,13 @@
 </head>
 <body class="lock-scroll">
 
-    <!-- LỚP MÀN SƯƠNG ĐIỆN ẢNH GIÚP CHUYỂN CẢNH MƯỢT TUYỆT ĐỐI -->
-    <div class="cinematic-veil" id="cinematicVeil"></div>
+    <!-- ================= 1. MÀN CHUYỂN CẢNH KHI VỪA BẤM VÀO LINK (INTRO SPLASH) ================= -->
+    <div id="siteIntroCurtain">
+        <div class="intro-loader-content">
+            <div class="intro-loader-title">NGÀY ĐÂY MAI ĐÓ</div>
+            <div class="intro-loader-line"></div>
+        </div>
+    </div>
 
     <!-- LỚP NỀN NƯỚC SÂU MỜ SIÊU NHẸ 1PX -->
     <div class="bg-fixed-layer"></div>
@@ -677,6 +746,16 @@
     <script>
         const backBtn = document.getElementById("globalBackBtn");
         let selectedCharForChoice = null;
+
+        /* ================= HIỆU ỨNG KHI VỪA BẤM VÀO LINK TRUY CẬP WEB ================= */
+        window.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                const curtain = document.getElementById("siteIntroCurtain");
+                if (curtain) {
+                    curtain.classList.add("curtain-fade-out");
+                }
+            }, 600); // Mở màn êm ái sau 0.6 giây
+        });
 
         const danhSachCharGoc = [
              {
@@ -806,39 +885,55 @@
             renderCharGrid();
         };
 
-        /* ================= CHUYỂN TRANG ĐIỆN ẢNH MƯỢT TUYỆT ĐỐI (CINEMATIC DISSOLVE) ================= */
+        /* ================= 2. CHUYỂN TRANG MƯỢT MÀ LIỀN MẠCH (PARALLAX FLOAT TRANSITION) ================= */
         function chuyenTrang(soTrang) {
-            const veil = document.getElementById("cinematicVeil");
             const p1 = document.getElementById("page1");
             const p2 = document.getElementById("page2");
 
-            // 1. Kích hoạt lớp màn sương mờ ánh ngọc quét qua (che đi khoảnh khắc giật)
-            veil.classList.add("active");
+            if (soTrang === 2) {
+                // Trang 1 lướt nhẹ lên và tan mờ
+                p1.classList.add("page-float-up");
 
-            setTimeout(() => {
-                if (soTrang === 2) {
+                setTimeout(() => {
                     p1.style.display = "none";
+                    p1.classList.remove("page-float-up");
+
+                    // Bật Trang 2 ở vị trí từ dưới lên
+                    p2.classList.add("page-prepare-from-bottom");
                     p2.style.display = "flex";
                     window.scrollTo({ top: 0, behavior: 'instant' });
                     document.body.classList.remove("lock-scroll");
                     backBtn.style.display = "inline-flex";
                     backBtn.onclick = () => chuyenTrang(1);
 
-                    // 2. Kích hoạt hiệu ứng thác nước trôi lên so le cho các thẻ
+                    // Buộc reflow rồi kích hoạt trôi lên êm ái
+                    void p2.offsetWidth;
+                    p2.classList.remove("page-prepare-from-bottom");
+
+                    // Kích hoạt thác nước so le cho thẻ nhân vật
                     triggerCardCascade();
-                } else if (soTrang === 1) {
+                }, 280);
+
+            } else if (soTrang === 1) {
+                // Trang 2 trượt xuống và tan biến
+                p2.classList.add("page-float-down");
+                backBtn.style.display = "none";
+
+                setTimeout(() => {
                     p2.style.display = "none";
+                    p2.classList.remove("page-float-down");
+
+                    // Bật Trang 1 từ trên lướt xuống
+                    p1.classList.add("page-prepare-from-top");
                     p1.style.display = "flex";
                     window.scrollTo({ top: 0, behavior: 'instant' });
                     document.body.classList.add("lock-scroll");
-                    backBtn.style.display = "none";
-                }
 
-                // 3. Màn sương tan dần ra để lộ trang mới mượt mà
-                setTimeout(() => {
-                    veil.classList.remove("active");
-                }, 50);
-            }, 300);
+                    // Buộc reflow rồi hạ cánh êm ái vào vị trí
+                    void p1.offsetWidth;
+                    p1.classList.remove("page-prepare-from-top");
+                }, 280);
+            }
         }
 
         /* HÀM KÍCH HOẠT HIỆU ỨNG THÁC NƯỚC CHO THẺ NHÂN VẬT */
@@ -846,7 +941,7 @@
             const cards = document.querySelectorAll(".char-card");
             cards.forEach((card, index) => {
                 card.classList.remove("cascade-in");
-                void card.offsetWidth; // ép reflow để chạy animation
+                void card.offsetWidth;
                 card.style.animationDelay = `${(index * 0.05).toFixed(2)}s`;
                 card.classList.add("cascade-in");
             });
