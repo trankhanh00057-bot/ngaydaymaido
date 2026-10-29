@@ -7,10 +7,10 @@
     <meta name="referrer" content="no-referrer">
     <title>Ngày đây mai đó</title>
     
-    <!-- Nhúng Font chữ Playfair Display & Lora -->
+    <!-- Nhúng Font chữ Cinzel, Be Vietnam Pro & Lora -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cinzel:wght@600;700;800;900&family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
         /* ================= RESET CHỐNG TRÀN ================= */
@@ -40,7 +40,7 @@
             touch-action: none;
         }
 
-        /* LỚP NỀN ĐỘC LẬP - ĐÃ CẬP NHẬT ẢNH MỚI */
+        /* LỚP NỀN NƯỚC SÂU LẤP LÁNH ÁNH VÀNG */
         .bg-fixed-layer {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -52,7 +52,7 @@
             transform: translateZ(0);
         }
 
-        /* NÚT TRỞ VỀ GÓC TRÁI */
+        /* NÚT TRỞ VỀ GÓC TRÁI (KHI Ở TRANG 2) */
         .global-back-btn {
             position: fixed;
             top: 12px;
@@ -65,7 +65,7 @@
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 12px;
-            font-family: 'Lora', serif;
+            font-family: 'Be Vietnam Pro', sans-serif;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             transition: 0.2s;
@@ -101,32 +101,46 @@
             position: relative;
         }
 
-        /* PHẦN CHỮ "NGÀY ĐÂY MAI ĐÓ" Ở CHÍNH GIỮA */
+        /* CỤM CHỮ TRUNG TÂM CÓ VẦNG TỐI MỜ DỊU ĐỂ CHỮ NỔI LÊN TRÊN NƯỚC */
         .intro-center-block {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin-top: -50px;
+            padding: 24px 20px;
+            background: radial-gradient(ellipse at center, rgba(3, 20, 10, 0.72) 0%, rgba(3, 20, 10, 0.35) 65%, transparent 100%);
+            border-radius: 24px;
+            backdrop-filter: blur(2px);
         }
+
+        /* TIÊU ĐỀ: FONT CINZEL, MÀU VÀNG CHAMPAGNE, ĐỔ BÓNG 3 LỚP */
         .title-main {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.35em;
-            font-weight: 700;
-            color: #FFFFFF;
+            font-family: 'Cinzel', serif;
+            font-size: 2.3em;
+            font-weight: 800;
+            color: #FFF2CE;
+            letter-spacing: 3px;
             line-height: 1.25;
-            letter-spacing: 1.5px;
             margin: 0;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+            text-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.95),
+                0 4px 14px rgba(0, 0, 0, 0.9),
+                0 0 25px rgba(0, 0, 0, 0.85);
         }
+
+        /* PHỤ ĐỀ: NÉT CHỮ GỌN, DỄ ĐỌC, TRẮNG SÁNG */
         .desc-text {
+            font-family: 'Be Vietnam Pro', sans-serif;
             font-size: 0.95em;
-            color: #F1F8E9;
+            font-weight: 500;
+            color: #FFFFFF;
             line-height: 1.6;
             max-width: 420px;
             margin: 16px 0 14px 0;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 4px #000000;
         }
+
         .leaf-divider {
             display: flex;
             align-items: center;
@@ -137,14 +151,15 @@
         .leaf-divider .line {
             width: 100%;
             height: 1px;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 242, 206, 0.5);
         }
+
         .footer-quote {
+            font-family: 'Be Vietnam Pro', sans-serif;
             font-size: 0.85em;
-            color: #DCE7E1;
             font-style: italic;
-            opacity: 0.85;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+            color: #E2D4A8;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
         }
 
         /* CỤM NÚT BẤM DỜI XUỐNG DƯỚI */
@@ -161,27 +176,30 @@
             z-index: 10;
         }
 
-        /* NÚT ĐI DẠO ĐÓ ĐÂY (NẰM TRÊN) */
+        /* NÚT ĐI DẠO ĐÓ ĐÂY NẰM TRÊN - VIỀN VÀNG ĐỒNG HỢP TÔNG NỀN */
         .btn-wander {
-            background-color: #558B6E;
-            color: #FFFFFF;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, #1C4831, #0E2818);
+            color: #FFF2CE;
+            border: 1.5px solid #D4B26F;
             border-radius: 25px;
             padding: 10px 36px;
-            font-size: 14.5px;
-            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-family: 'Be Vietnam Pro', sans-serif;
             font-weight: 600;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6), 0 0 10px rgba(212, 178, 111, 0.3);
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
-            transition: 0.2s;
+            transition: 0.25s;
         }
         .btn-wander:active { transform: scale(0.98); }
         .btn-wander:hover {
-            background-color: #629d7d;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+            background: #D4B26F;
+            color: #0A2013;
+            border-color: #FFF2CE;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(212, 178, 111, 0.4);
         }
 
-        /* HAI NÚT FB & DISCORD (NẰM DƯỚI) */
+        /* HAI NÚT FB & DISCORD NẰM NGAY DƯỚI */
         .social-links-wrapper {
             display: flex;
             align-items: center;
@@ -193,16 +211,16 @@
             align-items: center;
             gap: 7px;
             background: rgba(10, 32, 19, 0.88);
-            border: 1px solid rgba(127, 229, 182, 0.35);
-            color: #E8F5E9;
+            border: 1px solid rgba(212, 178, 111, 0.4);
+            color: #FFF2CE;
             text-decoration: none;
             padding: 8px 18px;
             border-radius: 22px;
             font-size: 12px;
-            font-family: 'Lora', serif;
+            font-family: 'Be Vietnam Pro', sans-serif;
             font-weight: 500;
             backdrop-filter: blur(8px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             transition: all 0.25s ease;
         }
         .social-btn svg {
@@ -232,20 +250,28 @@
             padding: 65px 16px 45px 16px;
         }
         .p2-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.4em; color: #FFFFFF; margin: 0;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.7); font-weight: 500;
+            font-family: 'Cinzel', serif;
+            font-size: 2.3em;
+            color: #FFF2CE;
+            margin: 0;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+            font-weight: 700;
+            letter-spacing: 2px;
         }
         .p2-subtitle {
-            color: #DCE7E1; font-size: 0.92em; margin: 6px 0 20px 0;
-            font-style: italic; text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+            color: #E2D4A8;
+            font-size: 0.92em;
+            margin: 6px 0 20px 0;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-style: italic;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.8);
         }
 
         /* THANH TAB CHUYỂN ĐỔI */
         .tab-switch-container {
             display: inline-flex;
             background: rgba(10, 30, 18, 0.85);
-            border: 1px solid rgba(127, 229, 182, 0.4);
+            border: 1px solid rgba(212, 178, 111, 0.4);
             border-radius: 30px;
             padding: 4px;
             margin-bottom: 24px;
@@ -254,19 +280,19 @@
         .tab-btn {
             background: transparent;
             border: none;
-            color: #C8E6C9;
+            color: #E2D4A8;
             padding: 8px 26px;
             border-radius: 25px;
-            font-family: 'Lora', serif;
-            font-size: 14px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 13.5px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.25s ease;
         }
         .tab-btn.active {
-            background: #7FE5B6;
-            color: #0A2416;
-            font-weight: bold;
+            background: #D4B26F;
+            color: #0A2013;
+            font-weight: 700;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
@@ -290,9 +316,14 @@
         .p3-search-box { position: relative; width: 100%; }
         .p3-search-input {
             width: 100%;
-            background: rgba(8, 26, 15, 0.8); border: 1px solid rgba(85, 139, 110, 0.5);
-            border-radius: 20px; padding: 7px 16px; color: #FFFFFF;
-            font-family: 'Lora', serif; font-size: 13.5px; outline: none;
+            background: rgba(8, 26, 15, 0.8);
+            border: 1px solid rgba(85, 139, 110, 0.5);
+            border-radius: 20px;
+            padding: 7px 16px;
+            color: #FFFFFF;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 13.5px;
+            outline: none;
             text-align: center;
         }
 
@@ -304,17 +335,24 @@
             width: 100%;
         }
         .empty-placeholder {
-            grid-column: 1 / -1; padding: 45px 12px; text-align: center;
-            color: #C8E6C9; font-style: italic; font-size: 0.95em;
-            background: rgba(12, 36, 21, 0.8); border: 1.5px dashed rgba(85, 139, 110, 0.5);
-            border-radius: 18px; line-height: 1.5; width: 100%;
+            grid-column: 1 / -1;
+            padding: 45px 12px;
+            text-align: center;
+            color: #C8E6C9;
+            font-style: italic;
+            font-size: 0.95em;
+            background: rgba(12, 36, 21, 0.8);
+            border: 1.5px dashed rgba(85, 139, 110, 0.5);
+            border-radius: 18px;
+            line-height: 1.5;
+            width: 100%;
             backdrop-filter: blur(6px);
         }
 
         /* MỖI NHÂN VẬT LÀ MỘT KHUNG ĐỘC LẬP */
         .char-card {
             background: rgba(8, 26, 15, 0.95);
-            border: 1.5px solid rgba(127, 229, 182, 0.45);
+            border: 1.5px solid rgba(212, 178, 111, 0.45);
             border-radius: 18px;
             overflow: hidden;
             display: flex;
@@ -326,8 +364,8 @@
         }
         .char-card:hover {
             transform: translateY(-5px);
-            border-color: #7FE5B6;
-            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.7), 0 0 18px rgba(127, 229, 182, 0.35);
+            border-color: #D4B26F;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.7), 0 0 18px rgba(212, 178, 111, 0.35);
         }
 
         /* KHUNG ẢNH CHÂN DUNG */
@@ -336,7 +374,7 @@
             width: 100%; 
             height: 380px; 
             background: #11281A;
-            border-bottom: 1px solid rgba(127, 229, 182, 0.2);
+            border-bottom: 1px solid rgba(212, 178, 111, 0.2);
         }
         .char-img { 
             width: 100%; 
@@ -347,6 +385,7 @@
         .char-tag-overlay {
             position: absolute; bottom: 10px; left: 10px; background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(4px); color: #FFFFFF; font-size: 11px;
+            font-family: 'Be Vietnam Pro', sans-serif;
             padding: 4px 10px; border-radius: 6px; max-width: 90%;
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -355,19 +394,20 @@
             padding: 16px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; flex: 1;
         }
         .char-name {
-            font-family: 'Playfair Display', serif; font-size: 1.4em; color: #FFFFFF; margin: 0 0 8px 0; font-weight: 600;
+            font-family: 'Cinzel', serif; font-size: 1.35em; color: #FFF2CE; margin: 0 0 8px 0; font-weight: 700;
         }
         
         .char-quote-desc {
+            font-family: 'Lora', serif;
             font-size: 0.9em;
-            color: #C8E6C9;
+            color: #E2D4A8;
             line-height: 1.55;
             font-style: italic;
             margin: 0 0 16px 0;
             background: rgba(0, 0, 0, 0.35);
             padding: 10px 12px;
             border-radius: 8px;
-            border-left: 2.5px solid #7FE5B6;
+            border-left: 2.5px solid #D4B26F;
             word-break: break-word;
         }
 
@@ -377,13 +417,13 @@
         }
         .btn-chat-expanded {
             width: 100%;
-            background: rgba(18, 48, 28, 0.85); border: 1px solid rgba(127, 229, 182, 0.45);
+            background: rgba(18, 48, 28, 0.85); border: 1px solid rgba(212, 178, 111, 0.45);
             border-radius: 14px; padding: 8px 12px; font-size: 13px; font-weight: bold;
-            font-family: 'Lora', serif;
-            color: #E8F5E9; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            color: #FFF2CE; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
             transition: 0.2s;
         }
-        .btn-chat-expanded:hover { background: rgba(30, 80, 48, 0.95); border-color: #7FE5B6; }
+        .btn-chat-expanded:hover { background: #D4B26F; color: #0A2013; border-color: #FFF2CE; }
 
         /* ================= TAB 2: HÒM THƯ NGL LINK ================= */
         .ngl-box {
@@ -391,7 +431,7 @@
             max-width: 540px;
             margin: 0 auto;
             background: rgba(12, 36, 21, 0.94);
-            border: 1px solid rgba(85, 139, 110, 0.35);
+            border: 1px solid rgba(212, 178, 111, 0.35);
             border-radius: 20px;
             padding: 22px 18px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.35);
@@ -404,7 +444,7 @@
         .ngl-iframe {
             width: 100%;
             height: 520px;
-            border: 1.5px solid rgba(127, 229, 182, 0.45);
+            border: 1.5px solid rgba(212, 178, 111, 0.45);
             border-radius: 16px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             background: #ffffff;
@@ -412,10 +452,10 @@
         }
         .btn-ngl-external {
             display: inline-block;
-            background: #7FE5B6;
-            color: #0A2416;
+            background: #D4B26F;
+            color: #0A2013;
             font-weight: bold;
-            font-family: 'Lora', serif;
+            font-family: 'Be Vietnam Pro', sans-serif;
             text-decoration: none;
             padding: 9px 20px;
             border-radius: 20px;
@@ -423,7 +463,7 @@
             margin-top: 12px;
             transition: 0.2s;
         }
-        .btn-ngl-external:hover { background: #A3F0CC; transform: scale(1.02); }
+        .btn-ngl-external:hover { background: #FFF2CE; transform: scale(1.02); }
 
         /* ================= MODAL CHỌN PHIÊN BẢN CHAT ================= */
         .modal-overlay {
@@ -432,40 +472,41 @@
             justify-content: center; align-items: center; padding: 10px;
         }
         .modal-box {
-            background: rgba(14, 40, 24, 0.98); border: 1px solid rgba(85, 139, 110, 0.5);
+            background: rgba(14, 40, 24, 0.98); border: 1px solid rgba(212, 178, 111, 0.5);
             border-radius: 16px; padding: 20px; width: 100%; max-width: 480px;
             color: #FFFFFF; text-align: left; position: relative; max-height: 85vh; overflow-y: auto;
         }
         .modal-close {
             position: absolute; top: 12px; right: 12px; background: none; border: none;
-            color: #A8D5BA; font-size: 16px; cursor: pointer; font-family: sans-serif;
+            color: #D4B26F; font-size: 16px; cursor: pointer; font-family: sans-serif;
         }
         .btn-version-choice {
             display: block; width: 100%; margin-top: 10px; padding: 12px;
-            background: rgba(25, 64, 38, 0.9); border: 1px solid #7FE5B6;
-            color: #ffffff; border-radius: 12px; font-family: 'Lora', serif;
+            background: rgba(25, 64, 38, 0.9); border: 1px solid #D4B26F;
+            color: #FFF2CE; border-radius: 12px; font-family: 'Be Vietnam Pro', sans-serif;
             font-size: 13.5px; font-weight: bold; text-align: center; cursor: pointer; transition: 0.2s;
         }
-        .btn-version-choice:hover { background: #7FE5B6; color: #0A2416; }
+        .btn-version-choice:hover { background: #D4B26F; color: #0A2013; }
 
         /* ================= TỐI ƯU ĐẶC BIỆT CHO ĐIỆN THOẠI ================= */
         @media (max-width: 680px) {
             #page1 { padding: 16px 12px; }
-            .intro-center-block { margin-top: -65px; }
-            .title-main { font-size: 1.95em; }
+            .intro-center-block { margin-top: -65px; padding: 18px 14px; }
+            .title-main { font-size: 1.95em; letter-spacing: 2px; }
             .desc-text { font-size: 0.88em; margin: 12px 0; }
             .leaf-divider { margin-bottom: 12px; }
 
+            /* NÂNG CAO NÚT BẤM ĐỂ KHÔNG BỊ THANH TRÌNH DUYỆT SAFARI CHE */
             .bottom-actions-wrapper { 
                 bottom: 95px;
                 bottom: calc(85px + env(safe-area-inset-bottom, 0px));
                 gap: 12px; 
             }
-            .btn-wander { padding: 10px 32px; font-size: 14px; }
+            .btn-wander { padding: 10px 32px; font-size: 13.5px; }
             .social-btn { padding: 7px 16px; font-size: 11.5px; }
             
             #page2 { padding: 55px 12px 25px 12px; }
-            .p2-title { font-size: 2em; }
+            .p2-title { font-size: 1.95em; }
             .tab-btn { padding: 7px 18px; font-size: 13px; }
             .char-img-container { height: 350px; }
             .char-grid { gap: 28px; grid-template-columns: 1fr; }
@@ -474,7 +515,7 @@
 </head>
 <body class="lock-scroll">
 
-    <!-- LỚP NỀN GIF / ẢNH NƯỚC LẤP LÁNH ĐỘC LẬP -->
+    <!-- LỚP NỀN NƯỚC SÂU ĐỘC LẬP -->
     <div class="bg-fixed-layer"></div>
 
     <!-- NÚT TRỞ VỀ GÓC TRÁI (KHI Ở TRANG 2) -->
@@ -542,8 +583,8 @@
 
         <!-- NỘI DUNG TAB 2: HÒM THƯ NGL CHÍNH THỨC -->
         <div class="ngl-box" id="tabContentHomThu" style="display: none;">
-            <h3 style="font-family:'Playfair Display',serif; font-size:1.4em; color:#7FE5B6; margin-bottom:4px;">Hòm Thư Ẩn Danh</h3>
-            <p style="font-size:0.88em; color:#C8E6C9; margin-bottom:8px;">Gửi lại đôi dòng tâm tình hoặc góp ý ẩn danh trực tiếp qua NGL nhé:</p>
+            <h3 style="font-family:'Cinzel',serif; font-size:1.4em; color:#D4B26F; margin-bottom:4px;">Hòm Thư Ẩn Danh</h3>
+            <p style="font-size:0.88em; color:#E2D4A8; margin-bottom:8px; font-family:'Be Vietnam Pro',sans-serif;">Gửi lại đôi dòng tâm tình hoặc góp ý ẩn danh trực tiếp qua NGL nhé:</p>
             
             <iframe src="https://ngl.link/ngaydaymaido/gas" class="ngl-iframe" title="Hòm thư NGL"></iframe>
             
@@ -556,8 +597,8 @@
     <div class="modal-overlay" id="modal-choose-version">
         <div class="modal-box" style="text-align:center;">
             <button class="modal-close" onclick="dongModal('modal-choose-version')">Đóng</button>
-            <h3 style="margin-top:0; color:#7FE5B6; font-family:'Playfair Display',serif; font-size:1.3em;">Chọn Phiên Bản Chat</h3>
-            <p id="choose-char-desc" style="font-size:0.88em; color:#E8F5E9; margin-bottom:14px;">Nhân vật này có 2 phiên bản trò chuyện:</p>
+            <h3 style="margin-top:0; color:#D4B26F; font-family:'Cinzel',serif; font-size:1.3em;">Chọn Phiên Bản Chat</h3>
+            <p id="choose-char-desc" style="font-size:0.88em; color:#E8F5E9; margin-bottom:14px; font-family:'Be Vietnam Pro',sans-serif;">Nhân vật này có 2 phiên bản trò chuyện:</p>
             
             <button class="btn-version-choice" id="btnChoiceBL" onclick="moLinkChatDirect('BL')">Trò chuyện Bản BL</button>
             <button class="btn-version-choice" id="btnChoiceBG" onclick="moLinkChatDirect('BG')" style="border-color:#F48FB1; color:#FCE4EC;">Trò chuyện Bản BG</button>
