@@ -7,10 +7,10 @@
     <meta name="referrer" content="no-referrer">
     <title>Ngày đây mai đó</title>
     
-    <!-- Nhúng Font chữ Cinzel, Be Vietnam Pro & Lora -->
+    <!-- Nhúng Font chữ chuẩn tiếng Việt: Playfair Display, Be Vietnam Pro & Lora -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cinzel:wght@600;700;800;900&family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
 
     <style>
         /* ================= RESET CHỐNG TRÀN ================= */
@@ -40,7 +40,7 @@
             touch-action: none;
         }
 
-        /* LỚP NỀN NƯỚC SÂU LẤP LÁNH ÁNH VÀNG */
+        /* LỚP NỀN NƯỚC SÂU ĐỘC LẬP */
         .bg-fixed-layer {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -101,57 +101,62 @@
             position: relative;
         }
 
-        /* CỤM CHỮ TRUNG TÂM CÓ VẦNG TỐI MỜ DỊU ĐỂ CHỮ NỔI LÊN TRÊN NƯỚC */
+        /* KHUNG KÍNH MỜ (FROSTED GLASS) LÀM ẢNH NỀN MỜ PHÍA SAU CHỮ */
         .intro-center-block {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin-top: -50px;
-            padding: 24px 20px;
-            background: radial-gradient(ellipse at center, rgba(3, 20, 10, 0.72) 0%, rgba(3, 20, 10, 0.35) 65%, transparent 100%);
-            border-radius: 24px;
-            backdrop-filter: blur(2px);
+            width: 92%;
+            max-width: 440px;
+            padding: 28px 22px;
+            /* Lớp kính mờ cao cấp: dìm vệt sóng và làm mờ ảnh nền xuyên thấu */
+            background: rgba(7, 26, 16, 0.62);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1.5px solid rgba(212, 178, 111, 0.35);
+            border-radius: 26px;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
         }
 
-        /* TIÊU ĐỀ: FONT CINZEL, MÀU VÀNG CHAMPAGNE, ĐỔ BÓNG 3 LỚP */
+        /* TIÊU ĐỀ: PLAYFAIR DISPLAY CHUẨN TIẾNG VIỆT 100%, MÀU VÀNG CHAMPAGNE */
         .title-main {
-            font-family: 'Cinzel', serif;
-            font-size: 2.3em;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.25em;
             font-weight: 800;
             color: #FFF2CE;
-            letter-spacing: 3px;
+            letter-spacing: 2.5px;
             line-height: 1.25;
             margin: 0;
             text-shadow: 
                 0 2px 4px rgba(0, 0, 0, 0.95),
                 0 4px 14px rgba(0, 0, 0, 0.9),
-                0 0 25px rgba(0, 0, 0, 0.85);
+                0 0 20px rgba(212, 178, 111, 0.35);
         }
 
-        /* PHỤ ĐỀ: NÉT CHỮ GỌN, DỄ ĐỌC, TRẮNG SÁNG */
+        /* PHỤ ĐỀ */
         .desc-text {
             font-family: 'Be Vietnam Pro', sans-serif;
-            font-size: 0.95em;
+            font-size: 0.93em;
             font-weight: 500;
             color: #FFFFFF;
             line-height: 1.6;
-            max-width: 420px;
-            margin: 16px 0 14px 0;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 4px #000000;
+            margin: 14px 0 14px 0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
         }
 
         .leaf-divider {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 90px;
-            margin-bottom: 14px;
+            width: 80px;
+            margin-bottom: 12px;
         }
         .leaf-divider .line {
             width: 100%;
             height: 1px;
-            background: rgba(255, 242, 206, 0.5);
+            background: rgba(255, 242, 206, 0.55);
         }
 
         .footer-quote {
@@ -159,7 +164,7 @@
             font-size: 0.85em;
             font-style: italic;
             color: #E2D4A8;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
         }
 
         /* CỤM NÚT BẤM DỜI XUỐNG DƯỚI */
@@ -176,7 +181,7 @@
             z-index: 10;
         }
 
-        /* NÚT ĐI DẠO ĐÓ ĐÂY NẰM TRÊN - VIỀN VÀNG ĐỒNG HỢP TÔNG NỀN */
+        /* NÚT ĐI DẠO ĐÓ ĐÂY NẰM TRÊN */
         .btn-wander {
             background: linear-gradient(135deg, #1C4831, #0E2818);
             color: #FFF2CE;
@@ -250,13 +255,13 @@
             padding: 65px 16px 45px 16px;
         }
         .p2-title {
-            font-family: 'Cinzel', serif;
+            font-family: 'Playfair Display', serif;
             font-size: 2.3em;
             color: #FFF2CE;
             margin: 0;
             text-shadow: 0 4px 15px rgba(0,0,0,0.8);
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
         }
         .p2-subtitle {
             color: #E2D4A8;
@@ -394,7 +399,7 @@
             padding: 16px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; flex: 1;
         }
         .char-name {
-            font-family: 'Cinzel', serif; font-size: 1.35em; color: #FFF2CE; margin: 0 0 8px 0; font-weight: 700;
+            font-family: 'Playfair Display', serif; font-size: 1.35em; color: #FFF2CE; margin: 0 0 8px 0; font-weight: 700;
         }
         
         .char-quote-desc {
@@ -491,12 +496,11 @@
         /* ================= TỐI ƯU ĐẶC BIỆT CHO ĐIỆN THOẠI ================= */
         @media (max-width: 680px) {
             #page1 { padding: 16px 12px; }
-            .intro-center-block { margin-top: -65px; padding: 18px 14px; }
-            .title-main { font-size: 1.95em; letter-spacing: 2px; }
+            .intro-center-block { margin-top: -65px; padding: 22px 16px; width: 95%; }
+            .title-main { font-size: 1.85em; letter-spacing: 1.8px; }
             .desc-text { font-size: 0.88em; margin: 12px 0; }
             .leaf-divider { margin-bottom: 12px; }
 
-            /* NÂNG CAO NÚT BẤM ĐỂ KHÔNG BỊ THANH TRÌNH DUYỆT SAFARI CHE */
             .bottom-actions-wrapper { 
                 bottom: 95px;
                 bottom: calc(85px + env(safe-area-inset-bottom, 0px));
@@ -524,7 +528,7 @@
     <!-- ================= TRANG 1: MỞ ĐẦU (CỐ ĐỊNH, KHÔNG CUỘN) ================= -->
     <div class="page-container" id="page1">
         
-        <!-- PHẦN CHỮ "NGÀY ĐÂY MAI ĐÓ" VẪN Ở TRUNG TÂM -->
+        <!-- PHẦN CHỮ CÓ KHUNG KÍNH MỜ LÀM ẢNH NỀN MỜ PHÍA SAU -->
         <div class="intro-center-block">
             <h1 class="title-main">NGÀY ĐÂY MAI ĐÓ</h1>
             <p class="desc-text">Phía sau mỗi nhân vật là một thế giới riêng đang lặng thầm cất tiếng.</p>
@@ -583,7 +587,7 @@
 
         <!-- NỘI DUNG TAB 2: HÒM THƯ NGL CHÍNH THỨC -->
         <div class="ngl-box" id="tabContentHomThu" style="display: none;">
-            <h3 style="font-family:'Cinzel',serif; font-size:1.4em; color:#D4B26F; margin-bottom:4px;">Hòm Thư Ẩn Danh</h3>
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.4em; color:#D4B26F; margin-bottom:4px;">Hòm Thư Ẩn Danh</h3>
             <p style="font-size:0.88em; color:#E2D4A8; margin-bottom:8px; font-family:'Be Vietnam Pro',sans-serif;">Gửi lại đôi dòng tâm tình hoặc góp ý ẩn danh trực tiếp qua NGL nhé:</p>
             
             <iframe src="https://ngl.link/ngaydaymaido/gas" class="ngl-iframe" title="Hòm thư NGL"></iframe>
@@ -597,7 +601,7 @@
     <div class="modal-overlay" id="modal-choose-version">
         <div class="modal-box" style="text-align:center;">
             <button class="modal-close" onclick="dongModal('modal-choose-version')">Đóng</button>
-            <h3 style="margin-top:0; color:#D4B26F; font-family:'Cinzel',serif; font-size:1.3em;">Chọn Phiên Bản Chat</h3>
+            <h3 style="margin-top:0; color:#D4B26F; font-family:'Playfair Display',serif; font-size:1.3em;">Chọn Phiên Bản Chat</h3>
             <p id="choose-char-desc" style="font-size:0.88em; color:#E8F5E9; margin-bottom:14px; font-family:'Be Vietnam Pro',sans-serif;">Nhân vật này có 2 phiên bản trò chuyện:</p>
             
             <button class="btn-version-choice" id="btnChoiceBL" onclick="moLinkChatDirect('BL')">Trò chuyện Bản BL</button>
