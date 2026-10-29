@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <!-- CHỐNG FACEBOOK CHẶN LINK ẢNH TRÊN ĐIỆN THOẠI -->
+    <!-- CHỐNG FACEBOOK & TRÌNH DUYỆT CHẶN LINK ẢNH -->
     <meta name="referrer" content="no-referrer">
     <title>Ngày đây mai đó</title>
     
@@ -29,7 +29,7 @@
             color: #ffffff;
             min-height: 100vh;
             min-height: 100dvh;
-            background: #03140a !important;
+            background: #03140a;
         }
 
         body.lock-scroll {
@@ -39,7 +39,25 @@
             touch-action: none;
         }
 
-        /* ================= HIỆU ỨNG CHUYỂN CẢNH KÍNH MỜ & HÀO QUANG VÀNG KIM ================= */
+        /* ================= ẢNH NỀN WEB (ĐÃ SỬA KHÔNG BỊ MẤT/BỊ ĐÈ) ================= */
+        .bg-fixed-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Nằm ngay trên body, không bị nuốt ảnh */
+            background-image: 
+                linear-gradient(rgba(3, 20, 10, 0.58), rgba(3, 20, 10, 0.72)),
+                url("https://i.postimg.cc/fLHPLBZy/9b6ccf92-07e5-4dec-b368-aa877e72eca3.jpg");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            pointer-events: none;
+            transform: translateZ(0);
+        }
+
+        /* ================= HIỆU ỨNG CHUYỂN CẢNH ÁNH KIM MƯỢT MÀ ================= */
         .page-transition-overlay {
             position: fixed;
             top: 0;
@@ -48,16 +66,16 @@
             height: 100%;
             z-index: 999999;
             pointer-events: none;
-            opacity: 1;
-            /* Lớp phủ sương mờ xuyên thấu, ánh vàng ấm áp thay vì màu đen kịt */
-            background: radial-gradient(circle at center, rgba(226, 168, 59, 0.18) 0%, rgba(8, 30, 18, 0.65) 60%, rgba(3, 20, 10, 0.82) 100%);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            display: none; /* Mặc định tắt để KHÔNG che mờ ảnh web */
+            opacity: 0;
+            background: radial-gradient(circle at center, rgba(226, 168, 59, 0.2) 0%, rgba(8, 30, 18, 0.7) 60%, rgba(3, 20, 10, 0.88) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: opacity 0.35s ease;
             overflow: hidden;
         }
 
-        /* Luồng ánh sáng quét ngang nhẹ nhàng khi đổi trang */
+        /* Luồng ánh sáng quét ngang khi chuyển cảnh */
         .golden-shimmer-sweep {
             position: absolute;
             top: -50%;
@@ -67,9 +85,9 @@
             background: linear-gradient(
                 115deg,
                 transparent 30%,
-                rgba(255, 235, 170, 0.12) 42%,
-                rgba(255, 255, 255, 0.35) 50%,
-                rgba(226, 168, 59, 0.2) 58%,
+                rgba(255, 235, 170, 0.15) 42%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(226, 168, 59, 0.25) 58%,
                 transparent 70%
             );
             transform: rotate(-15deg);
@@ -78,7 +96,7 @@
         }
 
         .golden-shimmer-sweep.active-sweep {
-            animation: lightSweep 0.65s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+            animation: lightSweep 0.6s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
         }
 
         @keyframes lightSweep {
@@ -86,27 +104,13 @@
                 transform: translateX(-40%) rotate(-15deg);
                 opacity: 0;
             }
-            35% {
+            40% {
                 opacity: 1;
             }
             100% {
                 transform: translateX(45%) rotate(-15deg);
                 opacity: 0;
             }
-        }
-
-        /* ẢNH NỀN MỜ SIÊU NHẸ (1PX) */
-        .bg-fixed-layer {
-            position: fixed;
-            top: -6px; left: -6px;
-            width: calc(100% + 12px);
-            height: calc(100% + 12px);
-            z-index: -1;
-            background: url("https://i.postimg.cc/fLHPLBZy/9b6ccf92-07e5-4dec-b368-aa877e72eca3.jpg") no-repeat center center;
-            background-size: cover;
-            filter: blur(1px);
-            pointer-events: none;
-            transform: translateZ(0);
         }
 
         /* NÚT TRỞ VỀ GÓC TRÁI (KHI Ở TRANG 2) */
@@ -136,15 +140,17 @@
             transform: scale(1.03);
         }
 
-        /* KHUNG CHỨA TOÀN TRANG CÓ TRANSITION MƯỢT */
+        /* KHUNG CHỨA TRANG NẰM TRÊN ẢNH NỀN */
         .page-container {
+            position: relative;
+            z-index: 1; /* Nổi trên ảnh nền */
             width: 100%;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transition: opacity 0.35s ease, transform 0.35s ease;
         }
 
         /* ================= GIAO DIỆN TRANG 1 ================= */
@@ -156,7 +162,6 @@
             overflow: hidden;
             justify-content: center;
             padding: 20px 16px;
-            position: relative;
         }
 
         .intro-center-block {
@@ -417,7 +422,7 @@
         @keyframes cascadeCard {
             0% {
                 opacity: 0;
-                transform: translateY(25px) scale(0.97);
+                transform: translateY(22px) scale(0.97);
             }
             100% {
                 opacity: 1;
@@ -425,7 +430,7 @@
             }
         }
         .char-card.cascade-in {
-            animation: cascadeCard 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+            animation: cascadeCard 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
         .char-card {
@@ -540,7 +545,7 @@
         }
         .btn-ngl-external:hover { background: #FFFDF7; transform: scale(1.02); }
 
-        /* MODAL CHỌN BẢN CHAT */
+        /* MODAL */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(5px); z-index: 10000;
@@ -588,13 +593,13 @@
 </head>
 <body class="lock-scroll">
 
-    <!-- ================= LỚP PHỦ CHUYỂN CẢNH KÍNH MỜ & HÀO QUANG ================= -->
+    <!-- ẢNH NỀN WEB LUÔN HIỆN RÕ -->
+    <div class="bg-fixed-layer"></div>
+
+    <!-- LỚP PHỦ CHUYỂN CẢNH (CHỈ BẬT KHI BẤM NÚT) -->
     <div class="page-transition-overlay" id="pageTransitionOverlay">
         <div class="golden-shimmer-sweep" id="goldenSweep"></div>
     </div>
-
-    <!-- ẢNH NỀN MỜ -->
-    <div class="bg-fixed-layer"></div>
 
     <!-- NÚT TRỞ VỀ GÓC TRÁI -->
     <div class="global-back-btn" id="globalBackBtn">Trở về</div>
@@ -655,7 +660,7 @@
         </div>
     </div>
 
-    <!-- MODAL -->
+    <!-- MODAL CHỌN PHIÊN BẢN -->
     <div class="modal-overlay" id="modal-choose-version">
         <div class="modal-box" style="text-align:center;">
             <button class="modal-close" onclick="dongModal('modal-choose-version')">Đóng</button>
@@ -670,16 +675,6 @@
     <script>
         const backBtn = document.getElementById("globalBackBtn");
         let selectedCharForChoice = null;
-
-        /* 1. KHI VỪA TẢI TRANG: MÀN SƯƠNG HÉ MỞ ÊM ÁI */
-        window.addEventListener("DOMContentLoaded", () => {
-            const overlay = document.getElementById("pageTransitionOverlay");
-            if (!overlay) return;
-
-            setTimeout(() => {
-                overlay.style.opacity = "0";
-            }, 100);
-        });
 
         const danhSachCharGoc = [
             {
@@ -809,7 +804,7 @@
             renderCharGrid();
         };
 
-        /* ================= 2. CHUYỂN TRANG TAN CHẢY ÁNH KIM (ETHEREAL DISSOLVE) ================= */
+        /* ================= CHUYỂN CẢNH MƯỢT, ẨN LỚP KÍNH NGAY KHI XONG ================= */
         let isTransitioning = false;
 
         function chuyenTrang(soTrang) {
@@ -821,24 +816,24 @@
             const p1 = document.getElementById("page1");
             const p2 = document.getElementById("page2");
 
-            // Kích hoạt vệt hào quang vàng kim
+            // Bật lớp chuyển cảnh lên
+            overlay.style.display = "block";
+            void overlay.offsetWidth;
+            overlay.style.opacity = "1";
+
             sweep.classList.remove("active-sweep");
             void sweep.offsetWidth;
             sweep.classList.add("active-sweep");
 
-            // Lớp sương kính mờ phủ nhẹ lên
-            overlay.style.opacity = "1";
-
             const current = (soTrang === 2) ? p1 : p2;
             const next = (soTrang === 2) ? p2 : p1;
 
-            // Trang hiện tại mờ dần và thu nhỏ xíu
             current.style.opacity = "0";
             current.style.transform = "scale(0.97) translateY(-10px)";
 
             setTimeout(() => {
                 current.style.display = "none";
-                next.style.display = (soTrang === 2) ? "flex" : "flex";
+                next.style.display = "flex";
                 next.style.opacity = "0";
                 next.style.transform = "scale(0.98) translateY(12px)";
                 window.scrollTo({ top: 0, behavior: 'instant' });
@@ -853,22 +848,23 @@
                     backBtn.style.display = "none";
                 }
 
-                // Trang mới nhẹ nhàng hiện lên
+                // Hiện trang tiếp theo
                 setTimeout(() => {
                     next.style.opacity = "1";
                     next.style.transform = "scale(1) translateY(0)";
-                    overlay.style.opacity = "0"; // Sương tan ra
+                    overlay.style.opacity = "0";
                 }, 50);
 
+                // TẮT HOÀN TOÀN LỚP PHỦ ĐỂ TRẢ LẠI ẢNH WEB SẮC NÉT
                 setTimeout(() => {
-                    isTransitioning = false;
+                    overlay.style.display = "none";
                     sweep.classList.remove("active-sweep");
-                }, 450);
+                    isTransitioning = false;
+                }, 380);
 
-            }, 260);
+            }, 240);
         }
 
-        /* HIỆU ỨNG THÁC NƯỚC CHO THẺ NHÂN VẬT */
         function triggerCardCascade() {
             const cards = document.querySelectorAll(".char-card");
             cards.forEach((card, index) => {
@@ -879,7 +875,7 @@
             });
         }
 
-        /* ================= CHUYỂN TAB MƯỢT MÀ ================= */
+        /* ================= CHUYỂN TAB ================= */
         function chuyenTab(tabName) {
             const tabDauChan = document.getElementById('tabContentDauChan');
             const tabHomThu = document.getElementById('tabContentHomThu');
