@@ -77,22 +77,6 @@
             transform: scale(1.03);
         }
 
-        .top-nav-logo {
-            position: fixed;
-            top: 12px;
-            left: 12px;
-            z-index: 100;
-            background: rgba(14, 40, 24, 0.75);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #E8F5E9;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            display: inline-flex;
-            align-items: center;
-        }
-
         /* KHUNG CHỨA TOÀN TRANG */
         .page-container {
             width: 100%;
@@ -110,8 +94,7 @@
             max-height: 100vh;
             overflow: hidden;
             justify-content: center;
-            padding: 20px 16px 80px 16px;
-            position: relative; /* Làm mốc cố định cho nút ở đáy */
+            padding: 20px 16px;
         }
         .title-main {
             font-family: 'Playfair Display', serif;
@@ -136,19 +119,21 @@
             align-items: center;
             justify-content: center;
             width: 90px;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
         .leaf-divider .line {
             width: 100%;
             height: 1px;
             background: rgba(255, 255, 255, 0.5);
         }
+
+        /* NÚT ĐI DẠO ĐÓ ĐÂY NẰM TRÊN */
         .btn-wander {
             background-color: #558B6E;
             color: #FFFFFF;
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 25px;
-            padding: 10px 32px;
+            padding: 10px 34px;
             font-size: 14.5px;
             font-family: 'Lora', serif;
             font-weight: 600;
@@ -157,25 +142,14 @@
             transition: 0.2s;
         }
         .btn-wander:active { transform: scale(0.98); }
-        .footer-quote {
-            font-size: 0.8em;
-            color: #DCE7E1;
-            font-style: italic;
-            margin-top: 14px;
-            opacity: 0.85;
-        }
 
-        /* CỤM NÚT MẠNG XÃ HỘI: ĐÃ DỜI XUỐNG DƯỚI CÙNG */
+        /* CỤM NÚT FACEBOOK & DISCORD XÍCH LÊN GẦN NÚT TRÊN */
         .social-links-wrapper {
-            position: absolute;
-            bottom: 28px;
-            left: 0;
-            right: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 16px;
-            margin-top: 0;
+            gap: 14px;
+            margin-top: 14px;
         }
         .social-btn {
             display: inline-flex;
@@ -212,6 +186,14 @@
             color: #ffffff;
             transform: translateY(-2px);
             box-shadow: 0 6px 18px rgba(88, 101, 242, 0.4);
+        }
+
+        .footer-quote {
+            font-size: 0.8em;
+            color: #DCE7E1;
+            font-style: italic;
+            margin-top: 18px;
+            opacity: 0.85;
         }
 
         /* ================= GIAO DIỆN TRANG 2 ================= */
@@ -439,11 +421,11 @@
 
         /* ================= TỐI ƯU ĐIỆN THOẠI ================= */
         @media (max-width: 680px) {
-            #page1 { padding: 16px 12px 75px 12px; }
+            #page1 { padding: 16px 12px; }
             .title-main { font-size: 2em; }
             .desc-text { font-size: 0.88em; margin: 12px 0; }
-            .leaf-divider { margin-bottom: 16px; }
-            .social-links-wrapper { bottom: 20px; gap: 12px; }
+            .leaf-divider { margin-bottom: 18px; }
+            .social-links-wrapper { gap: 10px; margin-top: 12px; }
             .social-btn { padding: 7px 15px; font-size: 11.5px; }
             
             #page2 { padding: 55px 12px 25px 12px; }
@@ -459,22 +441,21 @@
     <!-- LỚP NỀN GIF ĐỘC LẬP -->
     <div class="bg-fixed-layer"></div>
 
-    <!-- NÚT TRỞ VỀ GÓC TRÁI -->
+    <!-- NÚT TRỞ VỀ GÓC TRÁI (KHI Ở TRANG 2) -->
     <div class="global-back-btn" id="globalBackBtn">Trở về</div>
 
     <!-- ================= TRANG 1: MỞ ĐẦU (CỐ ĐỊNH, KHÔNG CUỘN) ================= -->
-    <div class="top-nav-logo" id="p1-logo">Ngày đây mai đó</div>
-
     <div class="page-container" id="page1">
         <h1 class="title-main">NGÀY ĐÂY MAI ĐÓ</h1>
         <p class="desc-text">Phía sau mỗi nhân vật là một thế giới riêng đang lặng thầm cất tiếng.</p>
         <div class="leaf-divider">
             <span class="line"></span>
         </div>
-        <button class="btn-wander" onclick="chuyenTrang(2)">Đi dạo đó đây</button>
-        <div class="footer-quote">Một bước chân, một câu chuyện</div>
 
-        <!-- PHẦN MẠNG XÃ HỘI (ĐÃ CÓ ICON VÀ DỜI XUỐNG DƯỚI) -->
+        <!-- 1. NÚT ĐI DẠO ĐÓ ĐÂY NẰM PHÍA TRÊN -->
+        <button class="btn-wander" onclick="chuyenTrang(2)">Đi dạo đó đây</button>
+
+        <!-- 2. HAI NÚT FB & DISCORD NẰM NGAY PHÍA DƯỚI, XÍCH LÊN GẦN NHAU -->
         <div class="social-links-wrapper">
             <a href="https://www.facebook.com/p/Ng%C3%A0y-%C4%90%C3%A2y-Mai-%C4%90%C3%B3-61593495327758/" target="_blank" rel="noopener noreferrer" class="social-btn fb">
                 <svg fill="currentColor" viewBox="0 0 24 24">
@@ -489,6 +470,8 @@
                 Discord
             </a>
         </div>
+
+        <div class="footer-quote">Một bước chân, một câu chuyện</div>
     </div>
 
     <!-- ================= TRANG 2: NGÀY ĐÂY MAI ĐÓ ================= -->
@@ -569,7 +552,7 @@
                 name: "Doãn Văn Khắc",
                 genre: "BL/BG",
                 tags: "#BL/BG, linh dị, Việt Nam xưa",
-                chatLink: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221_F2f57v1Xj5gcqqDWyyShzXh-BNwxchU%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22Bek=sharing",
+                chatLink: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221_F2f57v1Xj5gcqqDWyyShzXh-BNwxchU%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "",
                 img: "https://i.postimg.cc/8k6kK98Y/795132737-122110469295449844-4311688894372183339-n-(1).jpg",
                 story: '"Thầy thật trị ma, thầy rỏm trị người sống. Cuộc bắt tay bất đắc dĩ giữa hai kẻ oan gia nơi lằn ranh âm dương.”'
@@ -674,7 +657,6 @@
         /* ================= CHUYỂN TRANG & ĐIỀU KHIỂN KHÓA CUỘN ================= */
         function chuyenTrang(soTrang) {
             document.getElementById("page1").style.display = (soTrang === 1) ? "flex" : "none";
-            document.getElementById("p1-logo").style.display = (soTrang === 1) ? "inline-flex" : "none";
             document.getElementById("page2").style.display = (soTrang === 2) ? "flex" : "none";
 
             if (soTrang === 1) {
