@@ -40,13 +40,13 @@
             touch-action: none;
         }
 
-        /* LỚP NỀN GIF ĐỘC LẬP */
+        /* LỚP NỀN ĐỘC LẬP - ĐÃ CẬP NHẬT ẢNH MỚI */
         .bg-fixed-layer {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             width: 100%; height: 100%;
             z-index: -1;
-            background: url("https://i.pinimg.com/originals/8b/94/c0/8b94c0aa591d5366c9cafe0abe619eb3.gif") no-repeat center center;
+            background: url("https://i.postimg.cc/fLHPLBZy/9b6ccf92-07e5-4dec-b368-aa877e72eca3.jpg") no-repeat center center;
             background-size: cover;
             pointer-events: none;
             transform: translateZ(0);
@@ -107,7 +107,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-top: -50px; /* Nâng nhẹ trung tâm để cân đối thị giác */
+            margin-top: -50px;
         }
         .title-main {
             font-family: 'Playfair Display', serif;
@@ -147,10 +147,10 @@
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
         }
 
-        /* CỤM NÚT BẤM ĐÃ ĐƯỢC NÂNG CAO TRÁNH BỊ THANH TRÌNH DUYỆT CHE */
+        /* CỤM NÚT BẤM DỜI XUỐNG DƯỚI */
         .bottom-actions-wrapper {
             position: absolute;
-            bottom: 60px; /* Máy tính / Màn hình lớn */
+            bottom: 60px;
             left: 0;
             right: 0;
             display: flex;
@@ -161,7 +161,7 @@
             z-index: 10;
         }
 
-        /* NÚT ĐI DẠO ĐÓ ĐÂY */
+        /* NÚT ĐI DẠO ĐÓ ĐÂY (NẰM TRÊN) */
         .btn-wander {
             background-color: #558B6E;
             color: #FFFFFF;
@@ -181,7 +181,7 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
         }
 
-        /* HAI NÚT FB & DISCORD */
+        /* HAI NÚT FB & DISCORD (NẰM DƯỚI) */
         .social-links-wrapper {
             display: flex;
             align-items: center;
@@ -448,18 +448,17 @@
         }
         .btn-version-choice:hover { background: #7FE5B6; color: #0A2416; }
 
-        /* ================= TỐI ƯU ĐẶC BIỆT CHO ĐIỆN THOẠI (IPHONE / ANDROID) ================= */
+        /* ================= TỐI ƯU ĐẶC BIỆT CHO ĐIỆN THOẠI ================= */
         @media (max-width: 680px) {
             #page1 { padding: 16px 12px; }
-            .intro-center-block { margin-top: -65px; } /* Đẩy chữ lên một chút cho thoáng */
+            .intro-center-block { margin-top: -65px; }
             .title-main { font-size: 1.95em; }
             .desc-text { font-size: 0.88em; margin: 12px 0; }
             .leaf-divider { margin-bottom: 12px; }
 
-            /* NÂNG CAO NÚT BẤM ĐỂ KHÔNG BỊ THANH ĐỊA CHỈ TRÌNH DUYỆT CHE */
             .bottom-actions-wrapper { 
-                bottom: 95px; /* Chiều cao an toàn mặc định */
-                bottom: calc(85px + env(safe-area-inset-bottom, 0px)); /* Tự thích ứng tai thỏ & thanh trượt */
+                bottom: 95px;
+                bottom: calc(85px + env(safe-area-inset-bottom, 0px));
                 gap: 12px; 
             }
             .btn-wander { padding: 10px 32px; font-size: 14px; }
@@ -475,7 +474,7 @@
 </head>
 <body class="lock-scroll">
 
-    <!-- LỚP NỀN GIF ĐỘC LẬP -->
+    <!-- LỚP NỀN GIF / ẢNH NƯỚC LẤP LÁNH ĐỘC LẬP -->
     <div class="bg-fixed-layer"></div>
 
     <!-- NÚT TRỞ VỀ GÓC TRÁI (KHI Ở TRANG 2) -->
