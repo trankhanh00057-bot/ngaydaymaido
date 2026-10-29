@@ -29,7 +29,7 @@
             color: #ffffff;
             min-height: 100vh;
             min-height: 100dvh;
-            background: transparent;
+            background: #06190e;
         }
 
         /* KHÓA CUỘN KHI Ở TRANG 1 */
@@ -40,14 +40,17 @@
             touch-action: none;
         }
 
-        /* LỚP NỀN NƯỚC SÂU ĐỘC LẬP */
+        /* ẢNH NỀN WEB LÀM MỜ MỜ ẢO DIỆU (BLUR) */
         .bg-fixed-layer {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            width: 100%; height: 100%;
+            /* Tràn viền nhẹ để khi làm mờ không bị lộ vệt trắng ở 4 cạnh màn hình */
+            top: -15px; left: -15px;
+            width: calc(100% + 30px);
+            height: calc(100% + 30px);
             z-index: -1;
             background: url("https://i.postimg.cc/fLHPLBZy/9b6ccf92-07e5-4dec-b368-aa877e72eca3.jpg") no-repeat center center;
             background-size: cover;
+            filter: blur(4px) brightness(0.88); /* Hiệu ứng làm ảnh hơi mờ mờ và dịu sáng */
             pointer-events: none;
             transform: translateZ(0);
         }
@@ -101,29 +104,23 @@
             position: relative;
         }
 
-        /* KHUNG KÍNH MỜ (FROSTED GLASS) LÀM ẢNH NỀN MỜ PHÍA SAU CHỮ */
+        /* CỤM CHỮ TRUNG TÂM HOÀN TOÀN TỰ NHIÊN, KHÔNG HỀ ĐÓNG KHUNG */
         .intro-center-block {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-top: -50px;
-            width: 92%;
-            max-width: 440px;
-            padding: 28px 22px;
-            /* Lớp kính mờ cao cấp: dìm vệt sóng và làm mờ ảnh nền xuyên thấu */
-            background: rgba(7, 26, 16, 0.62);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1.5px solid rgba(212, 178, 111, 0.35);
-            border-radius: 26px;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            margin-top: -40px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
         }
 
-        /* TIÊU ĐỀ: PLAYFAIR DISPLAY CHUẨN TIẾNG VIỆT 100%, MÀU VÀNG CHAMPAGNE */
+        /* TIÊU ĐỀ: PLAYFAIR DISPLAY CHUẨN TIẾNG VIỆT, MÀU VÀNG CHAMPAGNE NỔI BẬT */
         .title-main {
             font-family: 'Playfair Display', serif;
-            font-size: 2.25em;
+            font-size: 2.35em;
             font-weight: 800;
             color: #FFF2CE;
             letter-spacing: 2.5px;
@@ -132,39 +129,29 @@
             text-shadow: 
                 0 2px 4px rgba(0, 0, 0, 0.95),
                 0 4px 14px rgba(0, 0, 0, 0.9),
-                0 0 20px rgba(212, 178, 111, 0.35);
-        }
-
-        /* PHỤ ĐỀ */
-        .desc-text {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            font-size: 0.93em;
-            font-weight: 500;
-            color: #FFFFFF;
-            line-height: 1.6;
-            margin: 14px 0 14px 0;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+                0 0 25px rgba(212, 178, 111, 0.45);
         }
 
         .leaf-divider {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 80px;
-            margin-bottom: 12px;
+            width: 90px;
+            margin: 18px 0 16px 0;
         }
         .leaf-divider .line {
             width: 100%;
             height: 1px;
-            background: rgba(255, 242, 206, 0.55);
+            background: rgba(255, 242, 206, 0.6);
         }
 
         .footer-quote {
             font-family: 'Be Vietnam Pro', sans-serif;
-            font-size: 0.85em;
+            font-size: 0.9em;
             font-style: italic;
             color: #E2D4A8;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
         }
 
         /* CỤM NÚT BẤM DỜI XUỐNG DƯỚI */
@@ -496,10 +483,10 @@
         /* ================= TỐI ƯU ĐẶC BIỆT CHO ĐIỆN THOẠI ================= */
         @media (max-width: 680px) {
             #page1 { padding: 16px 12px; }
-            .intro-center-block { margin-top: -65px; padding: 22px 16px; width: 95%; }
-            .title-main { font-size: 1.85em; letter-spacing: 1.8px; }
-            .desc-text { font-size: 0.88em; margin: 12px 0; }
-            .leaf-divider { margin-bottom: 12px; }
+            .intro-center-block { margin-top: -60px; }
+            .title-main { font-size: 2em; letter-spacing: 2px; }
+            .leaf-divider { margin: 14px 0 14px 0; }
+            .footer-quote { font-size: 0.85em; }
 
             .bottom-actions-wrapper { 
                 bottom: 95px;
@@ -519,7 +506,7 @@
 </head>
 <body class="lock-scroll">
 
-    <!-- LỚP NỀN NƯỚC SÂU ĐỘC LẬP -->
+    <!-- LỚP NỀN NƯỚC SÂU ĐÃ ĐƯỢC LÀM MỜ ẢO (BLUR) -->
     <div class="bg-fixed-layer"></div>
 
     <!-- NÚT TRỞ VỀ GÓC TRÁI (KHI Ở TRANG 2) -->
@@ -528,10 +515,9 @@
     <!-- ================= TRANG 1: MỞ ĐẦU (CỐ ĐỊNH, KHÔNG CUỘN) ================= -->
     <div class="page-container" id="page1">
         
-        <!-- PHẦN CHỮ CÓ KHUNG KÍNH MỜ LÀM ẢNH NỀN MỜ PHÍA SAU -->
+        <!-- PHẦN CHỮ TỰ NHIÊN, KHÔNG ĐÓNG KHUNG -->
         <div class="intro-center-block">
             <h1 class="title-main">NGÀY ĐÂY MAI ĐÓ</h1>
-            <p class="desc-text">Phía sau mỗi nhân vật là một thế giới riêng đang lặng thầm cất tiếng.</p>
             <div class="leaf-divider">
                 <span class="line"></span>
             </div>
