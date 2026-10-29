@@ -29,7 +29,7 @@
             color: #ffffff;
             min-height: 100vh;
             min-height: 100dvh;
-            background: #06190e;
+            background: transparent !important; /* ĐỂ TRONG SUỐT ĐỂ KHÔNG BỊ TÔ ĐEN CHE MẤT ẢNH */
         }
 
         /* KHÓA CUỘN KHI Ở TRANG 1 */
@@ -40,17 +40,16 @@
             touch-action: none;
         }
 
-        /* ẢNH NỀN WEB LÀM MỜ MỜ ẢO DIỆU (BLUR) */
+        /* ẢNH NỀN GỐC - CHỈ LÀM MỜ, GIỮ NGUYÊN ĐỘ SÁNG & MÀU SẮC TỰ NHIÊN */
         .bg-fixed-layer {
             position: fixed;
-            /* Tràn viền nhẹ để khi làm mờ không bị lộ vệt trắng ở 4 cạnh màn hình */
-            top: -15px; left: -15px;
-            width: calc(100% + 30px);
-            height: calc(100% + 30px);
+            top: -20px; left: -20px;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
             z-index: -1;
             background: url("https://i.postimg.cc/fLHPLBZy/9b6ccf92-07e5-4dec-b368-aa877e72eca3.jpg") no-repeat center center;
             background-size: cover;
-            filter: blur(4px) brightness(0.88); /* Hiệu ứng làm ảnh hơi mờ mờ và dịu sáng */
+            filter: blur(5px); /* CHỈ LÀM MỜ NHẸ, KHÔNG HỀ TÔ ĐEN HAY GIẢM SÁNG */
             pointer-events: none;
             transform: translateZ(0);
         }
@@ -104,7 +103,7 @@
             position: relative;
         }
 
-        /* CỤM CHỮ TRUNG TÂM HOÀN TOÀN TỰ NHIÊN, KHÔNG HỀ ĐÓNG KHUNG */
+        /* CỤM CHỮ TRUNG TÂM HOÀN TOÀN TRONG SUỐT, TỰ NHIÊN */
         .intro-center-block {
             display: flex;
             flex-direction: column;
@@ -117,7 +116,7 @@
             padding: 0;
         }
 
-        /* TIÊU ĐỀ: PLAYFAIR DISPLAY CHUẨN TIẾNG VIỆT, MÀU VÀNG CHAMPAGNE NỔI BẬT */
+        /* TIÊU ĐỀ: PLAYFAIR DISPLAY VÀNG CHAMPAGNE NỔI TRÊN NỀN NƯỚC */
         .title-main {
             font-family: 'Playfair Display', serif;
             font-size: 2.35em;
@@ -142,7 +141,7 @@
         .leaf-divider .line {
             width: 100%;
             height: 1px;
-            background: rgba(255, 242, 206, 0.6);
+            background: rgba(255, 242, 206, 0.65);
         }
 
         .footer-quote {
@@ -506,7 +505,7 @@
 </head>
 <body class="lock-scroll">
 
-    <!-- LỚP NỀN NƯỚC SÂU ĐÃ ĐƯỢC LÀM MỜ ẢO (BLUR) -->
+    <!-- LỚP NỀN NƯỚC SÂU ĐÃ ĐƯỢC LÀM MỜ ẢO (GIỮ NGUYÊN MÀU GỐC, KHÔNG BỊ TÔ ĐEN) -->
     <div class="bg-fixed-layer"></div>
 
     <!-- NÚT TRỞ VỀ GÓC TRÁI (KHI Ở TRANG 2) -->
