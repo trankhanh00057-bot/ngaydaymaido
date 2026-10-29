@@ -7,10 +7,10 @@
     <meta name="referrer" content="no-referrer">
     <title>Ngày đây mai đó</title>
     
-    <!-- Nhúng Font chữ chuẩn tiếng Việt: Fraunces, Be Vietnam Pro & Lora -->
+    <!-- Nhúng Font chữ: Playfair Display, Dancing Script, Be Vietnam Pro & Lora -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:opsz,wght@9..144,700;9..144,800;9..144,900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
 
     <style>
         /* ================= RESET CHỐNG TRÀN ================= */
@@ -40,7 +40,7 @@
             touch-action: none;
         }
 
-        /* ẢNH NỀN MỜ SIÊU NHẸ (1PX), GIỮ TRỌN VẸN CHI TIẾT VÀ ĐỘ SÁNG GỐC */
+        /* ẢNH NỀN MỜ SIÊU NHẸ (1PX) */
         .bg-fixed-layer {
             position: fixed;
             top: -6px; left: -6px;
@@ -103,7 +103,7 @@
             position: relative;
         }
 
-        /* KHÔNG CÒN BẤT CỨ QUẦNG TỐI NÀO Ở TRUNG TÂM */
+        /* CỤM CHỮ TRUNG TÂM HOÀN TOÀN TỰ NHIÊN */
         .intro-center-block {
             display: flex;
             flex-direction: column;
@@ -116,69 +116,70 @@
             padding: 0;
         }
 
-        /* ================= VỆT SÁNG KHÁC MÀU LƯỚT QUA CHỮ ================= */
-        @keyframes sweepBeam {
-            0% {
-                background-position: 180% center;
+        /* HIỆU ỨNG TỎA HÀO QUANG NHẸ NHÀNG (GLOW PULSE) NHƯ HÌNH MẪU */
+        @keyframes glowBreath {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px rgba(255, 255, 255, 0.95),
+                    0 0 20px rgba(255, 250, 235, 0.85),
+                    0 0 35px rgba(235, 195, 115, 0.65),
+                    0 0 60px rgba(210, 160, 70, 0.4);
             }
-            100% {
-                background-position: -80% center;
+            50% {
+                text-shadow:
+                    0 0 6px rgba(255, 255, 255, 0.8),
+                    0 0 15px rgba(255, 250, 235, 0.7),
+                    0 0 28px rgba(235, 195, 115, 0.5),
+                    0 0 45px rgba(210, 160, 70, 0.3);
             }
         }
 
-        /* TIÊU ĐỀ: MÀU KEM SÁNG + VỆT SÁNG VÀNG KIM LƯỚT QUA + BÓNG ĐỔ NHẸ */
+        /* TIÊU ĐỀ: PHÁT SÁNG TỎA HÀO QUANG NHƯ ẢNH MẪU ETHAN VALE */
         .title-main {
-            font-family: 'Fraunces', serif;
-            font-optical-sizing: auto;
-            font-size: 2.35em;
-            font-weight: 850;
-            letter-spacing: 2.5px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.45em;
+            font-weight: 700;
+            color: #FFFFFF; /* Màu trắng sáng thuần khiết phát quang */
+            letter-spacing: 3.5px;
             line-height: 1.25;
             margin: 0;
             display: inline-block;
-
-            /* NỀN KEM SÁNG (#FFF8EB) VỚI VỆT SÁNG VÀNG KIM NẮNG (#E2A83B) LƯỚT QUA */
-            background: linear-gradient(
-                115deg,
-                #FFF8EB 0%,
-                #FFF8EB 38%,
-                #E2A83B 50%,
-                #FFDF85 53%,
-                #FFF8EB 65%,
-                #FFF8EB 100%
-            );
-            background-size: 260% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: sweepBeam 4.5s ease-in-out infinite;
-
-            /* BÓNG ĐỔ CHỮ NHẸ NHÀNG, KHÔNG BỊ ĐEN NẶNG NỀ */
-            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.45));
+            
+            /* TỎA HÀO QUANG ĐA TẦNG */
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.95),
+                0 0 20px rgba(255, 250, 235, 0.85),
+                0 0 35px rgba(235, 195, 115, 0.65),
+                0 0 60px rgba(210, 160, 70, 0.4);
+            
+            animation: glowBreath 4s ease-in-out infinite;
         }
 
-        /* ĐƯỜNG KẺ TRANG TRÍ THANH THOÁT */
+        /* ĐƯỜNG KẺ PHÁT SÁNG TINH TẾ */
         .leaf-divider {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 90px;
+            width: 100px;
             margin: 18px 0 16px 0;
         }
         .leaf-divider .line {
             width: 100%;
             height: 1.5px;
-            background: linear-gradient(90deg, transparent, #FFF8EB, #E2A83B, #FFF8EB, transparent);
-            opacity: 0.8;
+            background: linear-gradient(90deg, transparent, #FFFFFF, rgba(235, 195, 115, 0.9), #FFFFFF, transparent);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
-        /* CÂU QUOTE KEM SÁNG NHẸ NHÀNG */
+        /* CÂU QUOTE: DÙNG FONT DANCING SCRIPT UỐN LƯỢN NGHỆ THUẬT */
         .footer-quote {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            font-size: 0.9em;
-            font-style: italic;
-            color: #FFF5E0;
-            letter-spacing: 0.6px;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.45em;
+            font-weight: 700;
+            color: #FFFDF8;
+            letter-spacing: 0.5px;
+            text-shadow: 
+                0 0 8px rgba(255, 255, 255, 0.7),
+                0 2px 5px rgba(0, 0, 0, 0.6);
         }
 
         /* CỤM NÚT BẤM DỜI XUỐNG DƯỚI */
@@ -205,7 +206,7 @@
             font-size: 14px;
             font-family: 'Be Vietnam Pro', sans-serif;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35), 0 0 10px rgba(226, 168, 59, 0.3);
             cursor: pointer;
             transition: 0.25s;
         }
@@ -215,7 +216,7 @@
             color: #0A2013;
             border-color: #FFF8EB;
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(226, 168, 59, 0.4);
+            box-shadow: 0 6px 18px rgba(226, 168, 59, 0.5);
         }
 
         /* HAI NÚT FB & DISCORD NẰM NGAY DƯỚI */
@@ -269,13 +270,13 @@
             padding: 65px 16px 45px 16px;
         }
         .p2-title {
-            font-family: 'Fraunces', serif;
+            font-family: 'Playfair Display', serif;
             font-size: 2.3em;
             margin: 0;
-            font-weight: 850;
-            letter-spacing: 1.5px;
-            color: #FFF8EB;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #FFFFFF;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7), 0 0 30px rgba(226, 168, 59, 0.4);
         }
         .p2-subtitle {
             color: #E2D4A8;
@@ -413,7 +414,7 @@
             padding: 16px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; flex: 1;
         }
         .char-name {
-            font-family: 'Fraunces', serif; font-size: 1.35em; color: #FFF8EB; margin: 0 0 8px 0; font-weight: 700;
+            font-family: 'Playfair Display', serif; font-size: 1.35em; color: #FFF8EB; margin: 0 0 8px 0; font-weight: 700;
         }
         
         .char-quote-desc {
@@ -511,9 +512,9 @@
         @media (max-width: 680px) {
             #page1 { padding: 16px 12px; }
             .intro-center-block { margin-top: -60px; }
-            .title-main { font-size: 2.05em; letter-spacing: 2px; }
-            .leaf-divider { margin: 14px 0 14px 0; width: 85px; }
-            .footer-quote { font-size: 0.85em; }
+            .title-main { font-size: 2.15em; letter-spacing: 2.5px; }
+            .leaf-divider { margin: 14px 0 12px 0; width: 90px; }
+            .footer-quote { font-size: 1.35em; }
 
             .bottom-actions-wrapper { 
                 bottom: 95px;
@@ -542,12 +543,13 @@
     <!-- ================= TRANG 1: MỞ ĐẦU (CỐ ĐỊNH, KHÔNG CUỘN) ================= -->
     <div class="page-container" id="page1">
         
-        <!-- PHẦN CHỮ TỰ NHIÊN, MÀU KEM SÁNG + VỆT SÁNG LƯỚT QUA -->
+        <!-- PHẦN CHỮ TỰ NHIÊN, PHÁT SÁNG HÀO QUANG -->
         <div class="intro-center-block">
             <h1 class="title-main">NGÀY ĐÂY MAI ĐÓ</h1>
             <div class="leaf-divider">
                 <span class="line"></span>
             </div>
+            <!-- DÙNG FONT DANCING SCRIPT -->
             <div class="footer-quote">Một bước chân, một câu chuyện</div>
         </div>
 
@@ -600,7 +602,7 @@
 
         <!-- NỘI DUNG TAB 2: HÒM THƯ NGL CHÍNH THỨC -->
         <div class="ngl-box" id="tabContentHomThu" style="display: none;">
-            <h3 style="font-family:'Fraunces',serif; font-size:1.4em; color:#E2A83B; margin-bottom:4px;">Hòm Thư Ẩn Danh</h3>
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.4em; color:#E2A83B; margin-bottom:4px;">Hòm Thư Ẩn Danh</h3>
             <p style="font-size:0.88em; color:#E2D4A8; margin-bottom:8px; font-family:'Be Vietnam Pro',sans-serif;">Gửi lại đôi dòng tâm tình hoặc góp ý ẩn danh trực tiếp qua NGL nhé:</p>
             
             <iframe src="https://ngl.link/ngaydaymaido/gas" class="ngl-iframe" title="Hòm thư NGL"></iframe>
@@ -614,7 +616,7 @@
     <div class="modal-overlay" id="modal-choose-version">
         <div class="modal-box" style="text-align:center;">
             <button class="modal-close" onclick="dongModal('modal-choose-version')">Đóng</button>
-            <h3 style="margin-top:0; color:#E2A83B; font-family:'Fraunces',serif; font-size:1.3em;">Chọn Phiên Bản Chat</h3>
+            <h3 style="margin-top:0; color:#E2A83B; font-family:'Playfair Display',serif; font-size:1.3em;">Chọn Phiên Bản Chat</h3>
             <p id="choose-char-desc" style="font-size:0.88em; color:#E8F5E9; margin-bottom:14px; font-family:'Be Vietnam Pro',sans-serif;">Nhân vật này có 2 phiên bản trò chuyện:</p>
             
             <button class="btn-version-choice" id="btnChoiceBL" onclick="moLinkChatDirect('BL')">Trò chuyện Bản BL</button>
