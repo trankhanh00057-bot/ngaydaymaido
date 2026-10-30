@@ -6,13 +6,13 @@
     <meta name="referrer" content="no-referrer">
     <title>Ngày đây mai đó</title>
     
-    <!-- Nhúng Font chữ chuẩn tiếng Việt -->
+    <!-- Font chữ chuẩn tiếng Việt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
 
     <style>
-        /* ================= RESET TỐI ƯU HIỆU NĂNG ================= */
+        /* ================= RESET CHỐNG TRÀN ================= */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -39,24 +39,24 @@
             touch-action: none;
         }
 
-        /* ẢNH NỀN CỐ ĐỊNH PHẦN CỨNG */
+        /* ẢNH NỀN WEB CỐ ĐỊNH */
         .bg-fixed-layer {
             position: fixed;
             inset: 0;
             z-index: 0;
-            background: linear-gradient(rgba(3, 20, 10, 0.45), rgba(3, 20, 10, 0.68)),
+            background: linear-gradient(rgba(3, 20, 10, 0.45), rgba(3, 20, 10, 0.65)),
                         url("https://i.postimg.cc/fLHPLBZy/9b6ccf92-07e5-4dec-b368-aa877e72eca3.jpg") center center / cover no-repeat;
             pointer-events: none;
             transform: translateZ(0);
         }
 
-        /* NÚT TRỞ VỀ */
+        /* NÚT TRỞ VỀ GÓC TRÁI */
         .global-back-btn {
             position: fixed;
             top: 14px;
             left: 14px;
             z-index: 9999;
-            background: rgba(8, 26, 16, 0.94);
+            background: rgba(8, 26, 16, 0.92);
             border: 1.5px solid rgba(226, 168, 59, 0.65);
             color: #FFFDF7;
             padding: 7px 18px;
@@ -65,11 +65,11 @@
             font-family: 'Be Vietnam Pro', sans-serif;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45), 0 0 10px rgba(226, 168, 59, 0.25);
             opacity: 0;
             pointer-events: none;
-            transform: translate3d(-10px, 0, 0);
-            transition: opacity 0.25s ease, transform 0.25s ease;
+            transform: translate3d(-12px, 0, 0);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
         .global-back-btn.show-btn {
             opacity: 1;
@@ -77,38 +77,58 @@
             transform: translate3d(0, 0, 0);
         }
 
-        /* KHUNG CHỨA TOÀN TRANG (SIÊU NHẸ CHO SAFARI) */
+        /* ================= HIỆU ỨNG PHÓNG BỰ MỞ THẾ GIỚI ================= */
         .page-container {
-            position: relative;
-            z-index: 1;
             width: 100%;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-            will-change: opacity, transform;
+            will-change: transform, opacity;
             transform: translateZ(0);
         }
 
-        /* ================= GIAO DIỆN TRANG 1 ================= */
+        /* TRANG 1 */
         #page1 {
+            position: relative;
+            z-index: 2;
             max-width: 580px;
             height: 100vh;
             height: 100dvh;
             justify-content: center;
             padding: 20px 16px;
-            opacity: 1;
-            visibility: visible;
+            transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.25, 1), opacity 0.45s ease, visibility 0.55s ease;
         }
-        #page1.hide {
+
+        /* Khi bấm "Đi dạo đó đây": Phóng bự ra rồi tan biến */
+        #page1.portal-zoom-out {
+            transform: scale(1.3) translateZ(0);
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
             position: absolute;
             top: 0;
             left: 0;
+        }
+
+        /* HIỆU ỨNG CHỮ PHÁT SÁNG NGUYÊN BẢN CỦA BẠN */
+        @keyframes textShineSweep {
+            0% { background-position: 180% 0; }
+            35%, 100% { background-position: -80% 0; }
+        }
+
+        @keyframes etherealGlow {
+            0%, 100% {
+                filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.85))
+                        drop-shadow(0 0 14px rgba(255, 235, 170, 0.6))
+                        drop-shadow(0 0 30px rgba(226, 180, 80, 0.35));
+            }
+            50% {
+                filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.85))
+                        drop-shadow(0 0 22px rgba(255, 245, 200, 0.85))
+                        drop-shadow(0 0 45px rgba(235, 195, 115, 0.5));
+            }
         }
 
         .intro-center-block {
@@ -124,12 +144,25 @@
             font-family: 'Playfair Display', serif;
             font-size: 2.85em;
             font-weight: 800;
-            letter-spacing: 3px;
+            letter-spacing: 3.5px;
             line-height: 1.25;
             margin: 0;
+            display: inline-block;
             white-space: nowrap;
-            color: #FFFDF7;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8), 0 0 20px rgba(226, 168, 59, 0.45);
+            background: linear-gradient(
+                115deg,
+                #FFFDF7 0%,
+                #FFF6E5 30%,
+                #FFFFFF 44%,
+                #FFFDF5 50%,
+                #FFFFFF 56%,
+                #FFF6E5 70%,
+                #FFFDF7 100%
+            );
+            background-size: 250% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShineSweep 5.5s ease-in-out infinite, etherealGlow 3.5s ease-in-out infinite;
         }
 
         .leaf-divider {
@@ -143,6 +176,7 @@
             width: 100%;
             height: 1.5px;
             background: linear-gradient(90deg, transparent, #FFFFFF, rgba(235, 195, 115, 0.9), #FFFFFF, transparent);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
         }
 
         .footer-quote {
@@ -151,7 +185,7 @@
             font-weight: 700;
             color: #FFFDF8;
             letter-spacing: 0.8px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 0 10px rgba(255, 240, 200, 0.65), 0 2px 6px rgba(0, 0, 0, 0.8);
         }
 
         .bottom-actions-wrapper {
@@ -172,15 +206,15 @@
             color: #FFFDF7;
             border: 1.5px solid #E2A83B;
             border-radius: 25px;
-            padding: 10px 36px;
-            font-size: 14px;
+            padding: 11px 38px;
+            font-size: 14.5px;
             font-family: 'Be Vietnam Pro', sans-serif;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 12px rgba(226, 168, 59, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 14px rgba(226, 168, 59, 0.45);
             cursor: pointer;
-            transition: transform 0.15s ease;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .btn-wander:active { transform: scale(0.96); }
+        .btn-wander:active { transform: scale(0.95); }
 
         .social-links-wrapper {
             display: flex;
@@ -192,7 +226,7 @@
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            background: rgba(8, 26, 16, 0.9);
+            background: rgba(8, 26, 16, 0.88);
             border: 1px solid rgba(226, 168, 59, 0.45);
             color: #FFFDF7;
             text-decoration: none;
@@ -205,23 +239,28 @@
         }
         .social-btn svg { width: 17px; height: 17px; }
 
-        /* ================= GIAO DIỆN TRANG 2 ================= */
+        /* ================= TRANG 2: MỞ RA THẾ GIỚI PHÍA SAU ================= */
         #page2 { 
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
             max-width: 1200px;
             padding: 65px 16px 45px 16px;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            transform: scale(0.92) translateZ(0);
+            transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.25, 1), opacity 0.45s ease, visibility 0.55s ease;
         }
-        #page2.show {
+
+        #page2.portal-open {
+            position: relative;
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
-            position: relative;
+            transform: scale(1) translateZ(0);
         }
 
         .p2-title {
@@ -244,12 +283,12 @@
         /* KHUNG CHUYỂN TAB */
         .tab-switch-container {
             display: inline-flex;
-            background: rgba(6, 20, 12, 0.9);
-            border: 1.5px solid rgba(226, 168, 59, 0.5);
+            background: rgba(6, 20, 12, 0.88);
+            border: 1.5px solid rgba(226, 168, 59, 0.45);
             border-radius: 30px;
             padding: 4px;
             margin-bottom: 24px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
         .tab-btn {
             background: transparent;
@@ -270,7 +309,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* ================= THANH TÌM KIẾM & TAGS LỌC NHANH ================= */
+        /* THANH TÌM KIẾM & TAGS LỌC NHANH */
         .dauchan-wrapper { width: 100%; }
         
         .dauchan-top-bar {
@@ -280,17 +319,16 @@
             margin: 0 auto 16px auto;
             max-width: 480px;
             width: 100%;
-            background: rgba(6, 20, 12, 0.88);
+            background: rgba(6, 20, 12, 0.85);
             border: 1.5px solid rgba(226, 168, 59, 0.6);
             border-radius: 24px;
             padding: 6px 12px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
-
         .p3-search-box { position: relative; width: 100%; }
         .p3-search-input {
             width: 100%;
-            background: rgba(10, 32, 19, 0.85);
+            background: rgba(10, 32, 19, 0.8);
             border: 1px solid rgba(226, 168, 59, 0.45);
             border-radius: 20px;
             padding: 9px 18px;
@@ -303,7 +341,6 @@
         .p3-search-input::placeholder { color: #E2D4A8; opacity: 0.8; }
         .p3-search-input:focus { border-color: #E2A83B; }
 
-        /* KHU VỰC CÁC NÚT TAG LỌC */
         .quick-tags-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -316,7 +353,7 @@
         }
 
         .quick-tag-pill {
-            background: rgba(8, 26, 16, 0.9);
+            background: rgba(8, 26, 16, 0.85);
             border: 1px solid rgba(226, 168, 59, 0.4);
             color: #E2D4A8;
             padding: 6px 15px;
@@ -326,7 +363,7 @@
             font-weight: 500;
             cursor: pointer;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-            transition: all 0.15s ease;
+            transition: all 0.18s ease;
         }
         .quick-tag-pill:hover { border-color: #E2A83B; color: #FFFDF7; }
         .quick-tag-pill.active {
@@ -349,14 +386,14 @@
             color: #E2D4A8;
             font-style: italic;
             font-size: 0.95em;
-            background: rgba(6, 20, 12, 0.88);
+            background: rgba(6, 20, 12, 0.85);
             border: 1.5px dashed rgba(226, 168, 59, 0.5);
             border-radius: 20px;
             line-height: 1.5;
             width: 100%;
         }
 
-        /* ================= KHUNG THẺ OBSIDIAN NGUYÊN KHỐI ================= */
+        /* ================= KHUNG THẺ NHÂN VẬT ================= */
         .char-card {
             position: relative;
             background: #081b10;
@@ -365,19 +402,16 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65), 0 0 16px rgba(27, 60, 36, 0.3);
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.65), 0 0 16px rgba(27, 60, 36, 0.35);
             width: 100%;
-            transform: translateZ(0);
-            transition: border-color 0.2s ease, transform 0.2s ease;
+            transition: border-color 0.25s ease, transform 0.25s ease;
         }
-
         .char-card.single-link { cursor: pointer; }
         .char-card.single-link:hover {
             transform: translateY(-4px);
             border-color: #E2A83B;
         }
 
-        /* KHUNG ẢNH: ĐỘ CAO LÝ TƯỞNG LỘ TRỌN MẶT */
         .char-img-box {
             position: relative;
             width: 100%;
@@ -385,7 +419,6 @@
             overflow: hidden;
             background: #05140b;
         }
-        
         .char-img {
             width: 100%;
             height: 100%;
@@ -394,14 +427,13 @@
             display: block;
         }
         
-        /* ĐỔ BÓNG TỰ NHIÊN BẰNG GRADIENT THAY CHO MASK (SIÊU NHẸ) */
         .char-img-fade {
             position: absolute;
             inset: 0;
             background: linear-gradient(
                 to bottom,
                 transparent 0%,
-                transparent 50%,
+                transparent 52%,
                 rgba(8, 27, 16, 0.45) 70%,
                 rgba(8, 27, 16, 0.92) 88%,
                 #081b10 100%
@@ -409,7 +441,6 @@
             pointer-events: none;
         }
 
-        /* KHU VỰC CHỮ: NẰM GỌN Ở PHẦN BÓNG MỜ THÂN DƯỚI */
         .char-content {
             position: relative;
             z-index: 2;
@@ -452,7 +483,6 @@
             padding: 2px 0;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
         }
-
         .char-quote-desc::before {
             content: '';
             display: block;
@@ -462,12 +492,8 @@
             margin-bottom: 12px;
             border-radius: 2px;
         }
+        .char-card.dual-link .char-quote-desc { margin-bottom: 18px; }
 
-        .char-card.dual-link .char-quote-desc {
-            margin-bottom: 18px;
-        }
-
-        /* 2 NÚT BẤM (BL VÀ BG) */
         .char-dual-actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -478,7 +504,7 @@
         }
 
         .btn-version-pill {
-            background: rgba(14, 42, 24, 0.92);
+            background: rgba(14, 42, 24, 0.9);
             border-radius: 16px;
             padding: 10px 12px;
             font-size: 14px;
@@ -492,64 +518,98 @@
             transition: all 0.2s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
         }
-
         .btn-version-pill.btn-bl {
             border: 1.5px solid rgba(226, 168, 59, 0.7);
             color: #FFFDF7;
         }
-        .btn-version-pill.btn-bl:hover {
-            background: #E2A83B;
-            color: #0A2013;
-        }
+        .btn-version-pill.btn-bl:hover { background: #E2A83B; color: #0A2013; }
 
         .btn-version-pill.btn-bg {
             border: 1.5px solid rgba(244, 143, 177, 0.75);
             color: #FFF0F5;
         }
-        .btn-version-pill.btn-bg:hover {
-            background: #F48FB1;
-            color: #0A2013;
-        }
+        .btn-version-pill.btn-bg:hover { background: #F48FB1; color: #0A2013; }
 
-        /* TAB 2: HÒM THƯ NGL */
-        .ngl-box {
+        /* ================= HÒM THƯ / FEEDBACK LUXURY ================= */
+        .feedback-luxury-box {
             width: 100%;
-            max-width: 560px;
+            max-width: 520px;
             margin: 0 auto;
-            background: rgba(6, 20, 12, 0.92);
-            border: 1.5px solid rgba(226, 168, 59, 0.45);
-            border-radius: 22px;
-            padding: 24px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+            background: linear-gradient(145deg, rgba(14, 38, 24, 0.94) 0%, rgba(5, 18, 10, 0.96) 100%);
+            border: 1.5px solid rgba(226, 168, 59, 0.55);
+            border-radius: 24px;
+            padding: 28px 22px;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), 0 0 20px rgba(226, 168, 59, 0.2);
+            text-align: left;
+        }
+        .fb-header {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            text-align: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed rgba(226, 168, 59, 0.3);
+            padding-bottom: 14px;
         }
-        .ngl-iframe {
-            width: 100%;
-            height: 520px;
-            border: 1.5px solid rgba(226, 168, 59, 0.45);
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            background: #ffffff;
-            margin-top: 12px;
+        .fb-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45em;
+            color: #FFF9ED;
+            margin: 0;
+            font-weight: 700;
         }
-        .btn-ngl-external {
-            display: inline-block;
-            background: #E2A83B;
-            color: #0A2013;
-            font-weight: bold;
+        .fb-sub {
+            font-size: 13px;
+            color: #E2D4A8;
+            margin-bottom: 20px;
+            font-style: italic;
+            line-height: 1.5;
+        }
+        .fb-label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #E2D4A8;
             font-family: 'Be Vietnam Pro', sans-serif;
-            text-decoration: none;
-            padding: 10px 22px;
-            border-radius: 20px;
-            font-size: 13.5px;
-            margin-top: 14px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            font-weight: 600;
         }
+        .fb-input, .fb-textarea {
+            width: 100%;
+            background: rgba(8, 26, 16, 0.85);
+            border: 1px solid rgba(226, 168, 59, 0.45);
+            border-radius: 12px;
+            padding: 11px 14px;
+            color: #FFFDF7;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 13.5px;
+            outline: none;
+            margin-bottom: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .fb-input:focus, .fb-textarea:focus {
+            border-color: #E2A83B;
+            box-shadow: 0 0 12px rgba(226, 168, 59, 0.35);
+        }
+        .fb-btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #E2A83B, #B88222);
+            color: #0A2013;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 14.5px;
+            font-weight: 700;
+            padding: 13px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(226, 168, 59, 0.35);
+            transition: all 0.2s ease;
+        }
+        .fb-btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(226, 168, 59, 0.5);
+        }
+        .fb-btn-submit:active { transform: scale(0.98); }
 
-        /* ================= TỐI ƯU GIAO DIỆN DI ĐỘNG ================= */
+        /* ================= TỐI ƯU DI ĐỘNG ================= */
         @media (max-width: 680px) {
             #page1 { padding: 16px 12px; }
             .intro-center-block { margin-top: -55px; }
@@ -562,7 +622,7 @@
                 bottom: calc(85px + env(safe-area-inset-bottom, 0px));
                 gap: 12px; 
             }
-            .btn-wander { padding: 10px 32px; font-size: 13.5px; }
+            .btn-wander { padding: 11px 32px; font-size: 14px; }
             .social-btn { padding: 7px 16px; font-size: 11.5px; }
             
             #page2 { padding: 55px 8px 30px 8px; }
@@ -578,6 +638,7 @@
             .char-grid { gap: 26px; grid-template-columns: 1fr; }
             .quick-tags-wrapper { gap: 7px 8px; margin-bottom: 22px; }
             .quick-tag-pill { padding: 5px 12px; font-size: 12px; }
+            .feedback-luxury-box { padding: 22px 16px; }
         }
     </style>
 </head>
@@ -592,7 +653,7 @@
     <!-- ================= TRANG 1 ================= -->
     <div class="page-container" id="page1">
         <div class="intro-center-block">
-            <h1 class="title-main">NGÀY ĐÂY MAI ĐÓ</h1>
+            <h1 class="title-main" id="titleMainText">NGÀY ĐÂY MAI ĐÓ</h1>
             <div class="leaf-divider">
                 <span class="line"></span>
             </div>
@@ -628,15 +689,14 @@
             <button class="tab-btn" id="tabBtnHomThu" onclick="chuyenTab('homthu')">Hòm Thư</button>
         </div>
 
+        <!-- TAB 1: DẤU CHÂN -->
         <div class="dauchan-wrapper" id="tabContentDauChan">
-            <!-- THANH TÌM KIẾM -->
             <div class="dauchan-top-bar">
                 <div class="p3-search-box">
                     <input type="text" class="p3-search-input" id="filterInput" placeholder="Lọc nhân vật..." oninput="locNhanVat()">
                 </div>
             </div>
 
-            <!-- CÁC NÚT TAG LỌC -->
             <div class="quick-tags-wrapper">
                 <button class="quick-tag-pill active" onclick="chonTag('Tất cả')">Tất cả</button>
                 <button class="quick-tag-pill" onclick="chonTag('BL')">BL</button>
@@ -651,11 +711,26 @@
             <div class="char-grid" id="charGrid"></div>
         </div>
 
-        <div class="ngl-box" id="tabContentHomThu" style="display: none;">
-            <h3 style="font-family:'Playfair Display',serif; font-size:1.4em; color:#E2A83B; margin-bottom:4px;">Hòm Thư Ẩn Danh</h3>
-            <p style="font-size:0.88em; color:#E2D4A8; margin-bottom:8px; font-family:'Be Vietnam Pro',sans-serif;">Gửi lại đôi dòng tâm tình hoặc góp ý ẩn danh trực tiếp qua NGL nhé:</p>
-            <iframe src="https://ngl.link/ngaydaymaido/gas" class="ngl-iframe" title="Hòm thư NGL"></iframe>
-            <a href="https://ngl.link/ngaydaymaido/gas" target="_blank" class="btn-ngl-external">Mở trang gửi NGL trên tab mới</a>
+        <!-- TAB 2: HÒM THƯ (FEEDBACK GỬI DISCORD ĐÃ ĐƯỢC LUXURY HÓA) -->
+        <div id="tabContentHomThu" style="display: none; width: 100%;">
+            <div class="feedback-luxury-box">
+                <div class="fb-header">
+                    <h3>✦ Gửi Feedback cho Sốp</h3>
+                </div>
+                <div class="fb-sub">Gửi lại đôi dòng tâm tình, cảm nhận hoặc góp ý về các nhân vật để sốp hoàn thiện hơn nhé ✦</div>
+                
+                <form onsubmit="submitOneWayFeedback(event)">
+                    <div>
+                        <label class="fb-label">Tên Character *</label>
+                        <input type="text" id="fbCharName" required placeholder="Nhập tên nhân vật..." class="fb-input">
+                    </div>
+                    <div>
+                        <label class="fb-label">Nội dung feedback *</label>
+                        <textarea id="fbContent" required rows="4" placeholder="Nhập cảm nhận hoặc góp ý của bạn..." class="fb-textarea" style="resize:none;"></textarea>
+                    </div>
+                    <button type="submit" class="fb-btn-submit">✓ Gửi Ngay Tới Sốp</button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -664,7 +739,12 @@
         const backBtn = document.getElementById("globalBackBtn");
         const p1 = document.getElementById("page1");
         const p2 = document.getElementById("page2");
+        const titleMainText = document.getElementById("titleMainText");
         let currentActiveTag = "Tất cả";
+
+        /* ĐIỀN THÔNG TIN WEBHOOK DISCORD & GMAIL */
+        const ADMIN_EMAIL = "";
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1565632672510771221/TiHVmhj6dEJSbh8t4XLxHQfez-XUC5Aa6PjdgByHK1rDHRscjj8mTFLB_iD_gWAZHIbA";
 
         const danhSachCharGoc = [
             {
@@ -794,20 +874,24 @@
             renderCharGrid();
         };
 
-        /* ================= CHUYỂN TRANG MƯỢT 100% (KHÔNG KHẢO SÁT LẠI DOM) ================= */
+        /* ================= CHUYỂN CẢNH PHÓNG BỰ MỞ THẾ GIỚI 60FPS ================= */
         function chuyenTrang(soTrang) {
             if (soTrang === 2) {
-                p1.classList.add("hide");
-                p2.classList.add("show");
+                // Tạm dừng animation tiêu tốn GPU của tiêu đề khi sang trang 2
+                titleMainText.style.animationPlayState = 'paused';
+                p1.classList.add("portal-zoom-out");
+                p2.classList.add("portal-open");
                 backBtn.classList.add("show-btn");
                 document.body.classList.remove("lock-scroll");
                 window.scrollTo({ top: 0, behavior: 'instant' });
             } else {
-                p2.classList.remove("show");
-                p1.classList.remove("hide");
+                p2.classList.remove("portal-open");
+                p1.classList.remove("portal-zoom-out");
                 backBtn.classList.remove("show-btn");
                 document.body.classList.add("lock-scroll");
                 window.scrollTo({ top: 0, behavior: 'instant' });
+                // Kích hoạt lại animation chữ khi quay về trang 1
+                titleMainText.style.animationPlayState = 'running';
             }
         }
 
@@ -825,13 +909,63 @@
                 btnHomThu.classList.remove('active');
             } else {
                 tabDauChan.style.display = 'none';
-                tabHomThu.style.display = 'flex';
+                tabHomThu.style.display = 'block';
                 btnDauChan.classList.remove('active');
                 btnHomThu.classList.add('active');
             }
         }
 
-        /* ================= RENDER THẺ NHÂN VẬT ================= */
+        /* ================= GỬI FEEDBACK DISCORD & GMAIL ================= */
+        function submitOneWayFeedback(event) {
+            event.preventDefault();
+            const charName = document.getElementById('fbCharName').value.trim();
+            const content = document.getElementById('fbContent').value.trim();
+            if (!charName || !content) return;
+
+            const timeStr = new Date().toLocaleString('vi-VN');
+
+            // Reset form và báo thành công tức thì
+            document.getElementById('fbCharName').value = '';
+            document.getElementById('fbContent').value = '';
+            alert('Đã gửi Feedback thành công tới sốp! Cảm ơn bạn nhiều nha ✦');
+
+            // 1. Chạy ngầm: Bắn thông báo về Discord của bạn
+            if (DISCORD_WEBHOOK_URL && DISCORD_WEBHOOK_URL.startsWith('https://discord.com/api/webhooks/')) {
+                fetch(DISCORD_WEBHOOK_URL.trim(), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: "Feedback Bot ✦",
+                        embeds: [{
+                            title: "💌 Có Feedback mới từ khách trên web!",
+                            color: 14854203, // Màu vàng ánh kim
+                            fields: [
+                                { name: "✦ Tên Character", value: charName, inline: true },
+                                { name: "🕒 Thời gian", value: timeStr, inline: true },
+                                { name: "💬 Nội dung", value: content }
+                            ]
+                        }]
+                    })
+                }).catch(() => {});
+            }
+
+            // 2. Chạy ngầm: Bắn về Gmail (nếu có cấu hình)
+            if (ADMIN_EMAIL && ADMIN_EMAIL.includes('@')) {
+                fetch(`https://formsubmit.co/ajax/${ADMIN_EMAIL.trim()}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        _subject: `✦ Feedback mới cho [${charName}]!`,
+                        "Tên Character": charName,
+                        "Nội dung Feedback": content,
+                        "Thời gian": timeStr,
+                        _template: "table"
+                    })
+                }).catch(() => {});
+            }
+        }
+
+        /* ================= RENDER DỮ LIỆU NHÂN VẬT ================= */
         function renderCharGrid() {
             const grid = document.getElementById("charGrid");
             grid.innerHTML = "";
