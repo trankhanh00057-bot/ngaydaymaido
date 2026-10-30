@@ -837,7 +837,7 @@
                 </a>
                 <a href="https://discord.com/users/1238439209124102208" target="_blank" rel="noopener noreferrer" class="social-btn discord">
                     <svg fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.078.078 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
                     </svg>
                     Discord
                 </a>
@@ -923,7 +923,7 @@
             <div class="admin-tab-bar">
                 <button class="admin-tab-btn active" id="admTabBtn1" onclick="chuyenAdminTab(1)">Thêm / Sửa Nhân Vật</button>
                 <button class="admin-tab-btn" id="admTabBtn2" onclick="chuyenAdminTab(2)">Danh Sách Sửa / Xóa</button>
-                <button class="admin-tab-btn" id="admTabBtn3" onclick="chuyenAdminTab(3)">Thêm Mảnh Vụn</button>
+                <button class="admin-tab-btn" id="admTabBtn3" onclick="chuyenAdminTab(3)">Mảnh Vụn (Thêm / Xóa)</button>
             </div>
 
             <!-- FORM 1: THÊM HOẶC CẬP NHẬT NHÂN VẬT -->
@@ -958,7 +958,7 @@
                 <div id="admCharList"></div>
             </div>
 
-            <!-- FORM 3: THÊM MẨU TRUYỆN MẢNH VỤN -->
+            <!-- FORM 3: THÊM MẨU TRUYỆN MẢNH VỤN & DANH SÁCH XÓA -->
             <div id="admSection3" style="display:none;">
                 <label class="fb-label">Tên nhân vật & Tiêu đề phụ *</label>
                 <input type="text" id="admMvTag" class="fb-input" placeholder="#Trần Gia Bách • Ngoại truyện">
@@ -970,6 +970,12 @@
                 <textarea id="admMvExcerpt" class="fb-textarea" rows="4" placeholder="Nội dung mẩu truyện..."></textarea>
 
                 <button class="fb-btn-submit" onclick="luuManhVunLenCloud()">✓ Thêm Mảnh Vụn</button>
+
+                <!-- DANH SÁCH MẢNH VỤN ĐỂ XÓA -->
+                <div style="margin-top:22px; border-top:1px dashed rgba(226,168,59,0.3); padding-top:14px;">
+                    <h4 style="color:#E2A83B; font-size:13.5px; margin-bottom:10px; font-family:'Be Vietnam Pro',sans-serif;">Danh Sách Mảnh Vụn (Bấm Xóa Nếu Muốn):</h4>
+                    <div id="admManhVunList"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -982,11 +988,11 @@
         const titleMainText = document.getElementById("titleMainText");
         let currentActiveTag = "Tất cả";
 
-        /* ================= 1. CẤU HÌNH CLOUD & ADMIN ================= */
-        const ADMIN_PASSWORD = "123456"; // ĐỔI MẬT KHẨU ADMIN CỦA BẠN TẠI ĐÂY
+        /* ================= 1. MẬT KHẨU ADMIN MỚI ================= */
+        const ADMIN_PASSWORD = "642607"; // ĐÃ ĐỔI THÀNH 642607 THEO YÊU CẦU
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1565632672510771221/TiHVmhj6dEJSbh8t4XLxHQfez-XUC5Aa6PjdgByHK1rDHRscjj8mTFLB_iD_gWAZHIbA";
 
-        // ĐÃ NHÚNG ĐÚNG FIREBASE CONFIG TỪ ẢNH CỦA BẠN:
+        // FIREBASE CONFIG CỦA BẠN:
         const firebaseConfig = {
             apiKey: "AIzaSyAEg2o1yH90p0ny8EUhiGShYN0v6oRcd64",
             authDomain: "xngna-46f05.firebaseapp.com",
@@ -1006,7 +1012,7 @@
             console.error("Lỗi khởi tạo Firebase:", e);
         }
 
-        /* ================= 2. DỮ LIỆU GỐC BAN ĐẦU ================= */
+        /* ================= 2. DỮ LIỆU BAN ĐẦU ================= */
         const danhSachCharGoc = [
             {
                 id: 1711800000012,
@@ -1129,53 +1135,36 @@
             }
         ];
 
-        const danhSachManhVunGoc = [
-            {
-                id: 1,
-                tag: "#Trần Gia Bách • Ngoại truyện",
-                title: "Vết Máu & Tách Trà Nguội",
-                excerpt: '"Căn phòng thẩm vấn về đêm chỉ còn lại tiếng đồng hồ tích tắc và mùi thuốc lá khét lẹt. Hắn đưa tách trà đã nguội ngắt sang phía đối diện, khóe môi khẽ nhếch: \'Cậu định im lặng đến bao giờ, thưa ngài cảnh sát?\'"'
-            },
-            {
-                id: 2,
-                tag: "#Doãn Văn Khắc • Ngoại truyện",
-                title: "Đêm Mưa Ở Cửa Miếu Cổ",
-                excerpt: '"Tiếng sấm rạch ngang bầu trời đêm thôn quê. Thầy Khắc lẳng lặng thắp thêm một nén nhang trước bàn thờ gỗ mối mọt, tà áo the khẽ lay động theo luồng gió lạnh rợn tóc gáy lùa qua khe cửa."'
-            },
-            {
-                id: 3,
-                tag: "#Lục Tư Dương • Ngoại truyện",
-                title: "Cây Kem Tan Dưới Mái Hiên",
-                excerpt: '"Trời đổ mưa rào bất chợt khi tan trường. Cậu đưa tay đỡ lấy giọt nước mưa rớt xuống trán đối phương, miệng càu nhàu nhưng chiếc ô duy nhất lại nghiêng trọn sang một bên vai người kia."'
-            }
-        ];
-
+        // ĐÃ XÓA SẠCH 3 MẨU TRUYỆN MẪU BAN ĐẦU:
         let danhSachChar = danhSachCharGoc;
-        let danhSachManhVun = danhSachManhVunGoc;
+        let danhSachManhVun = [];
 
         window.onload = function() {
-            // TỰ ĐỘNG KẾT NỐI VÀ ĐỒNG BỘ ĐÁM MÂY REALTIME
             if (db) {
+                // ĐỒNG BỘ NHÂN VẬT TỪ FIREBASE
                 db.ref('characters').on('value', snapshot => {
                     const data = snapshot.val();
                     if (data && Array.isArray(data) && data.length > 0) {
                         danhSachChar = data;
                     } else {
-                        // Tự động đẩy 12 nhân vật gốc lên Cloud trong lần đầu tiên chạy
                         db.ref('characters').set(danhSachCharGoc);
                         danhSachChar = danhSachCharGoc;
                     }
                     renderCharGrid();
                 });
 
+                // ĐỒNG BỘ MẢNH VỤN VÀ DỌN SẠCH CÁC BÀI MẪU CŨ
                 db.ref('manhvun').on('value', snapshot => {
                     const data = snapshot.val();
-                    if (data && Array.isArray(data) && data.length > 0) {
-                        danhSachManhVun = data;
+                    if (data) {
+                        const list = Array.isArray(data) ? data.filter(Boolean) : Object.values(data);
+                        // Tự động loại bỏ 3 mẩu truyện mẫu cũ có id 1, 2, 3
+                        danhSachManhVun = list.filter(item => item.id !== 1 && item.id !== 2 && item.id !== 3);
+                        if (list.length !== danhSachManhVun.length) {
+                            db.ref('manhvun').set(danhSachManhVun);
+                        }
                     } else {
-                        // Tự động đẩy các mẩu truyện gốc lên Cloud
-                        db.ref('manhvun').set(danhSachManhVunGoc);
-                        danhSachManhVun = danhSachManhVunGoc;
+                        danhSachManhVun = [];
                     }
                     renderManhVunGrid();
                 });
@@ -1320,6 +1309,10 @@
         function renderManhVunGrid() {
             const mvGrid = document.getElementById("manhVunGrid");
             mvGrid.innerHTML = "";
+            if (danhSachManhVun.length === 0) {
+                mvGrid.innerHTML = `<div class="empty-placeholder">Chưa có mẩu truyện nào... Bạn hãy bấm bánh răng ⚙ để thêm mảnh vụn đầu tiên nhé!</div>`;
+                return;
+            }
             danhSachManhVun.forEach(mv => {
                 const card = document.createElement("div");
                 card.className = "manhvun-card";
@@ -1340,6 +1333,7 @@
             if (pass === ADMIN_PASSWORD) {
                 document.getElementById('adminModal').style.display = 'flex';
                 renderAdmCharList();
+                renderAdmManhVunList();
             } else if (pass !== null) {
                 alert("Sai mật khẩu Admin!");
             }
@@ -1356,6 +1350,7 @@
             document.getElementById('admTabBtn2').classList.toggle('active', tabIndex === 2);
             document.getElementById('admTabBtn3').classList.toggle('active', tabIndex === 3);
             if (tabIndex === 2) renderAdmCharList();
+            if (tabIndex === 3) renderAdmManhVunList();
         }
 
         function luuNhanVatLenCloud() {
@@ -1390,7 +1385,6 @@
                 renderCharGrid();
             }
 
-            // Reset form
             document.getElementById('admCharId').value = '';
             document.getElementById('admCharName').value = '';
             document.getElementById('admCharGenre').value = '';
@@ -1456,7 +1450,7 @@
             danhSachManhVun.unshift({ id: Date.now(), tag, title, excerpt });
             if (db) {
                 db.ref('manhvun').set(danhSachManhVun).then(() => {
-                    alert("Đã thêm Mảnh vụn lên Đám mây!");
+                    alert("Đã thêm Mảnh vụn lên Đám mây! Ai vào web cũng thấy ngay ✦");
                 });
             } else {
                 renderManhVunGrid();
@@ -1465,6 +1459,38 @@
             document.getElementById('admMvTitle').value = '';
             document.getElementById('admMvExcerpt').value = '';
             dongModalAdmin();
+        }
+
+        function renderAdmManhVunList() {
+            const listEl = document.getElementById('admManhVunList');
+            if (!listEl) return;
+            listEl.innerHTML = "";
+            if (danhSachManhVun.length === 0) {
+                listEl.innerHTML = `<div style="color:#A5D6A7; font-size:12px; font-style:italic;">Hiện chưa có mảnh vụn nào.</div>`;
+                return;
+            }
+            danhSachManhVun.forEach((mv, index) => {
+                const row = document.createElement("div");
+                row.className = "admin-item-row";
+                row.innerHTML = `
+                    <span style="font-weight:600; font-size:13px; max-width:70%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${mv.title}</span>
+                    <div>
+                        <button class="btn-action-small btn-action-del" onclick="xoaManhVun(${index})">Xóa</button>
+                    </div>
+                `;
+                listEl.appendChild(row);
+            });
+        }
+
+        function xoaManhVun(index) {
+            if (confirm(`Bạn có chắc muốn xóa mẩu truyện "${danhSachManhVun[index].title}"?`)) {
+                danhSachManhVun.splice(index, 1);
+                if (db) {
+                    db.ref('manhvun').set(danhSachManhVun);
+                }
+                renderManhVunGrid();
+                renderAdmManhVunList();
+            }
         }
 
         /* ================= 8. BỘ LỌC THÔNG MINH ================= */
@@ -1516,3 +1542,4 @@
     </script>
 </body>
 </html>
+</body>
