@@ -101,7 +101,6 @@
             transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.25, 1), opacity 0.45s ease, visibility 0.55s ease;
         }
 
-        /* Khi bấm "Đi dạo đó đây": Phóng bự ra rồi tan biến */
         #page1.portal-zoom-out {
             transform: scale(1.3) translateZ(0);
             opacity: 0;
@@ -112,7 +111,7 @@
             left: 0;
         }
 
-        /* HIỆU ỨNG CHỮ PHÁT SÁNG NGUYÊN BẢN CỦA BẠN */
+        /* HIỆU ỨNG CHỮ PHÁT SÁNG NGUYÊN BẢN */
         @keyframes textShineSweep {
             0% { background-position: 180% 0; }
             35%, 100% { background-position: -80% 0; }
@@ -280,7 +279,7 @@
             font-style: italic;
         }
 
-        /* KHUNG CHUYỂN TAB */
+        /* KHUNG CHUYỂN TAB 3 NÚT */
         .tab-switch-container {
             display: inline-flex;
             background: rgba(6, 20, 12, 0.88);
@@ -294,19 +293,51 @@
             background: transparent;
             border: none;
             color: #E2D4A8;
-            padding: 8px 26px;
+            padding: 8px 22px;
             border-radius: 25px;
             font-family: 'Be Vietnam Pro', sans-serif;
             font-size: 13.5px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
         }
         .tab-btn.active {
             background: #E2A83B;
             color: #0A2013;
             font-weight: 700;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* ================= KHUNG CHỨA TAB & HIỆU ỨNG CHUYỂN TAB SIÊU MƯỢT ================= */
+        .tab-viewport {
+            position: relative;
+            width: 100%;
+        }
+
+        .tab-pane {
+            width: 100%;
+            transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.38s ease;
+            will-change: opacity, transform;
+        }
+
+        /* Khi Tab đang hiển thị */
+        .tab-pane.pane-active {
+            position: relative;
+            opacity: 1;
+            transform: translateY(0) scale(1) translateZ(0);
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* Khi Tab bị ẩn (Lướt nhẹ xuống và tan biến, không giật trang) */
+        .tab-pane.pane-hidden {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: translateY(18px) scale(0.985) translateZ(0);
+            visibility: hidden;
+            pointer-events: none;
         }
 
         /* THANH TÌM KIẾM & TAGS LỌC NHANH */
@@ -530,7 +561,7 @@
         }
         .btn-version-pill.btn-bg:hover { background: #F48FB1; color: #0A2013; }
 
-        /* ================= HÒM THƯ / FEEDBACK LUXURY ================= */
+        /* ================= TAB 2: HÒM THƯ (FEEDBACK) ================= */
         .feedback-luxury-box {
             width: 100%;
             max-width: 520px;
@@ -543,9 +574,6 @@
             text-align: left;
         }
         .fb-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             margin-bottom: 8px;
             border-bottom: 1px dashed rgba(226, 168, 59, 0.3);
             padding-bottom: 14px;
@@ -607,7 +635,59 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(226, 168, 59, 0.5);
         }
-        .fb-btn-submit:active { transform: scale(0.98); }
+
+        /* ================= TAB 3: MẢNH VỤN (NGOẠI TRUYỆN) ================= */
+        .manhvun-wrapper {
+            width: 100%;
+            max-width: 850px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .manhvun-card {
+            background: linear-gradient(145deg, rgba(14, 38, 24, 0.88) 0%, rgba(5, 18, 10, 0.92) 100%);
+            border: 1.5px solid rgba(226, 168, 59, 0.45);
+            border-radius: 20px;
+            padding: 22px 24px;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+        .manhvun-card:hover {
+            transform: translateY(-3px);
+            border-color: #E2A83B;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 16px rgba(226, 168, 59, 0.25);
+        }
+        .mv-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed rgba(226, 168, 59, 0.25);
+            padding-bottom: 8px;
+        }
+        .mv-char-tag {
+            color: #E2A83B;
+            font-size: 12px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .mv-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35em;
+            color: #FFF9ED;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+        .mv-excerpt {
+            font-family: 'Lora', serif;
+            font-size: 0.94em;
+            color: #E5D9B8;
+            line-height: 1.7;
+            font-style: italic;
+        }
 
         /* ================= TỐI ƯU DI ĐỘNG ================= */
         @media (max-width: 680px) {
@@ -627,7 +707,10 @@
             
             #page2 { padding: 55px 8px 30px 8px; }
             .p2-title { font-size: 2em; }
-            .tab-btn { padding: 7px 20px; font-size: 13px; }
+            
+            /* TAB NÚT BẤM CÂN ĐỐI TRÊN DI ĐỘNG */
+            .tab-switch-container { padding: 3px; gap: 2px; }
+            .tab-btn { padding: 7px 14px; font-size: 12.5px; }
             
             .char-img-box { height: 480px; }
             .char-content { 
@@ -639,6 +722,7 @@
             .quick-tags-wrapper { gap: 7px 8px; margin-bottom: 22px; }
             .quick-tag-pill { padding: 5px 12px; font-size: 12px; }
             .feedback-luxury-box { padding: 22px 16px; }
+            .manhvun-card { padding: 18px 16px; }
         }
     </style>
 </head>
@@ -684,53 +768,96 @@
         <h1 class="p2-title">Ngày đây mai đó</h1>
         <div class="p2-subtitle">Nơi lưu lại những câu chuyện và vài dòng nhắn gửi.</div>
 
+        <!-- 3 NÚT CHUYỂN TAB CÂN ĐỐI -->
         <div class="tab-switch-container">
             <button class="tab-btn active" id="tabBtnDauChan" onclick="chuyenTab('dauchan')">Dấu chân</button>
             <button class="tab-btn" id="tabBtnHomThu" onclick="chuyenTab('homthu')">Hòm Thư</button>
+            <button class="tab-btn" id="tabBtnManhVun" onclick="chuyenTab('manhvun')">Mảnh vụn</button>
         </div>
 
-        <!-- TAB 1: DẤU CHÂN -->
-        <div class="dauchan-wrapper" id="tabContentDauChan">
-            <div class="dauchan-top-bar">
-                <div class="p3-search-box">
-                    <input type="text" class="p3-search-input" id="filterInput" placeholder="Lọc nhân vật..." oninput="locNhanVat()">
+        <!-- KHUNG CHỨA CẢ 3 TAB VỚI HIỆU ỨNG HÒA TAN MƯỢT MÀ -->
+        <div class="tab-viewport">
+            
+            <!-- TAB 1: DẤU CHÂN -->
+            <div class="tab-pane pane-active" id="tabContentDauChan">
+                <div class="dauchan-wrapper">
+                    <div class="dauchan-top-bar">
+                        <div class="p3-search-box">
+                            <input type="text" class="p3-search-input" id="filterInput" placeholder="Lọc nhân vật..." oninput="locNhanVat()">
+                        </div>
+                    </div>
+
+                    <div class="quick-tags-wrapper">
+                        <button class="quick-tag-pill active" onclick="chonTag('Tất cả')">Tất cả</button>
+                        <button class="quick-tag-pill" onclick="chonTag('BL')">BL</button>
+                        <button class="quick-tag-pill" onclick="chonTag('BG')">BG</button>
+                        <button class="quick-tag-pill" onclick="chonTag('Hiện đại')">Hiện đại</button>
+                        <button class="quick-tag-pill" onclick="chonTag('Việt Nam xưa')">Việt Nam xưa</button>
+                        <button class="quick-tag-pill" onclick="chonTag('Tội phạm')">Tội phạm</button>
+                        <button class="quick-tag-pill" onclick="chonTag('NYC')">NYC</button>
+                        <button class="quick-tag-pill" onclick="chonTag('Hẹn hò bí mật')">Hẹn hò bí mật</button>
+                    </div>
+
+                    <div class="char-grid" id="charGrid"></div>
                 </div>
             </div>
 
-            <div class="quick-tags-wrapper">
-                <button class="quick-tag-pill active" onclick="chonTag('Tất cả')">Tất cả</button>
-                <button class="quick-tag-pill" onclick="chonTag('BL')">BL</button>
-                <button class="quick-tag-pill" onclick="chonTag('BG')">BG</button>
-                <button class="quick-tag-pill" onclick="chonTag('Hiện đại')">Hiện đại</button>
-                <button class="quick-tag-pill" onclick="chonTag('Việt Nam xưa')">Việt Nam xưa</button>
-                <button class="quick-tag-pill" onclick="chonTag('Tội phạm')">Tội phạm</button>
-                <button class="quick-tag-pill" onclick="chonTag('NYC')">NYC</button>
-                <button class="quick-tag-pill" onclick="chonTag('Hẹn hò bí mật')">Hẹn hò bí mật</button>
-            </div>
-
-            <div class="char-grid" id="charGrid"></div>
-        </div>
-
-        <!-- TAB 2: HÒM THƯ (FEEDBACK GỬI DISCORD ĐÃ ĐƯỢC LUXURY HÓA) -->
-        <div id="tabContentHomThu" style="display: none; width: 100%;">
-            <div class="feedback-luxury-box">
-                <div class="fb-header">
-                    <h3>✦ Gửi Feedback cho Sốp</h3>
+            <!-- TAB 2: HÒM THƯ (FEEDBACK DISCORD) -->
+            <div class="tab-pane pane-hidden" id="tabContentHomThu">
+                <div class="feedback-luxury-box">
+                    <div class="fb-header">
+                        <h3>✦ Gửi Feedback cho Sốp</h3>
+                    </div>
+                    <div class="fb-sub">Gửi lại đôi dòng tâm tình, cảm nhận hoặc góp ý về các nhân vật để sốp hoàn thiện hơn nhé ✦</div>
+                    
+                    <form onsubmit="submitOneWayFeedback(event)">
+                        <div>
+                            <label class="fb-label">Tên Character *</label>
+                            <input type="text" id="fbCharName" required placeholder="Nhập tên nhân vật..." class="fb-input">
+                        </div>
+                        <div>
+                            <label class="fb-label">Nội dung feedback *</label>
+                            <textarea id="fbContent" required rows="4" placeholder="Nhập cảm nhận hoặc góp ý của bạn..." class="fb-textarea" style="resize:none;"></textarea>
+                        </div>
+                        <button type="submit" class="fb-btn-submit">✓ Gửi Ngay Tới Sốp</button>
+                    </form>
                 </div>
-                <div class="fb-sub">Gửi lại đôi dòng tâm tình, cảm nhận hoặc góp ý về các nhân vật để sốp hoàn thiện hơn nhé ✦</div>
-                
-                <form onsubmit="submitOneWayFeedback(event)">
-                    <div>
-                        <label class="fb-label">Tên Character *</label>
-                        <input type="text" id="fbCharName" required placeholder="Nhập tên nhân vật..." class="fb-input">
-                    </div>
-                    <div>
-                        <label class="fb-label">Nội dung feedback *</label>
-                        <textarea id="fbContent" required rows="4" placeholder="Nhập cảm nhận hoặc góp ý của bạn..." class="fb-textarea" style="resize:none;"></textarea>
-                    </div>
-                    <button type="submit" class="fb-btn-submit">✓ Gửi Ngay Tới Sốp</button>
-                </form>
             </div>
+
+            <!-- TAB 3: MẢNH VỤN (NGOẠI TRUYỆN / MẨU TRUYỆN NHỎ) -->
+            <div class="tab-pane pane-hidden" id="tabContentManhVun">
+                <div class="manhvun-wrapper">
+                    
+                    <div class="manhvun-card">
+                        <div class="mv-header">
+                            <span class="mv-char-tag">#Trần Gia Bách • Ngoại truyện</span>
+                            <span style="font-size: 11.5px; color: #A5D6A7; font-family:'Be Vietnam Pro',sans-serif;">Mẩu 01</span>
+                        </div>
+                        <h4 class="mv-title">Vết Máu & Tách Trà Nguội</h4>
+                        <p class="mv-excerpt">"Căn phòng thẩm vấn về đêm chỉ còn lại tiếng đồng hồ tích tắc và mùi thuốc lá khét lẹt. Hắn đưa tách trà đã nguội ngắt sang phía đối diện, khóe môi khẽ nhếch: 'Cậu định im lặng đến bao giờ, thưa ngài cảnh sát?'"</p>
+                    </div>
+
+                    <div class="manhvun-card">
+                        <div class="mv-header">
+                            <span class="mv-char-tag">#Doãn Văn Khắc • Ngoại truyện</span>
+                            <span style="font-size: 11.5px; color: #A5D6A7; font-family:'Be Vietnam Pro',sans-serif;">Mẩu 02</span>
+                        </div>
+                        <h4 class="mv-title">Đêm Mưa Ở Cửa Miếu Cổ</h4>
+                        <p class="mv-excerpt">"Tiếng sấm rạch ngang bầu trời đêm thôn quê. Thầy Khắc lẳng lặng thắp thêm một nén nhang trước bàn thờ gỗ mối mọt, tà áo the khẽ lay động theo luồng gió lạnh rợn tóc gáy lùa qua khe cửa."</p>
+                    </div>
+
+                    <div class="manhvun-card">
+                        <div class="mv-header">
+                            <span class="mv-char-tag">#Lục Tư Dương • Ngoại truyện</span>
+                            <span style="font-size: 11.5px; color: #A5D6A7; font-family:'Be Vietnam Pro',sans-serif;">Mẩu 03</span>
+                        </div>
+                        <h4 class="mv-title">Cây Kem Tan Dưới Mái Hiên</h4>
+                        <p class="mv-excerpt">"Trời đổ mưa rào bất chợt khi tan trường. Cậu đưa tay đỡ lấy giọt nước mưa rớt xuống trán đối phương, miệng càu nhàu nhưng chiếc ô duy nhất lại nghiêng trọn sang một bên vai người kia."</p>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -742,7 +869,7 @@
         const titleMainText = document.getElementById("titleMainText");
         let currentActiveTag = "Tất cả";
 
-        /* ĐIỀN THÔNG TIN WEBHOOK DISCORD & GMAIL */
+        /* THÔNG TIN WEBHOOK DISCORD & GMAIL */
         const ADMIN_EMAIL = "";
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1565632672510771221/TiHVmhj6dEJSbh8t4XLxHQfez-XUC5Aa6PjdgByHK1rDHRscjj8mTFLB_iD_gWAZHIbA";
 
@@ -874,10 +1001,9 @@
             renderCharGrid();
         };
 
-        /* ================= CHUYỂN CẢNH PHÓNG BỰ MỞ THẾ GIỚI 60FPS ================= */
+        /* ================= CHUYỂN CẢNH TRANG CHỦ <-> TRANG 2 ================= */
         function chuyenTrang(soTrang) {
             if (soTrang === 2) {
-                // Tạm dừng animation tiêu tốn GPU của tiêu đề khi sang trang 2
                 titleMainText.style.animationPlayState = 'paused';
                 p1.classList.add("portal-zoom-out");
                 p2.classList.add("portal-open");
@@ -890,29 +1016,32 @@
                 backBtn.classList.remove("show-btn");
                 document.body.classList.add("lock-scroll");
                 window.scrollTo({ top: 0, behavior: 'instant' });
-                // Kích hoạt lại animation chữ khi quay về trang 1
                 titleMainText.style.animationPlayState = 'running';
             }
         }
 
-        /* ================= CHUYỂN TAB ================= */
+        /* ================= CHUYỂN TAB CÓ HIỆU ỨNG HÒA TAN MƯỢT MÀ ================= */
         function chuyenTab(tabName) {
-            const tabDauChan = document.getElementById('tabContentDauChan');
-            const tabHomThu = document.getElementById('tabContentHomThu');
-            const btnDauChan = document.getElementById('tabBtnDauChan');
-            const btnHomThu = document.getElementById('tabBtnHomThu');
+            const tabs = [
+                { id: 'dauchan', btn: 'tabBtnDauChan', pane: 'tabContentDauChan' },
+                { id: 'homthu', btn: 'tabBtnHomThu', pane: 'tabContentHomThu' },
+                { id: 'manhvun', btn: 'tabBtnManhVun', pane: 'tabContentManhVun' }
+            ];
 
-            if (tabName === 'dauchan') {
-                tabHomThu.style.display = 'none';
-                tabDauChan.style.display = 'block';
-                btnDauChan.classList.add('active');
-                btnHomThu.classList.remove('active');
-            } else {
-                tabDauChan.style.display = 'none';
-                tabHomThu.style.display = 'block';
-                btnDauChan.classList.remove('active');
-                btnHomThu.classList.add('active');
-            }
+            tabs.forEach(t => {
+                const btnEl = document.getElementById(t.btn);
+                const paneEl = document.getElementById(t.pane);
+
+                if (t.id === tabName) {
+                    btnEl.classList.add('active');
+                    paneEl.classList.remove('pane-hidden');
+                    paneEl.classList.add('pane-active');
+                } else {
+                    btnEl.classList.remove('active');
+                    paneEl.classList.remove('pane-active');
+                    paneEl.classList.add('pane-hidden');
+                }
+            });
         }
 
         /* ================= GỬI FEEDBACK DISCORD & GMAIL ================= */
@@ -924,12 +1053,10 @@
 
             const timeStr = new Date().toLocaleString('vi-VN');
 
-            // Reset form và báo thành công tức thì
             document.getElementById('fbCharName').value = '';
             document.getElementById('fbContent').value = '';
             alert('Đã gửi Feedback thành công tới sốp! Cảm ơn bạn nhiều nha ✦');
 
-            // 1. Chạy ngầm: Bắn thông báo về Discord của bạn
             if (DISCORD_WEBHOOK_URL && DISCORD_WEBHOOK_URL.startsWith('https://discord.com/api/webhooks/')) {
                 fetch(DISCORD_WEBHOOK_URL.trim(), {
                     method: 'POST',
@@ -938,7 +1065,7 @@
                         username: "Feedback Bot ✦",
                         embeds: [{
                             title: "💌 Có Feedback mới từ khách trên web!",
-                            color: 14854203, // Màu vàng ánh kim
+                            color: 14854203,
                             fields: [
                                 { name: "✦ Tên Character", value: charName, inline: true },
                                 { name: "🕒 Thời gian", value: timeStr, inline: true },
@@ -949,7 +1076,6 @@
                 }).catch(() => {});
             }
 
-            // 2. Chạy ngầm: Bắn về Gmail (nếu có cấu hình)
             if (ADMIN_EMAIL && ADMIN_EMAIL.includes('@')) {
                 fetch(`https://formsubmit.co/ajax/${ADMIN_EMAIL.trim()}`, {
                     method: 'POST',
