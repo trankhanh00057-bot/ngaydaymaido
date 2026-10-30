@@ -585,7 +585,7 @@
         .char-dual-actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 14px;
+            gap: 12px;
             border-top: 1px dashed rgba(226, 168, 59, 0.25);
             padding-top: 16px;
             width: 100%;
@@ -593,8 +593,8 @@
         .btn-version-pill {
             background: rgba(14, 42, 24, 0.9);
             border-radius: 16px;
-            padding: 10px 12px;
-            font-size: 13.5px;
+            padding: 10px 8px;
+            font-size: 13px;
             font-weight: 700;
             font-family: 'Be Vietnam Pro', sans-serif;
             cursor: pointer;
@@ -604,13 +604,14 @@
             letter-spacing: 0.8px;
             transition: all 0.2s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+            white-space: nowrap;
         }
         .btn-version-pill.btn-bl { border: 1.5px solid rgba(226, 168, 59, 0.7); color: #FFFDF7; }
         .btn-version-pill.btn-bl:hover { background: #E2A83B; color: #0A2013; }
         .btn-version-pill.btn-bg { border: 1.5px solid rgba(244, 143, 177, 0.75); color: #FFF0F5; }
         .btn-version-pill.btn-bg:hover { background: #F48FB1; color: #0A2013; }
-        .btn-version-pill.btn-top { border: 1.5px solid rgba(100, 181, 246, 0.75); color: #E3F2FD; }
-        .btn-version-pill.btn-top:hover { background: #64B5F6; color: #0A2013; }
+        .btn-version-pill.btn-top { border: 1.5px solid rgba(52, 211, 153, 0.75); color: #E6FFFA; }
+        .btn-version-pill.btn-top:hover { background: #34D399; color: #0A2013; }
 
         /* TAB 2: HÒM THƯ */
         .feedback-luxury-box {
@@ -1262,22 +1263,17 @@
                 <label class="fb-label">Link ảnh (dán link ảnh trực tiếp) *</label>
                 <input type="text" id="admCharImg" class="fb-input" placeholder="https://i.postimg.cc/...">
 
-                <label class="fb-label">Link Chat 1 (BL hoặc User Bot) *</label>
+                <label class="fb-label">Link Chat 1 (Link Bot / Link BL) *</label>
                 <input type="text" id="admCharLinkBL" class="fb-input" placeholder="https://aistudio.google.com/...">
 
-                <label class="fb-label">Link Chat 2 (BG hoặc User Top - để trống nếu chỉ có 1 link)</label>
+                <label class="fb-label">Tên Nút 1 (Mặc định là 'BL' hoặc 'User Bot')</label>
+                <input type="text" id="admBtnLabel1" class="fb-input" placeholder="User Bot">
+
+                <label class="fb-label">Link Chat 2 (Link Top / Link BG nếu có, để trống nếu chỉ 1 link)</label>
                 <input type="text" id="admCharLinkBG" class="fb-input" placeholder="https://aistudio.google.com/...">
 
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                    <div>
-                        <label class="fb-label">Tên nút 1 (tuỳ chọn)</label>
-                        <input type="text" id="admBtnLabel1" class="fb-input" placeholder="VD: BL hoặc User Bot">
-                    </div>
-                    <div>
-                        <label class="fb-label">Tên nút 2 (tuỳ chọn)</label>
-                        <input type="text" id="admBtnLabel2" class="fb-input" placeholder="VD: BG hoặc User Top">
-                    </div>
-                </div>
+                <label class="fb-label">Tên Nút 2 (Mặc định là 'BG' hoặc 'User Top')</label>
+                <input type="text" id="admBtnLabel2" class="fb-input" placeholder="User Top">
 
                 <label class="fb-label">Trích dẫn / Lời tự sự *</label>
                 <textarea id="admCharStory" class="fb-textarea" rows="3" placeholder="Nhập câu thoại..."></textarea>
@@ -1349,7 +1345,7 @@
             console.error("Lỗi khởi tạo Firebase:", e);
         }
 
-        /* ================= 2. DỮ LIỆU BAN ĐẦU ================= */
+        /* ================= 2. DỮ LIỆU BAN ĐẦU (ĐÃ THÊM LÊ QUANG TÙNG) ================= */
         const danhSachCharGoc = [
             {
                 id: 1711800000013,
@@ -1410,7 +1406,7 @@
                 tags: "#BL/BG, hiện đại, nyc, gương vỡ lại lành (?)",
                 chatLink: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221B3YTtHArUmROz84W2Q8Fo2R29RoYclkS%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 img: "https://i.postimg.cc/Bvc0x9Rz/812132889-122110032975449844-6741666660899964208-n.jpg",
-                story: '"Chia tay ba năm không gặp, vừa mở dịch vụ ‘Test người yêu thuê’ đã vớ ngay quả khách sộp là… bạn gái mới của bồ cũ.”'
+                story: '"Chi tay ba năm không gặp, vừa mở dịch vụ ‘Test người yêu thuê’ đã vớ ngay quả khách sộp là… bạn gái mới của bồ cũ.”'
             },
             {
                 id: 1711800000007,
@@ -1489,21 +1485,16 @@
 
         window.onload = function() {
             if (db) {
-                // ĐỒNG BỘ NHÂN VẬT TỪ FIREBASE (TỰ THÊM CHAR MỚI NẾU FIREBASE CHƯA CÓ)
+                // ĐỒNG BỘ VÀ TỰ ĐỘNG CẬP NHẬT CHAR MỚI VÀO FIREBASE
                 db.ref('characters').on('value', snapshot => {
-                    const data = snapshot.val();
+                    let data = snapshot.val();
                     if (data && Array.isArray(data) && data.length > 0) {
-                        danhSachChar = data;
-                        let coThayDoi = false;
-                        danhSachCharGoc.forEach(goc => {
-                            if (!danhSachChar.some(c => c.id === goc.id)) {
-                                danhSachChar.unshift(goc);
-                                coThayDoi = true;
-                            }
-                        });
-                        if (coThayDoi) {
-                            db.ref('characters').set(danhSachChar);
+                        const exists = data.some(c => c && (c.id === 1711800000013 || c.name === "Lê Quang Tùng"));
+                        if (!exists) {
+                            data.unshift(danhSachCharGoc[0]);
+                            db.ref('characters').set(data);
                         }
+                        danhSachChar = data;
                     } else {
                         db.ref('characters').set(danhSachCharGoc);
                         danhSachChar = danhSachCharGoc;
@@ -1589,8 +1580,8 @@
             const hasBG = linkBG.startsWith('http');
 
             const label1 = c.btnLabel1 || "BL";
-            const label2 = c.btnLabel2 || (c.genre && c.genre.includes("BG") ? "BG" : "User Top");
-            const btn2Class = label2.toLowerCase().includes("top") ? "btn-top" : "btn-bg";
+            const label2 = c.btnLabel2 || (c.genre && c.genre.includes("BG") ? "BG" : "Bản 2");
+            const btn2Class = (label2.toLowerCase().includes("top")) ? "btn-top" : "btn-bg";
 
             const slot = document.getElementById("randomCardSlot");
             slot.innerHTML = `
@@ -1654,7 +1645,7 @@
             }
         }
 
-        /* ================= 7. RENDER DỮ LIỆU ================= */
+        /* ================= 7. RENDER DỮ LIỆU NHÂN VẬT ================= */
         function renderCharGrid() {
             const grid = document.getElementById("charGrid");
             grid.innerHTML = "";
@@ -1670,8 +1661,8 @@
                 const hasBG = linkBG.startsWith('http');
 
                 const label1 = c.btnLabel1 || "BL";
-                const label2 = c.btnLabel2 || (c.genre && c.genre.includes("BG") ? "BG" : "User Top");
-                const btn2Class = label2.toLowerCase().includes("top") ? "btn-top" : "btn-bg";
+                const label2 = c.btnLabel2 || (c.genre && c.genre.includes("BG") ? "BG" : "Bản 2");
+                const btn2Class = (label2.toLowerCase().includes("top")) ? "btn-top" : "btn-bg";
 
                 const card = document.createElement("div");
                 card.dataset.tags = c.tags;
@@ -1804,13 +1795,13 @@
             const tags = document.getElementById('admCharTags').value.trim();
             const img = document.getElementById('admCharImg').value.trim();
             const linkBL = document.getElementById('admCharLinkBL').value.trim();
-            const linkBG = document.getElementById('admCharLinkBG').value.trim();
             const btnLabel1 = document.getElementById('admBtnLabel1').value.trim();
+            const linkBG = document.getElementById('admCharLinkBG').value.trim();
             const btnLabel2 = document.getElementById('admBtnLabel2').value.trim();
             const story = document.getElementById('admCharStory').value.trim();
 
             if (!name || !img || !linkBL) {
-                alert("Vui lòng điền đủ Tên, Link Ảnh và Link Chat 1!");
+                alert("Vui lòng điền đủ Tên, Link Ảnh và Link Chat chính!");
                 return;
             }
 
@@ -1821,8 +1812,8 @@
                 tags, 
                 img, 
                 chatLinkBL: linkBL, 
+                btnLabel1: btnLabel1 || "BL",
                 chatLinkBG: linkBG, 
-                btnLabel1: btnLabel1 || (linkBG ? "BL" : ""),
                 btnLabel2: btnLabel2 || (linkBG ? "BG" : ""),
                 story 
             };
@@ -1848,8 +1839,8 @@
             document.getElementById('admCharTags').value = '';
             document.getElementById('admCharImg').value = '';
             document.getElementById('admCharLinkBL').value = '';
-            document.getElementById('admCharLinkBG').value = '';
             document.getElementById('admBtnLabel1').value = '';
+            document.getElementById('admCharLinkBG').value = '';
             document.getElementById('admBtnLabel2').value = '';
             document.getElementById('admCharStory').value = '';
             dongModalAdmin();
@@ -1880,8 +1871,8 @@
             document.getElementById('admCharTags').value = c.tags;
             document.getElementById('admCharImg').value = c.img;
             document.getElementById('admCharLinkBL').value = c.chatLinkBL || c.chatLink || '';
-            document.getElementById('admCharLinkBG').value = c.chatLinkBG || '';
             document.getElementById('admBtnLabel1').value = c.btnLabel1 || '';
+            document.getElementById('admCharLinkBG').value = c.chatLinkBG || '';
             document.getElementById('admBtnLabel2').value = c.btnLabel2 || '';
             document.getElementById('admCharStory').value = c.story;
             chuyenAdminTab(1);
