@@ -396,7 +396,7 @@
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Thẻ 1 link: Hover đổi viền, bấm đâu cũng mở link */
+        /* Thẻ 1 link: Hover đổi viền, chạm đâu cũng mở link */
         .char-card.single-link {
             cursor: pointer;
         }
@@ -409,7 +409,7 @@
             transform: scale(0.985);
         }
 
-        /* Thẻ 2 link: Không click toàn thẻ */
+        /* Thẻ 2 link */
         .char-card.dual-link:hover {
             border-color: rgba(226, 168, 59, 0.8);
             box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75);
@@ -477,46 +477,55 @@
             font-family: 'Be Vietnam Pro', sans-serif;
             font-size: 12.5px;
             color: #E2A83B;
-            margin: 0 0 16px 0;
+            margin: 0 0 14px 0;
             font-weight: 500;
             line-height: 1.45;
             letter-spacing: 0.25px;
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
         }
 
-        /* 3. KHUNG TRÍCH DẪN */
+        /* 3. LỜI ĐỀ TỪ / TRÍCH DẪN: PHONG CÁCH TỰ SỰ THANH THOÁT (KHÔNG HỘP CỨNG) */
         .char-quote-desc {
             font-family: 'Lora', serif;
-            font-size: 0.96em;
-            color: #E2D4A8;
-            line-height: 1.6;
+            font-size: 0.95em;
+            color: #E5D9B8;
+            line-height: 1.7;
             font-style: italic;
-            margin: 0 0 0 0; /* Mặc định 0 khi thẻ 1 link không có nút */
-            background: rgba(3, 14, 7, 0.55);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 12px 16px;
-            border-radius: 12px;
-            border-left: 3px solid #E2A83B;
-            border-right: 1px solid rgba(226, 168, 59, 0.2);
-            border-top: 1px solid rgba(226, 168, 59, 0.15);
-            border-bottom: 1px solid rgba(226, 168, 59, 0.15);
+            margin: 0;
+            padding: 4px 0 2px 0;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
             word-break: break-word;
-            flex: 1;
-        }
-        
-        /* Nếu thẻ có 2 nút thì cách đáy quote box */
-        .char-card.dual-link .char-quote-desc {
-            margin-bottom: 16px;
+            position: relative;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
         }
 
-        /* 4. KHU VỰC 2 NÚT BẤM CHO NHÂN VẬT 2 BẢN (BL & BG) */
+        /* Đường chỉ vàng điểm xuyết thanh tao ở đầu lời thoại */
+        .char-quote-desc::before {
+            content: '';
+            display: block;
+            width: 38px;
+            height: 1.5px;
+            background: linear-gradient(90deg, #E2A83B, rgba(226, 168, 59, 0.15));
+            margin-bottom: 12px;
+            border-radius: 2px;
+        }
+
+        /* Nếu thẻ có 2 nút ở dưới thì cách thêm khoảng hở */
+        .char-card.dual-link .char-quote-desc {
+            margin-bottom: 18px;
+        }
+
+        /* 4. KHU VỰC 2 NÚT BẤM (BL VÀ BG) */
         .char-dual-actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            border-top: 1px dashed rgba(226, 168, 59, 0.3);
-            padding-top: 14px;
+            gap: 14px;
+            border-top: 1px dashed rgba(226, 168, 59, 0.25);
+            padding-top: 16px;
             width: 100%;
         }
 
@@ -524,23 +533,23 @@
             background: rgba(14, 42, 24, 0.85);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border-radius: 15px;
-            padding: 10px 8px;
-            font-size: 13.5px;
+            border-radius: 16px;
+            padding: 10px 12px;
+            font-size: 14px;
             font-weight: 700;
             font-family: 'Be Vietnam Pro', sans-serif;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            letter-spacing: 0.3px;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1.2px;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
         }
 
-        /* Nút BL: Tone vàng hoàng gia */
+        /* Nút BL */
         .btn-version-pill.btn-bl {
-            border: 1.5px solid rgba(226, 168, 59, 0.65);
+            border: 1.5px solid rgba(226, 168, 59, 0.7);
             color: #FFFDF7;
         }
         .btn-version-pill.btn-bl:hover {
@@ -549,7 +558,7 @@
             box-shadow: 0 4px 16px rgba(226, 168, 59, 0.45);
         }
 
-        /* Nút BG: Tone ánh hồng ngọt ngào */
+        /* Nút BG */
         .btn-version-pill.btn-bg {
             border: 1.5px solid rgba(244, 143, 177, 0.75);
             color: #FFF0F5;
@@ -901,7 +910,7 @@
             }
         }
 
-        /* ================= RENDER DỮ LIỆU NHÂN VẬT THÔNG MINH ================= */
+        /* ================= RENDER DỮ LIỆU NHÂN VẬT ================= */
         function renderCharGrid() {
             const grid = document.getElementById("charGrid");
             grid.innerHTML = "";
@@ -920,7 +929,7 @@
 
                 const card = document.createElement("div");
 
-                // TRƯỜNG HỢP 1: CÓ CẢ 2 LINK (BL & BG) -> HIỂN THỊ 2 NÚT BẤM RIÊNG BIỆT
+                // TRƯỜNG HỢP 1: CÓ CẢ 2 LINK (BL & BG) -> TÁCH 2 Ô RIÊNG: BL VÀ BG
                 if (hasBL && hasBG) {
                     card.className = "char-card dual-link";
                     card.innerHTML = `
@@ -931,16 +940,17 @@
                         <div class="char-content">
                             <h3 class="char-name">${c.name}</h3>
                             <div class="char-tags">${c.tags}</div>
+                            <!-- TRÍCH DẪN DẠNG LỜI TỰ SỰ THANH TAO -->
                             <div class="char-quote-desc">${c.story}</div>
-                            <!-- 2 Ô RIÊNG BIỆT ĐẶT CẠNH NHAU -->
+                            <!-- 2 Ô RÕ RÀNG: BL VÀ BG -->
                             <div class="char-dual-actions">
-                                <button class="btn-version-pill btn-bl" onclick="event.stopPropagation(); window.open('${linkBL}', '_blank')">Bản BL</button>
-                                <button class="btn-version-pill btn-bg" onclick="event.stopPropagation(); window.open('${linkBG}', '_blank')">Bản BG</button>
+                                <button class="btn-version-pill btn-bl" onclick="event.stopPropagation(); window.open('${linkBL}', '_blank')">BL</button>
+                                <button class="btn-version-pill btn-bg" onclick="event.stopPropagation(); window.open('${linkBG}', '_blank')">BG</button>
                             </div>
                         </div>
                     `;
                 } 
-                // TRƯỜNG HỢP 2: CHỈ CÓ 1 LINK -> KHÔNG ĐỂ Ô NÚT BẤM, ẤN BẤT KỲ ĐÂU TRÊN THẺ ĐỀU MỞ LINK
+                // TRƯỜNG HỢP 2: CHỈ CÓ 1 LINK -> KHÔNG NÚT BẤM, CHẠM BẤT KỲ ĐÂU ĐỀU MỞ LINK
                 else {
                     const singleLink = hasBL ? linkBL : (hasBG ? linkBG : "");
                     card.className = "char-card single-link";
@@ -955,6 +965,7 @@
                         <div class="char-content">
                             <h3 class="char-name">${c.name}</h3>
                             <div class="char-tags">${c.tags}</div>
+                            <!-- TRÍCH DẪN DẠNG LỜI TỰ SỰ THANH TAO -->
                             <div class="char-quote-desc">${c.story}</div>
                         </div>
                     `;
