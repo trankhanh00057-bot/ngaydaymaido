@@ -309,7 +309,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* ================= THANH TÌM KIẾM: KÍNH MỜ BÁN TRONG SUỐT ================= */
+        /* ================= THANH TÌM KIẾM: KÍNH MỜ VIỀN VÀNG ================= */
         .dauchan-wrapper { width: 100%; }
         
         .dauchan-top-bar {
@@ -380,10 +380,9 @@
             width: 100%;
         }
 
-        /* ================= KHUNG THẺ NHÂN VẬT: OBSIDIAN GLASS SANG TRỌNG ================= */
+        /* ================= KHUNG THẺ NHÂN VẬT: OBSIDIAN GLASS ================= */
         .char-card {
             position: relative;
-            /* NỀN KÍNH BÁN TRONG SUỐT VỚI ÁNH SẮC NGỌC BÍ ẨN */
             background: linear-gradient(145deg, rgba(14, 38, 24, 0.76) 0%, rgba(5, 18, 10, 0.84) 100%);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
@@ -396,10 +395,24 @@
             width: 100%;
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .char-card:hover {
+
+        /* Thẻ 1 link: Hover đổi viền, bấm đâu cũng mở link */
+        .char-card.single-link {
+            cursor: pointer;
+        }
+        .char-card.single-link:hover {
             transform: translateY(-5px);
             border-color: #E2A83B;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 26px rgba(226, 168, 59, 0.35);
+        }
+        .char-card.single-link:active {
+            transform: scale(0.985);
+        }
+
+        /* Thẻ 2 link: Không click toàn thẻ */
+        .char-card.dual-link:hover {
+            border-color: rgba(226, 168, 59, 0.8);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75);
         }
 
         /* KHUNG ẢNH & MẶT NẠ LÀM TAN BIẾN ẢNH VÀO LỚP KÍNH */
@@ -421,7 +434,6 @@
             mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 100%);
         }
         
-        /* BÓNG GRADIENT TAN VÀO NỀN TRONG SUỐT */
         .char-img-fade {
             position: absolute;
             inset: 0;
@@ -472,14 +484,14 @@
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
         }
 
-        /* 3. KHUNG TRÍCH DẪN: KÍNH KHÓI MỜ SANG TRỌNG */
+        /* 3. KHUNG TRÍCH DẪN */
         .char-quote-desc {
             font-family: 'Lora', serif;
             font-size: 0.96em;
             color: #E2D4A8;
             line-height: 1.6;
             font-style: italic;
-            margin: 0 0 18px 0;
+            margin: 0 0 0 0; /* Mặc định 0 khi thẻ 1 link không có nút */
             background: rgba(3, 14, 7, 0.55);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -492,42 +504,63 @@
             word-break: break-word;
             flex: 1;
         }
-
-        /* 4. NÚT BẤM DÀY DẶN & DỄ BẤM HƠN */
-        .char-actions {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-top: 1px dashed rgba(226, 168, 59, 0.25);
-            padding-top: 14px;
+        
+        /* Nếu thẻ có 2 nút thì cách đáy quote box */
+        .char-card.dual-link .char-quote-desc {
+            margin-bottom: 16px;
         }
-        .btn-chat-expanded {
+
+        /* 4. KHU VỰC 2 NÚT BẤM CHO NHÂN VẬT 2 BẢN (BL & BG) */
+        .char-dual-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            border-top: 1px dashed rgba(226, 168, 59, 0.3);
+            padding-top: 14px;
             width: 100%;
+        }
+
+        .btn-version-pill {
             background: rgba(14, 42, 24, 0.85);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1.5px solid rgba(226, 168, 59, 0.6);
-            border-radius: 16px;
-            padding: 11px 16px;
-            font-size: 14px;
+            border-radius: 15px;
+            padding: 10px 8px;
+            font-size: 13.5px;
             font-weight: 700;
             font-family: 'Be Vietnam Pro', sans-serif;
-            color: #FFFDF7;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            letter-spacing: 0.5px;
-            transition: 0.2s;
+            letter-spacing: 0.3px;
+            transition: all 0.2s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
-        .btn-chat-expanded:hover {
+
+        /* Nút BL: Tone vàng hoàng gia */
+        .btn-version-pill.btn-bl {
+            border: 1.5px solid rgba(226, 168, 59, 0.65);
+            color: #FFFDF7;
+        }
+        .btn-version-pill.btn-bl:hover {
             background: #E2A83B;
             color: #0A2013;
-            box-shadow: 0 4px 16px rgba(226, 168, 59, 0.4);
+            box-shadow: 0 4px 16px rgba(226, 168, 59, 0.45);
         }
 
-        /* ================= TAB 2: HÒM THƯ NGL KÍNH MỜ ================= */
+        /* Nút BG: Tone ánh hồng ngọt ngào */
+        .btn-version-pill.btn-bg {
+            border: 1.5px solid rgba(244, 143, 177, 0.75);
+            color: #FFF0F5;
+        }
+        .btn-version-pill.btn-bg:hover {
+            background: #F48FB1;
+            color: #0A2013;
+            box-shadow: 0 4px 16px rgba(244, 143, 177, 0.45);
+        }
+
+        /* TAB 2: HÒM THƯ NGL */
         .ngl-box {
             width: 100%;
             max-width: 560px;
@@ -567,34 +600,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             transition: 0.2s;
         }
-
-        /* MODAL */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px); z-index: 10000;
-            justify-content: center; align-items: center; padding: 10px;
-        }
-        .modal-box {
-            background: rgba(10, 32, 19, 0.94);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1.5px solid rgba(226, 168, 59, 0.6);
-            border-radius: 20px; padding: 22px; width: 100%; max-width: 480px;
-            color: #FFFFFF; text-align: left; position: relative; max-height: 85vh; overflow-y: auto;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.7);
-        }
-        .modal-close {
-            position: absolute; top: 12px; right: 12px; background: none; border: none;
-            color: #E2A83B; font-size: 16px; cursor: pointer; font-family: sans-serif;
-        }
-        .btn-version-choice {
-            display: block; width: 100%; margin-top: 10px; padding: 12px;
-            background: rgba(20, 56, 33, 0.85); border: 1px solid #E2A83B;
-            color: #FFFDF7; border-radius: 12px; font-family: 'Be Vietnam Pro', sans-serif;
-            font-size: 13.5px; font-weight: bold; text-align: center; cursor: pointer; transition: 0.2s;
-        }
-        .btn-version-choice:hover { background: #E2A83B; color: #0A2013; }
 
         /* ================= TỐI ƯU GIAO DIỆN DI ĐỘNG ================= */
         @media (max-width: 680px) {
@@ -690,21 +695,9 @@
         </div>
     </div>
 
-    <!-- MODAL CHỌN PHIÊN BẢN CHAT -->
-    <div class="modal-overlay" id="modal-choose-version">
-        <div class="modal-box" style="text-align:center;">
-            <button class="modal-close" onclick="dongModal('modal-choose-version')">Đóng</button>
-            <h3 style="margin-top:0; color:#E2A83B; font-family:'Playfair Display',serif; font-size:1.3em;">Chọn Phiên Bản Chat</h3>
-            <p id="choose-char-desc" style="font-size:0.88em; color:#E8F5E9; margin-bottom:14px; font-family:'Be Vietnam Pro',sans-serif;">Nhân vật này có 2 phiên bản trò chuyện:</p>
-            <button class="btn-version-choice" id="btnChoiceBL" onclick="moLinkChatDirect('BL')">Trò chuyện Bản BL</button>
-            <button class="btn-version-choice" id="btnChoiceBG" onclick="moLinkChatDirect('BG')" style="border-color:#F48FB1; color:#FCE4EC;">Trò chuyện Bản BG</button>
-        </div>
-    </div>
-
     <!-- ================= SCRIPT XỬ LÝ ================= -->
     <script>
         const backBtn = document.getElementById("globalBackBtn");
-        let selectedCharForChoice = null;
 
         const danhSachCharGoc = [
             {
@@ -834,7 +827,7 @@
             renderCharGrid();
         };
 
-        /* ================= CHUYỂN TRANG MƯỢT KHÔNG DROP FRAME ================= */
+        /* ================= CHUYỂN TRANG MƯỢT ================= */
         let isTransitioning = false;
 
         function chuyenTrang(soTrang) {
@@ -908,25 +901,28 @@
             }
         }
 
-        function moModal(id) { document.getElementById(id).style.display = "flex"; }
-        function dongModal(id) { document.getElementById(id).style.display = "none"; }
-
-        /* ================= RENDER DỮ LIỆU NHÂN VẬT THÀNH POSTER LIỀN KHỐI ================= */
+        /* ================= RENDER DỮ LIỆU NHÂN VẬT THÔNG MINH ================= */
         function renderCharGrid() {
             const grid = document.getElementById("charGrid");
             grid.innerHTML = "";
 
             if (danhSachChar.length === 0) {
                 grid.innerHTML = `<div class="empty-placeholder">Chưa có dấu chân nào...</div>`;
-            } else {
-                danhSachChar.forEach(c => {
-                    let btnText = "BL";
-                    if (c.genre && c.genre !== "Không") {
-                        btnText = c.genre;
-                    }
+                return;
+            }
 
-                    const card = document.createElement("div");
-                    card.className = "char-card";
+            danhSachChar.forEach(c => {
+                const linkBL = (c.chatLinkBL || c.chatLink || "").trim();
+                const linkBG = (c.chatLinkBG || "").trim();
+
+                const hasBL = linkBL.startsWith('http');
+                const hasBG = linkBG.startsWith('http');
+
+                const card = document.createElement("div");
+
+                // TRƯỜNG HỢP 1: CÓ CẢ 2 LINK (BL & BG) -> HIỂN THỊ 2 NÚT BẤM RIÊNG BIỆT
+                if (hasBL && hasBG) {
+                    card.className = "char-card dual-link";
                     card.innerHTML = `
                         <div class="char-img-box">
                             <img src="${c.img}" class="char-img" alt="${c.name}" referrerpolicy="no-referrer" loading="lazy">
@@ -936,47 +932,36 @@
                             <h3 class="char-name">${c.name}</h3>
                             <div class="char-tags">${c.tags}</div>
                             <div class="char-quote-desc">${c.story}</div>
-                            <div class="char-actions">
-                                <button class="btn-chat-expanded" onclick="xuLyTroChuyenById(${c.id})">${btnText}</button>
+                            <!-- 2 Ô RIÊNG BIỆT ĐẶT CẠNH NHAU -->
+                            <div class="char-dual-actions">
+                                <button class="btn-version-pill btn-bl" onclick="event.stopPropagation(); window.open('${linkBL}', '_blank')">Bản BL</button>
+                                <button class="btn-version-pill btn-bg" onclick="event.stopPropagation(); window.open('${linkBG}', '_blank')">Bản BG</button>
                             </div>
                         </div>
                     `;
-                    grid.appendChild(card);
-                });
-            }
-        }
+                } 
+                // TRƯỜNG HỢP 2: CHỈ CÓ 1 LINK -> KHÔNG ĐỂ Ô NÚT BẤM, ẤN BẤT KỲ ĐÂU TRÊN THẺ ĐỀU MỞ LINK
+                else {
+                    const singleLink = hasBL ? linkBL : (hasBG ? linkBG : "");
+                    card.className = "char-card single-link";
+                    if (singleLink) {
+                        card.setAttribute("onclick", `window.open('${singleLink}', '_blank')`);
+                    }
+                    card.innerHTML = `
+                        <div class="char-img-box">
+                            <img src="${c.img}" class="char-img" alt="${c.name}" referrerpolicy="no-referrer" loading="lazy">
+                            <div class="char-img-fade"></div>
+                        </div>
+                        <div class="char-content">
+                            <h3 class="char-name">${c.name}</h3>
+                            <div class="char-tags">${c.tags}</div>
+                            <div class="char-quote-desc">${c.story}</div>
+                        </div>
+                    `;
+                }
 
-        function xuLyTroChuyenById(id) {
-            const char = danhSachChar.find(item => item.id === id);
-            if (!char) return;
-
-            const linkBL = char.chatLinkBL || char.chatLink;
-            const linkBG = char.chatLinkBG;
-
-            const hasBL = linkBL && linkBL.trim().startsWith('http');
-            const hasBG = linkBG && linkBG.trim().startsWith('http');
-
-            if (hasBL && hasBG) {
-                selectedCharForChoice = char;
-                document.getElementById("choose-char-desc").innerText = `Nhân vật ${char.name} có 2 phiên bản trò chuyện:`;
-                moModal('modal-choose-version');
-            } else if (hasBL) {
-                window.open(linkBL.trim(), '_blank');
-            } else if (hasBG) {
-                window.open(linkBG.trim(), '_blank');
-            } else {
-                alert("Nhân vật này chưa có link chat!");
-            }
-        }
-
-        function moLinkChatDirect(type) {
-            if (!selectedCharForChoice) return;
-            if (type === 'BL' && (selectedCharForChoice.chatLinkBL || selectedCharForChoice.chatLink)) {
-                window.open((selectedCharForChoice.chatLinkBL || selectedCharForChoice.chatLink).trim(), '_blank');
-            } else if (type === 'BG' && selectedCharForChoice.chatLinkBG) {
-                window.open(selectedCharForChoice.chatLinkBG.trim(), '_blank');
-            }
-            dongModal('modal-choose-version');
+                grid.appendChild(card);
+            });
         }
 
         function locNhanVat() {
