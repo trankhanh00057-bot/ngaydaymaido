@@ -81,7 +81,7 @@
             transform: translate3d(0, 0, 0);
         }
 
-        /* NÚT BÁNH RĂNG QUẢN TRỊ BẢO MẬT (GÓC DƯỚI PHẢI) */
+        /* NÚT BÁNH RĂNG QUẢN TRỊ */
         .admin-cog-btn {
             position: fixed;
             bottom: 14px;
@@ -395,7 +395,7 @@
             align-items: center;
             gap: 8px 10px;
             max-width: 680px;
-            margin: 0 auto 28px auto;
+            margin: 0 auto 18px auto;
             padding: 0 10px;
         }
         .quick-tag-pill {
@@ -417,6 +417,51 @@
             border-color: #E2A83B;
             color: #0A2013;
             font-weight: 700;
+        }
+
+        /* ================= KHU VỰC TÙY DUYÊN GẶP GỠ (RANDOM CHAR) ================= */
+        .random-char-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px auto;
+            max-width: 420px;
+            width: 100%;
+        }
+
+        .btn-random-char {
+            background: linear-gradient(135deg, rgba(28, 72, 49, 0.95), rgba(12, 36, 21, 0.95));
+            border: 1.5px solid #E2A83B;
+            color: #FFFDF7;
+            padding: 9px 26px;
+            border-radius: 22px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.8px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 14px rgba(226, 168, 59, 0.35);
+            transition: all 0.25s ease;
+        }
+        .btn-random-char:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #E2A83B, #B88222);
+            color: #0A2013;
+            box-shadow: 0 6px 22px rgba(226, 168, 59, 0.55);
+        }
+        .btn-random-char:active { transform: scale(0.96); }
+
+        .random-subtext {
+            font-size: 11.5px;
+            color: #C8E6C9;
+            margin-top: 6px;
+            font-style: italic;
+            opacity: 0.85;
+            font-family: 'Lora', serif;
         }
 
         .char-grid {
@@ -686,6 +731,76 @@
             font-style: italic;
         }
 
+        /* ================= MODAL HIỂN THỊ CHAR RANDOM (TÙY DUYÊN) ================= */
+        .random-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .random-modal-box {
+            background: #081a0f;
+            border: 1.5px solid #E2A83B;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 440px;
+            overflow: hidden;
+            color: #FFFDF7;
+            text-align: left;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 25px rgba(226,168,59,0.35);
+            position: relative;
+        }
+        .random-modal-header {
+            padding: 14px 18px 8px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed rgba(226, 168, 59, 0.3);
+        }
+        .random-modal-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25em;
+            color: #E2A83B;
+            margin: 0;
+        }
+        .random-body {
+            max-height: 80vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .random-card-wrapper {
+            padding: 14px;
+        }
+        .random-footer-actions {
+            display: flex;
+            gap: 10px;
+            padding: 12px 16px 16px 16px;
+            border-top: 1px dashed rgba(226, 168, 59, 0.3);
+        }
+        .btn-reroll {
+            flex: 1;
+            background: rgba(14, 42, 24, 0.95);
+            border: 1.5px solid #E2A83B;
+            color: #E2D4A8;
+            padding: 10px;
+            border-radius: 14px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+        .btn-reroll:hover {
+            background: #E2A83B;
+            color: #0A2013;
+        }
+
         /* ================= MODAL QUẢN TRỊ ADMIN (LUXURY) ================= */
         .admin-modal-overlay {
             display: none;
@@ -798,10 +913,12 @@
             }
             .char-name { font-size: 1.55em; }
             .char-grid { gap: 26px; grid-template-columns: 1fr; }
-            .quick-tags-wrapper { gap: 7px 8px; margin-bottom: 22px; }
+            .quick-tags-wrapper { gap: 7px 8px; margin-bottom: 16px; }
             .quick-tag-pill { padding: 5px 12px; font-size: 12px; }
             .feedback-luxury-box { padding: 22px 16px; }
             .manhvun-card { padding: 18px 16px; }
+
+            .btn-random-char { padding: 8px 22px; font-size: 13px; }
         }
     </style>
 </head>
@@ -861,12 +978,14 @@
             <!-- TAB 1: DẤU CHÂN -->
             <div class="tab-pane pane-active" id="tabContentDauChan">
                 <div class="dauchan-wrapper">
+                    <!-- THANH TÌM KIẾM -->
                     <div class="dauchan-top-bar">
                         <div class="p3-search-box">
                             <input type="text" class="p3-search-input" id="filterInput" placeholder="Lọc nhân vật..." oninput="locNhanVat()">
                         </div>
                     </div>
 
+                    <!-- DANH SÁCH TAGS -->
                     <div class="quick-tags-wrapper">
                         <button class="quick-tag-pill active" onclick="chonTag('Tất cả')">Tất cả</button>
                         <button class="quick-tag-pill" onclick="chonTag('BL')">BL</button>
@@ -878,6 +997,15 @@
                         <button class="quick-tag-pill" onclick="chonTag('Hẹn hò bí mật')">Hẹn hò bí mật</button>
                     </div>
 
+                    <!-- NÚT TÙY DUYÊN GẶP GỠ (CHỌN CHAR RANDOM) -->
+                    <div class="random-char-container">
+                        <button class="btn-random-char" onclick="quayTuyDuyen()">
+                            <span>✦</span> Tùy Duyên Gặp Gỡ <span>✦</span>
+                        </button>
+                        <div class="random-subtext">Để số phận chọn một bước chân dẫn lối bạn...</div>
+                    </div>
+
+                    <!-- LƯỚI DANH SÁCH NHÂN VẬT -->
                     <div class="char-grid" id="charGrid"></div>
                 </div>
             </div>
@@ -909,6 +1037,23 @@
                 <div class="manhvun-wrapper" id="manhVunGrid"></div>
             </div>
 
+        </div>
+    </div>
+
+    <!-- ================= MODAL HIỂN THỊ CHAR TÙY DUYÊN ================= -->
+    <div class="random-modal-overlay" id="randomModal">
+        <div class="random-modal-box">
+            <div class="random-modal-header">
+                <h3>✦ Hữu Duyên Tương Ngộ ✦</h3>
+                <span onclick="dongModalTuyDuyen()" style="cursor:pointer; color:#E2A83B; font-size:20px;">✕</span>
+            </div>
+            <div class="random-body">
+                <div class="random-card-wrapper" id="randomCardSlot"></div>
+                <div class="random-footer-actions">
+                    <button class="btn-reroll" onclick="quayTuyDuyen()">✦ Thử Vận Duyên Khác</button>
+                    <button class="btn-reroll" onclick="dongModalTuyDuyen()" style="border-color:rgba(226,168,59,0.3); color:#aaa;">Đóng</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -989,7 +1134,7 @@
         let currentActiveTag = "Tất cả";
 
         /* ================= 1. MẬT KHẨU ADMIN MỚI ================= */
-        const ADMIN_PASSWORD = "642607"; // ĐÃ ĐỔI THÀNH 642607 THEO YÊU CẦU
+        const ADMIN_PASSWORD = "642607";
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1565632672510771221/TiHVmhj6dEJSbh8t4XLxHQfez-XUC5Aa6PjdgByHK1rDHRscjj8mTFLB_iD_gWAZHIbA";
 
         // FIREBASE CONFIG CỦA BẠN:
@@ -1135,7 +1280,6 @@
             }
         ];
 
-        // ĐÃ XÓA SẠCH 3 MẨU TRUYỆN MẪU BAN ĐẦU:
         let danhSachChar = danhSachCharGoc;
         let danhSachManhVun = [];
 
@@ -1158,7 +1302,6 @@
                     const data = snapshot.val();
                     if (data) {
                         const list = Array.isArray(data) ? data.filter(Boolean) : Object.values(data);
-                        // Tự động loại bỏ 3 mẩu truyện mẫu cũ có id 1, 2, 3
                         danhSachManhVun = list.filter(item => item.id !== 1 && item.id !== 2 && item.id !== 3);
                         if (list.length !== danhSachManhVun.length) {
                             db.ref('manhvun').set(danhSachManhVun);
@@ -1216,7 +1359,53 @@
             });
         }
 
-        /* ================= 5. GỬI FEEDBACK ================= */
+        /* ================= 5. TÙY DUYÊN GẶP GỠ (RANDOM CHAR) ================= */
+        function quayTuyDuyen() {
+            if (!danhSachChar || danhSachChar.length === 0) {
+                alert("Hiện chưa có nhân vật nào!");
+                return;
+            }
+
+            // Chọn ngẫu nhiên 1 nhân vật trong danh sách
+            const randomIndex = Math.floor(Math.random() * danhSachChar.length);
+            const c = danhSachChar[randomIndex];
+
+            const linkBL = (c.chatLinkBL || c.chatLink || "").trim();
+            const linkBG = (c.chatLinkBG || "").trim();
+            const hasBL = linkBL.startsWith('http');
+            const hasBG = linkBG.startsWith('http');
+
+            const slot = document.getElementById("randomCardSlot");
+            slot.innerHTML = `
+                <div class="char-card" style="box-shadow:none; border:none; margin:0 auto;">
+                    <div class="char-img-box" style="height:360px;">
+                        <img src="${c.img}" class="char-img" alt="${c.name}" referrerpolicy="no-referrer">
+                        <div class="char-img-fade"></div>
+                    </div>
+                    <div class="char-content" style="margin-top:-70px; padding:0 12px 10px 12px;">
+                        <h3 class="char-name" style="font-size:1.45em;">${c.name}</h3>
+                        <div class="char-tags" style="font-size:11.5px; margin-bottom:10px;">${c.tags}</div>
+                        <div class="char-quote-desc" style="font-size:0.9em; margin-bottom:12px;">${c.story}</div>
+                        ${
+                            hasBL && hasBG 
+                            ? `<div class="char-dual-actions" style="padding-top:10px;">
+                                   <button class="btn-version-pill btn-bl" onclick="window.open('${linkBL}', '_blank')">BL</button>
+                                   <button class="btn-version-pill btn-bg" onclick="window.open('${linkBG}', '_blank')">BG</button>
+                               </div>`
+                            : `<button class="btn-version-pill btn-bl" style="width:100%;" onclick="window.open('${hasBL ? linkBL : linkBG}', '_blank')">Trò Chuyện Ngay ✦</button>`
+                        }
+                    </div>
+                </div>
+            `;
+
+            document.getElementById("randomModal").style.display = "flex";
+        }
+
+        function dongModalTuyDuyen() {
+            document.getElementById("randomModal").style.display = "none";
+        }
+
+        /* ================= 6. GỬI FEEDBACK ================= */
         function submitOneWayFeedback(event) {
             event.preventDefault();
             const charName = document.getElementById('fbCharName').value.trim();
@@ -1248,7 +1437,7 @@
             }
         }
 
-        /* ================= 6. RENDER DỮ LIỆU ================= */
+        /* ================= 7. RENDER DỮ LIỆU ================= */
         function renderCharGrid() {
             const grid = document.getElementById("charGrid");
             grid.innerHTML = "";
@@ -1327,7 +1516,7 @@
             });
         }
 
-        /* ================= 7. QUẢN TRỊ ADMIN (THÊM / SỬA / XÓA) ================= */
+        /* ================= 8. QUẢN TRỊ ADMIN (THÊM / SỬA / XÓA) ================= */
         function moKhoaAdmin() {
             const pass = prompt("Nhập mật khẩu Admin quản trị:");
             if (pass === ADMIN_PASSWORD) {
@@ -1493,7 +1682,7 @@
             }
         }
 
-        /* ================= 8. BỘ LỌC THÔNG MINH ================= */
+        /* ================= 9. BỘ LỌC THÔNG MINH ================= */
         function chonTag(tag) {
             currentActiveTag = tag;
             const buttons = document.querySelectorAll('.quick-tag-pill');
@@ -1542,4 +1731,3 @@
     </script>
 </body>
 </html>
-</body>
