@@ -388,7 +388,7 @@
         .p3-search-input::placeholder { color: #E2D4A8; opacity: 0.8; }
         .p3-search-input:focus { border-color: #E2A83B; }
 
-        /* ================= KHU VỰC TÙY DUYÊN GẶP GỠ (DƯỚI TÌM KIẾM, TRÊN TAG) ================= */
+        /* KHU VỰC TÙY DUYÊN GẶP GỠ (DƯỚI TÌM KIẾM, TRÊN TAG) */
         .random-char-container {
             display: flex;
             flex-direction: column;
@@ -433,7 +433,7 @@
             font-family: 'Lora', serif;
         }
 
-        /* DANH SÁCH TAGS (NẰM DƯỚI RANDOM) */
+        /* DANH SÁCH TAGS */
         .quick-tags-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -679,28 +679,31 @@
         }
         .fb-btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(226, 168, 59, 0.5); }
 
-        /* TAB 3: MẢNH VỤN */
+        /* ================= TAB 3: MẢNH VỤN (CẬP NHẬT) ================= */
         .manhvun-wrapper {
             width: 100%;
             max-width: 850px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 20px;
         }
+        
         .manhvun-card {
-            background: linear-gradient(145deg, rgba(14, 38, 24, 0.88) 0%, rgba(5, 18, 10, 0.92) 100%);
+            background: linear-gradient(145deg, rgba(14, 38, 24, 0.9) 0%, rgba(5, 18, 10, 0.94) 100%);
             border: 1.5px solid rgba(226, 168, 59, 0.45);
             border-radius: 20px;
             padding: 22px 24px;
             text-align: left;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
-            transition: transform 0.25s ease, border-color 0.25s ease;
+            cursor: pointer;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
         }
         .manhvun-card:hover {
             transform: translateY(-3px);
             border-color: #E2A83B;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 16px rgba(226, 168, 59, 0.25);
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.7), 0 0 18px rgba(226, 168, 59, 0.3);
         }
         .mv-header {
             display: flex;
@@ -712,24 +715,146 @@
         }
         .mv-char-tag {
             color: #E2A83B;
-            font-size: 12px;
+            font-size: 12.5px;
             font-family: 'Be Vietnam Pro', sans-serif;
             font-weight: 600;
             letter-spacing: 0.5px;
         }
         .mv-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.35em;
+            font-size: 1.4em;
             color: #FFF9ED;
             margin: 0 0 10px 0;
             font-weight: 700;
         }
-        .mv-excerpt {
+        .mv-intro {
             font-family: 'Lora', serif;
-            font-size: 0.94em;
+            font-size: 0.96em;
             color: #E5D9B8;
             line-height: 1.7;
             font-style: italic;
+            white-space: pre-line;
+            margin-bottom: 14px;
+        }
+        .mv-read-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #E2A83B;
+            font-size: 12.5px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            transition: gap 0.2s ease;
+        }
+        .manhvun-card:hover .mv-read-hint {
+            color: #FFFDF7;
+            gap: 10px;
+        }
+
+        /* ================= MODAL ĐỌC TRÍCH ĐOẠN MẢNH VỤN ================= */
+        .mv-reader-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            z-index: 10002;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            backdrop-filter: blur(4px);
+        }
+        .mv-reader-box {
+            background: #081a0f;
+            border: 1.5px solid #E2A83B;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 650px;
+            max-height: 85vh;
+            overflow-y: auto;
+            color: #FFFDF7;
+            text-align: left;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 30px rgba(226,168,59,0.35);
+            position: relative;
+            padding: 28px 24px 28px 24px;
+        }
+        .mv-reader-header {
+            border-bottom: 1px dashed rgba(226, 168, 59, 0.35);
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+            position: relative;
+            padding-right: 30px;
+        }
+        .mv-reader-tag {
+            color: #E2A83B;
+            font-size: 12.5px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .mv-reader-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6em;
+            color: #FFF9ED;
+            margin: 0;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+        .mv-reader-close {
+            position: absolute;
+            top: -6px;
+            right: 0;
+            font-size: 24px;
+            color: #E2A83B;
+            cursor: pointer;
+            line-height: 1;
+            padding: 4px;
+            transition: color 0.2s;
+        }
+        .mv-reader-close:hover { color: #FFF; }
+        .mv-reader-intro-quote {
+            background: rgba(14, 42, 24, 0.65);
+            border-left: 3px solid #E2A83B;
+            padding: 12px 16px;
+            border-radius: 0 12px 12px 0;
+            font-size: 0.95em;
+            color: #E2D4A8;
+            font-style: italic;
+            line-height: 1.65;
+            margin-bottom: 20px;
+            white-space: pre-line;
+        }
+        .mv-reader-content {
+            font-family: 'Lora', serif;
+            font-size: 1.02em;
+            color: #F0EAD6;
+            line-height: 1.85;
+            white-space: pre-line;
+            padding-top: 4px;
+        }
+        .mv-reader-footer {
+            margin-top: 26px;
+            border-top: 1px dashed rgba(226, 168, 59, 0.3);
+            padding-top: 16px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .btn-close-reader {
+            background: rgba(14, 42, 24, 0.95);
+            border: 1.5px solid #E2A83B;
+            color: #FFFDF7;
+            padding: 9px 24px;
+            border-radius: 16px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-close-reader:hover {
+            background: #E2A83B;
+            color: #0A2013;
         }
 
         /* ================= MODAL HIỂN THỊ CHAR RANDOM (TÙY DUYÊN) ================= */
@@ -802,7 +927,7 @@
             color: #0A2013;
         }
 
-        /* ================= MODAL QUẢN TRỊ ADMIN (LUXURY) ================= */
+        /* ================= MODAL QUẢN TRỊ ADMIN ================= */
         .admin-modal-overlay {
             display: none;
             position: fixed;
@@ -923,6 +1048,10 @@
             .manhvun-card { padding: 18px 16px; }
 
             .btn-random-char { padding: 8px 22px; font-size: 13px; }
+
+            .mv-reader-box { padding: 22px 16px; }
+            .mv-reader-title { font-size: 1.4em; }
+            .mv-reader-content { font-size: 0.98em; }
         }
     </style>
 </head>
@@ -990,7 +1119,7 @@
                         </div>
                     </div>
 
-                    <!-- 2. NÚT TÙY DUYÊN GẶP GỠ (RANDOM CHAR) - ĐÃ ĐẶT DƯỚI TÌM KIẾM, TRÊN TAG -->
+                    <!-- 2. NÚT TÙY DUYÊN GẶP GỠ (RANDOM CHAR) -->
                     <div class="random-char-container">
                         <button class="btn-random-char" onclick="quayTuyDuyen()">
                             <span>✦</span> Tùy Duyên Gặp Gỡ <span>✦</span>
@@ -1042,6 +1171,22 @@
                 <div class="manhvun-wrapper" id="manhVunGrid"></div>
             </div>
 
+        </div>
+    </div>
+
+    <!-- ================= MODAL ĐỌC TRÍCH ĐOẠN MẢNH VỤN ================= -->
+    <div class="mv-reader-overlay" id="mvReaderModal" onclick="dongModalDocManhVun(event)">
+        <div class="mv-reader-box" onclick="event.stopPropagation()">
+            <div class="mv-reader-header">
+                <span class="mv-reader-close" onclick="dongModalDocManhVun()">✕</span>
+                <span class="mv-reader-tag" id="readerTag">#Nhân vật</span>
+                <h3 class="mv-reader-title" id="readerTitle">Tên mẩu truyện</h3>
+            </div>
+            <div class="mv-reader-intro-quote" id="readerIntro"></div>
+            <div class="mv-reader-content" id="readerContent"></div>
+            <div class="mv-reader-footer">
+                <button class="btn-close-reader" onclick="dongModalDocManhVun()">Đóng Lại ✦</button>
+            </div>
         </div>
     </div>
 
@@ -1111,15 +1256,18 @@
             <!-- FORM 3: THÊM MẨU TRUYỆN MẢNH VỤN & DANH SÁCH XÓA -->
             <div id="admSection3" style="display:none;">
                 <label class="fb-label">Tên nhân vật & Tiêu đề phụ *</label>
-                <input type="text" id="admMvTag" class="fb-input" placeholder="#Trần Gia Bách • Ngoại truyện">
+                <input type="text" id="admMvTag" class="fb-input" placeholder="Ví dụ: #Trần Gia Bách • Ngoại truyện">
 
                 <label class="fb-label">Tên mẩu truyện *</label>
-                <input type="text" id="admMvTitle" class="fb-input" placeholder="Vết Máu & Tách Trà Nguội">
+                <input type="text" id="admMvTitle" class="fb-input" placeholder="Ví dụ: Vết Máu & Tách Trà Nguội">
 
-                <label class="fb-label">Nội dung trích đoạn *</label>
-                <textarea id="admMvExcerpt" class="fb-textarea" rows="4" placeholder="Nội dung mẩu truyện..."></textarea>
+                <label class="fb-label">Vài ba dòng tâm sự / Lời ngỏ bên ngoài *</label>
+                <textarea id="admMvIntro" class="fb-textarea" rows="3" placeholder="Nhập vài dòng tâm sự ngắn hiển thị bên ngoài thẻ..."></textarea>
 
-                <button class="fb-btn-submit" onclick="luuManhVunLenCloud()">✓ Thêm Mảnh Vụn</button>
+                <label class="fb-label">Nội dung trích đoạn đầy đủ (hiển thị khi bấm vào thẻ) *</label>
+                <textarea id="admMvExcerpt" class="fb-textarea" rows="6" placeholder="Dán trọn vẹn đoạn truyện / trích đoạn..."></textarea>
+
+                <button class="fb-btn-submit" onclick="luuManhVunLenCloud()">✓ Thêm Mảnh Vụn Lên Đám Mây</button>
 
                 <!-- DANH SÁCH MẢNH VỤN ĐỂ XÓA -->
                 <div style="margin-top:22px; border-top:1px dashed rgba(226,168,59,0.3); padding-top:14px;">
@@ -1142,7 +1290,7 @@
         const ADMIN_PASSWORD = "642607";
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1565632672510771221/TiHVmhj6dEJSbh8t4XLxHQfez-XUC5Aa6PjdgByHK1rDHRscjj8mTFLB_iD_gWAZHIbA";
 
-        // FIREBASE CONFIG CỦA BẠN:
+        // FIREBASE CONFIG:
         const firebaseConfig = {
             apiKey: "AIzaSyAEg2o1yH90p0ny8EUhiGShYN0v6oRcd64",
             authDomain: "xngna-46f05.firebaseapp.com",
@@ -1211,7 +1359,7 @@
                 tags: "#BL/BG, hiện đại, nyc, gương vỡ lại lành (?)",
                 chatLink: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221B3YTtHArUmROz84W2Q8Fo2R29RoYclkS%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 img: "https://i.postimg.cc/Bvc0x9Rz/812132889-122110032975449844-6741666660899964208-n.jpg",
-                story: '"Chia tay ba năm không gặp, vừa mở dịch vụ ‘Test người yêu thuê’ đã vớ ngay quả khách sộp là… bạn gái mới của bồ cũ.”'
+                story: '"Chi tay ba năm không gặp, vừa mở dịch vụ ‘Test người yêu thuê’ đã vớ ngay quả khách sộp là… bạn gái mới của bồ cũ.”'
             },
             {
                 id: 1711800000007,
@@ -1302,7 +1450,7 @@
                     renderCharGrid();
                 });
 
-                // ĐỒNG BỘ MẢNH VỤN VÀ DỌN SẠCH CÁC BÀI MẪU CŨ
+                // ĐỒNG BỘ MẢNH VỤN TỪ FIREBASE
                 db.ref('manhvun').on('value', snapshot => {
                     const data = snapshot.val();
                     if (data) {
@@ -1499,6 +1647,7 @@
             });
         }
 
+        /* RENDER MẢNH VỤN: CHỈ HIỆN TAG, TITLE, TÂM SỰ BÊN NGOÀI */
         function renderManhVunGrid() {
             const mvGrid = document.getElementById("manhVunGrid");
             mvGrid.innerHTML = "";
@@ -1506,18 +1655,54 @@
                 mvGrid.innerHTML = `<div class="empty-placeholder">Chưa có mẩu truyện nào... Bạn hãy bấm bánh răng ⚙ để thêm mảnh vụn đầu tiên nhé!</div>`;
                 return;
             }
-            danhSachManhVun.forEach(mv => {
+            danhSachManhVun.forEach((mv, index) => {
                 const card = document.createElement("div");
                 card.className = "manhvun-card";
+                card.onclick = () => moModalDocManhVun(index);
+                
+                // Hiển thị intro, nếu mẩu truyện cũ chưa có intro thì lấy trích đoạn ngắn làm tâm sự
+                const introDisplay = mv.intro || mv.excerpt || "";
+
                 card.innerHTML = `
                     <div class="mv-header">
                         <span class="mv-char-tag">${mv.tag}</span>
                     </div>
                     <h4 class="mv-title">${mv.title}</h4>
-                    <p class="mv-excerpt">${mv.excerpt}</p>
+                    <p class="mv-intro">${introDisplay}</p>
+                    <div class="mv-read-hint">✦ Bấm để đọc trọn vẹn trích đoạn ➔</div>
                 `;
                 mvGrid.appendChild(card);
             });
+        }
+
+        /* MỞ / ĐÓNG MODAL ĐỌC TRÍCH ĐOẠN */
+        function moModalDocManhVun(index) {
+            const mv = danhSachManhVun[index];
+            if (!mv) return;
+
+            document.getElementById('readerTag').innerText = mv.tag || "";
+            document.getElementById('readerTitle').innerText = mv.title || "";
+            
+            // Dòng tâm sự
+            const introEl = document.getElementById('readerIntro');
+            if (mv.intro && mv.intro.trim() !== "") {
+                introEl.style.display = "block";
+                introEl.innerText = mv.intro;
+            } else {
+                introEl.style.display = "none";
+            }
+
+            // Trích đoạn đầy đủ
+            document.getElementById('readerContent').innerText = mv.excerpt || "(Trích đoạn đang được cập nhật...)";
+
+            document.getElementById('mvReaderModal').style.display = 'flex';
+        }
+
+        function dongModalDocManhVun(e) {
+            if (e && e.target && e.target !== e.currentTarget && !e.target.classList.contains('mv-reader-close') && !e.target.classList.contains('btn-close-reader')) {
+                return;
+            }
+            document.getElementById('mvReaderModal').style.display = 'none';
         }
 
         /* ================= 8. QUẢN TRỊ ADMIN (THÊM / SỬA / XÓA) ================= */
@@ -1630,17 +1815,19 @@
             }
         }
 
+        /* LƯU MẢNH VỤN (CÓ THÊM Ô TÂM SỰ BÊN NGOÀI) */
         function luuManhVunLenCloud() {
             const tag = document.getElementById('admMvTag').value.trim();
             const title = document.getElementById('admMvTitle').value.trim();
+            const intro = document.getElementById('admMvIntro').value.trim();
             const excerpt = document.getElementById('admMvExcerpt').value.trim();
 
             if (!tag || !title || !excerpt) {
-                alert("Vui lòng điền đủ thông tin mẩu truyện!");
+                alert("Vui lòng điền đủ Tên nhân vật, Tên mẩu truyện và Nội dung trích đoạn!");
                 return;
             }
 
-            danhSachManhVun.unshift({ id: Date.now(), tag, title, excerpt });
+            danhSachManhVun.unshift({ id: Date.now(), tag, title, intro, excerpt });
             if (db) {
                 db.ref('manhvun').set(danhSachManhVun).then(() => {
                     alert("Đã thêm Mảnh vụn lên Đám mây! Ai vào web cũng thấy ngay ✦");
@@ -1650,6 +1837,7 @@
             }
             document.getElementById('admMvTag').value = '';
             document.getElementById('admMvTitle').value = '';
+            document.getElementById('admMvIntro').value = '';
             document.getElementById('admMvExcerpt').value = '';
             dongModalAdmin();
         }
