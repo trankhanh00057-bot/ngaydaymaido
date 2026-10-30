@@ -309,15 +309,15 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* ================= THANH TÌM KIẾM: KÍNH MỜ VIỀN VÀNG ================= */
+        /* ================= THANH TÌM KIẾM & TAGS LỌC NHANH ================= */
         .dauchan-wrapper { width: 100%; }
         
         .dauchan-top-bar {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 26px auto;
-            max-width: 460px;
+            margin: 0 auto 16px auto;
+            max-width: 480px;
             width: 100%;
             background: rgba(6, 20, 12, 0.75);
             backdrop-filter: blur(12px);
@@ -358,6 +358,49 @@
             box-shadow: 0 0 12px rgba(226, 168, 59, 0.35);
         }
 
+        /* KHU VỰC CÁC NÚT TAG LỌC DƯỚI THANH TÌM KIẾM */
+        .quick-tags-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px 10px;
+            max-width: 650px;
+            margin: 0 auto 30px auto;
+            padding: 0 10px;
+        }
+
+        .quick-tag-pill {
+            background: rgba(8, 26, 16, 0.72);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 168, 59, 0.4);
+            color: #E2D4A8;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            user-select: none;
+        }
+
+        .quick-tag-pill:hover {
+            border-color: #E2A83B;
+            color: #FFFDF7;
+            transform: translateY(-2px);
+        }
+
+        .quick-tag-pill.active {
+            background: #E2A83B;
+            border-color: #E2A83B;
+            color: #0A2013;
+            font-weight: 700;
+            box-shadow: 0 4px 14px rgba(226, 168, 59, 0.45);
+        }
+
         .char-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
@@ -380,10 +423,10 @@
             width: 100%;
         }
 
-        /* ================= KHUNG THẺ NHÂN VẬT: OBSIDIAN GLASS ================= */
+        /* ================= KHUNG THẺ BỰ RA & KHÔNG CHE MẶT ================= */
         .char-card {
             position: relative;
-            background: linear-gradient(145deg, rgba(14, 38, 24, 0.76) 0%, rgba(5, 18, 10, 0.84) 100%);
+            background: linear-gradient(145deg, rgba(14, 38, 24, 0.78) 0%, rgba(5, 18, 10, 0.86) 100%);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border: 1.5px solid rgba(226, 168, 59, 0.5);
@@ -415,11 +458,11 @@
             box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75);
         }
 
-        /* KHUNG ẢNH & MẶT NẠ LÀM TAN BIẾN ẢNH VÀO LỚP KÍNH */
+        /* KHUNG ẢNH ĐƯỢC NÂNG CAO (560px) ĐỂ KHUÔN MẶT CỰC KỲ THOÁNG ĐÃNG */
         .char-img-box {
             position: relative;
             width: 100%;
-            height: 500px;
+            height: 560px;
             overflow: hidden;
             background: transparent;
         }
@@ -430,29 +473,31 @@
             object-fit: cover;
             object-position: center top;
             display: block;
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 100%);
-            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 100%);
+            /* 65% PHÍA TRÊN HOÀN TOÀN RÕ NÉT - CHỈ MỜ NHẸ Ở 35% ĐÁY ẢNH */
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 65%, rgba(0, 0, 0, 0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 65%, rgba(0, 0, 0, 0) 100%);
         }
         
+        /* BÓNG ĐEN CHỈ XUẤT HIỆN TỪ PHẦN THÂN DƯỚI */
         .char-img-fade {
             position: absolute;
             inset: 0;
             background: linear-gradient(
                 to bottom,
                 transparent 0%,
-                transparent 35%,
-                rgba(5, 18, 10, 0.35) 60%,
-                rgba(5, 18, 10, 0.85) 86%,
-                rgba(5, 18, 10, 0.95) 100%
+                transparent 55%,
+                rgba(5, 18, 10, 0.4) 75%,
+                rgba(5, 18, 10, 0.9) 92%,
+                rgba(5, 18, 10, 0.98) 100%
             );
             pointer-events: none;
         }
 
-        /* KHU VỰC CHỮ RỘNG RÃI, ĐÈ LÊN BÓNG MỜ */
+        /* KHU VỰC CHỮ: HẠ THẤP XUỐNG (-70px) ĐỂ KHÔNG CHẠM VÀO MẶT */
         .char-content {
             position: relative;
             z-index: 3;
-            margin-top: -140px;
+            margin-top: -70px; /* Độ thụt vừa vặn, nằm dưới cằm và ngực */
             padding: 0 22px 24px 22px;
             text-align: left;
             display: flex;
@@ -484,7 +529,7 @@
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
         }
 
-        /* 3. LỜI ĐỀ TỪ / TRÍCH DẪN: PHONG CÁCH TỰ SỰ THANH THOÁT (KHÔNG HỘP CỨNG) */
+        /* 3. LỜI ĐỀ TỪ / TRÍCH DẪN: PHONG CÁCH TỰ SỰ THANH THOÁT */
         .char-quote-desc {
             font-family: 'Lora', serif;
             font-size: 0.95em;
@@ -503,7 +548,7 @@
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
         }
 
-        /* Đường chỉ vàng điểm xuyết thanh tao ở đầu lời thoại */
+        /* Đường chỉ vàng điểm xuyết thanh tao */
         .char-quote-desc::before {
             content: '';
             display: block;
@@ -514,7 +559,6 @@
             border-radius: 2px;
         }
 
-        /* Nếu thẻ có 2 nút ở dưới thì cách thêm khoảng hở */
         .char-card.dual-link .char-quote-desc {
             margin-bottom: 18px;
         }
@@ -630,13 +674,16 @@
             .p2-title { font-size: 2em; }
             .tab-btn { padding: 7px 20px; font-size: 13px; }
             
-            .char-img-box { height: 460px; }
+            /* TRÊN ĐIỆN THOẠI: ẢNH CAO 500px, ĐỘ ĐÈ CHỈ -65px KHÔNG CHE MẶT */
+            .char-img-box { height: 500px; }
             .char-content { 
-                margin-top: -135px;
+                margin-top: -65px;
                 padding: 0 16px 20px 16px;
             }
             .char-name { font-size: 1.55em; }
             .char-grid { gap: 30px; grid-template-columns: 1fr; }
+            .quick-tags-wrapper { gap: 7px 8px; margin-bottom: 24px; }
+            .quick-tag-pill { padding: 5px 12px; font-size: 12px; }
         }
     </style>
 </head>
@@ -688,11 +735,25 @@
         </div>
 
         <div class="dauchan-wrapper" id="tabContentDauChan">
+            <!-- THANH TÌM KIẾM -->
             <div class="dauchan-top-bar">
                 <div class="p3-search-box">
                     <input type="text" class="p3-search-input" id="filterInput" placeholder="Lọc nhân vật..." oninput="locNhanVat()">
                 </div>
             </div>
+
+            <!-- CÁC NÚT TAG LỌC DƯỚI THANH TÌM KIẾM -->
+            <div class="quick-tags-wrapper">
+                <button class="quick-tag-pill active" onclick="chonTag('Tất cả')">Tất cả</button>
+                <button class="quick-tag-pill" onclick="chonTag('BL')">BL</button>
+                <button class="quick-tag-pill" onclick="chonTag('BG')">BG</button>
+                <button class="quick-tag-pill" onclick="chonTag('Hiện đại')">Hiện đại</button>
+                <button class="quick-tag-pill" onclick="chonTag('Cổ trang')">Cổ trang</button>
+                <button class="quick-tag-pill" onclick="chonTag('Mafia')">Mafia</button>
+                <button class="quick-tag-pill" onclick="chonTag('NYC')">NYC</button>
+                <button class="quick-tag-pill" onclick="chonTag('Hẹn hò bí mật')">Hẹn hò bí mật</button>
+            </div>
+
             <div class="char-grid" id="charGrid"></div>
         </div>
 
@@ -707,13 +768,14 @@
     <!-- ================= SCRIPT XỬ LÝ ================= -->
     <script>
         const backBtn = document.getElementById("globalBackBtn");
+        let currentActiveTag = "Tất cả";
 
         const danhSachCharGoc = [
             {
                 id: 1711800000012,
                 name: "Trần Gia Bách",
                 genre: "BL",
-                tags: "#BL, tâm lý tội phạm, cường x cường, R21",
+                tags: "#BL, hiện đại, tâm lý tội phạm, cường x cường, R21",
                 chatLinkBL: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221sdJhB0ntJXed3Lln7Fw3MLnRfQLbIW9B%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "",
                 img: "https://i.postimg.cc/1tfvyD07/827311651-122112373983449844-986820702815535911-n.jpg",
@@ -723,7 +785,7 @@
                 id: 1711800000011,
                 name: "Aleksei Vorontsov",
                 genre: "BL",
-                tags: "#BL, tra tấn, trả thù, top máu M, R21",
+                tags: "#BL, mafia, tra tấn, trả thù, top máu M, R21",
                 chatLinkBL: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221kXW_FatvT32jnY8Tr__j7sR6lpjHPr70%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "",
                 img: "https://i.postimg.cc/FHL3ZDrc/819286832-122111044275449844-5017989800447847803-n.jpg",
@@ -733,7 +795,7 @@
                 id: 1711800000010,
                 name: "Doãn Văn Khắc",
                 genre: "BL/BG",
-                tags: "#BL/BG, linh dị, Việt Nam xưa",
+                tags: "#BL/BG, cổ trang, linh dị, Việt Nam xưa",
                 chatLink: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221_F2f57v1Xj5gcqqDWyyShzXh-BNwxchU%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "",
                 img: "https://i.postimg.cc/8k6kK98Y/795132737-122110469295449844-4311688894372183339-n-(1).jpg",
@@ -743,7 +805,7 @@
                 id: 1711800000009,
                 name: "Kwon Jae-ha",
                 genre: "BL/BG",
-                tags: "#BL/BG, idol hết thời, healing (?)",
+                tags: "#BL/BG, hiện đại, idol hết thời, healing (?)",
                 chatLink: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221lBpHvVnEEB9jnemw1r-aj-0Z4uNKG-dv%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "",
                 img: "https://i.postimg.cc/PqGXWMJT/815335740-122110177749449844-6002338647600090430-n.jpg",
@@ -753,7 +815,7 @@
                 id: 1711800000008,
                 name: "Nguyễn Anh Duy",
                 genre: "BL/BG",
-                tags: "#BL/BG, nyc, gương vỡ lại lành (?)",
+                tags: "#BL/BG, hiện đại, nyc, gương vỡ lại lành (?)",
                 chatLink: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221B3YTtHArUmROz84W2Q8Fo2R29RoYclkS%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 img: "https://i.postimg.cc/Bvc0x9Rz/812132889-122110032975449844-6741666660899964208-n.jpg",
                 story: '"Chi tay ba năm không gặp, vừa mở dịch vụ ‘Test người yêu thuê’ đã vớ ngay quả khách sộp là… bạn gái mới của bồ cũ.”'
@@ -762,7 +824,7 @@
                 id: 1711800000007,
                 name: "Kang Tae-joon",
                 genre: "BL",
-                tags: "#BL, công sở, hẹn hò bí mật, hài hước, niên hạ",
+                tags: "#BL, hiện đại, công sở, hẹn hò bí mật, hài hước, niên hạ",
                 chatLinkBL: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%2219xkh_Tm1qRozJgbKZcMCtNACVW76RvEt%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "",
                 img: "https://i.postimg.cc/4yjMDBrn/808763671-122109641565449844-5920445077915848610-n.jpg",
@@ -772,7 +834,7 @@
                 id: 1711800000006,
                 name: "Phan Đăng Vũ",
                 genre: "BL/BG",
-                tags: "#BL/BG, đời thường, ngược nhẹ, cãi vã",
+                tags: "#BL/BG, hiện đại, đời thường, ngược nhẹ, cãi vã",
                 chatLink: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221QwkpCTPoLJY2hDs85ptoG9HBtGLUCJnH%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "",
                 img: "https://i.postimg.cc/MGh9Kvsw/805027920-122107937643449844-6471242623751885679-n.jpg",
@@ -782,7 +844,7 @@
                 id: 1711800000005,
                 name: "Lục Tư Dương",
                 genre: "BL/BG",
-                tags: "#BL/BG, txvt, yêu thầm, bạn thân",
+                tags: "#BL/BG, hiện đại, txvt, yêu thầm, bạn thân",
                 chatLinkBL: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221bttwGkci0NcPjCqO73TJg4af0QZYpAHd%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221j3pmWiUqj-eGetRw6WJjFaTHgi6NTFZK%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 img: "https://i.postimg.cc/pTMc2mT8/790256513-122105486655449844-2330600053797307498-n-(1).jpg",
@@ -792,7 +854,7 @@
                 id: 1711800000004,
                 name: "Cha Min-jae",
                 genre: "BL",
-                tags: "#BL, du học sinh, fck boy (?), niên hạ",
+                tags: "#BL, hiện đại, du học sinh, fck boy (?), niên hạ",
                 chatLinkBL: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221MnJUo5TrWzMDqR3h9zVaXG2tkSxcOAFZ%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "",
                 img: "https://i.postimg.cc/4dfmc129/789728519-122105240877449844-7536955621936132708-n.jpg",
@@ -802,7 +864,7 @@
                 id: 1711800000003,
                 name: "Tống Dật Thần",
                 genre: "BL",
-                tags: "#BL, hiểu lầm, kinh dị (?)",
+                tags: "#BL, hiện đại, hiểu lầm, kinh dị (?)",
                 chatLinkBL: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221WGE_InK0AZ6hnh7rYPNUKM1-5faNl98r%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "",
                 img: "https://i.postimg.cc/KcV8cFbz/783875993-122099972391449844-1373061317953499441-n.jpg",
@@ -812,7 +874,7 @@
                 id: 1711800000002,
                 name: "Lee Do-hyun",
                 genre: "BL",
-                tags: "#BL, showbiz, mối quan hệ bí mật, Kpop",
+                tags: "#BL, hiện đại, showbiz, hẹn hò bí mật, Kpop",
                 chatLinkBL: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221A7vfQG61v0OwDcdx1_6WbTfRq3kwhalS%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "",
                 img: "https://i.postimg.cc/pTmykdxL/788689873-122105465097449844-1258444501193229698-n.jpg",
@@ -822,7 +884,7 @@
                 id: 1711800000001,
                 name: "Trần Hoàng Minh",
                 genre: "BL",
-                tags: "#BL, Slow burn, hàng xóm, đời thường",
+                tags: "#BL, hiện đại, Slow burn, hàng xóm, đời thường",
                 chatLinkBL: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221j9e5YzNRzjh6i9sFmKNleQ-N74ubk_iJ%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 chatLinkBG: "",
                 img: "https://i.postimg.cc/v8WGyn0K/777447664-122095400475449844-3244830687070722656-n.jpg",
@@ -928,8 +990,10 @@
                 const hasBG = linkBG.startsWith('http');
 
                 const card = document.createElement("div");
+                card.dataset.tags = c.tags;
+                card.dataset.genre = c.genre;
 
-                // TRƯỜNG HỢP 1: CÓ CẢ 2 LINK (BL & BG) -> TÁCH 2 Ô RIÊNG: BL VÀ BG
+                // TRƯỜNG HỢP 1: CÓ CẢ 2 LINK (BL & BG) -> TÁCH 2 Ô RIÊNG
                 if (hasBL && hasBG) {
                     card.className = "char-card dual-link";
                     card.innerHTML = `
@@ -940,9 +1004,7 @@
                         <div class="char-content">
                             <h3 class="char-name">${c.name}</h3>
                             <div class="char-tags">${c.tags}</div>
-                            <!-- TRÍCH DẪN DẠNG LỜI TỰ SỰ THANH TAO -->
                             <div class="char-quote-desc">${c.story}</div>
-                            <!-- 2 Ô RÕ RÀNG: BL VÀ BG -->
                             <div class="char-dual-actions">
                                 <button class="btn-version-pill btn-bl" onclick="event.stopPropagation(); window.open('${linkBL}', '_blank')">BL</button>
                                 <button class="btn-version-pill btn-bg" onclick="event.stopPropagation(); window.open('${linkBG}', '_blank')">BG</button>
@@ -965,7 +1027,6 @@
                         <div class="char-content">
                             <h3 class="char-name">${c.name}</h3>
                             <div class="char-tags">${c.tags}</div>
-                            <!-- TRÍCH DẪN DẠNG LỜI TỰ SỰ THANH TAO -->
                             <div class="char-quote-desc">${c.story}</div>
                         </div>
                     `;
@@ -975,12 +1036,52 @@
             });
         }
 
+        /* ================= BỘ LỌC THÔNG MINH (KẾT HỢP TAG VÀ TÌM KIẾM) ================= */
+        function chonTag(tag) {
+            currentActiveTag = tag;
+            const buttons = document.querySelectorAll('.quick-tag-pill');
+            buttons.forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.trim().toLowerCase() === tag.toLowerCase());
+            });
+            locNhanVat();
+        }
+
         function locNhanVat() {
-            const query = document.getElementById("filterInput").value.toLowerCase();
+            const query = document.getElementById("filterInput").value.toLowerCase().trim();
             const cards = document.querySelectorAll(".char-card");
+
             cards.forEach(card => {
                 const text = card.innerText.toLowerCase();
-                card.style.display = text.includes(query) ? "flex" : "none";
+                const cardTags = card.dataset.tags ? card.dataset.tags.toLowerCase() : "";
+                const cardGenre = card.dataset.genre ? card.dataset.genre.toLowerCase() : "";
+
+                // 1. Kiểm tra từ khóa nhập từ ô tìm kiếm
+                const matchQuery = !query || text.includes(query) || cardTags.includes(query);
+
+                // 2. Kiểm tra Tag lọc nhanh được chọn
+                let matchTag = true;
+                if (currentActiveTag !== "Tất cả") {
+                    const tagLower = currentActiveTag.toLowerCase();
+                    if (tagLower === "bl") {
+                        matchTag = cardGenre.includes("bl") || cardTags.includes("bl");
+                    } else if (tagLower === "bg") {
+                        matchTag = cardGenre.includes("bg") || cardTags.includes("bg");
+                    } else if (tagLower === "cổ trang") {
+                        matchTag = cardTags.includes("cổ trang") || cardTags.includes("xưa") || cardTags.includes("linh dị");
+                    } else if (tagLower === "hiện đại") {
+                        matchTag = cardTags.includes("hiện đại") || cardTags.includes("công sở") || cardTags.includes("showbiz") || cardTags.includes("đời thường");
+                    } else if (tagLower === "mafia") {
+                        matchTag = cardTags.includes("mafia") || cardTags.includes("tội phạm") || cardTags.includes("tra tấn") || text.includes("vorontsov");
+                    } else if (tagLower === "nyc") {
+                        matchTag = cardTags.includes("nyc") || text.includes("bồ cũ");
+                    } else if (tagLower === "hẹn hò bí mật") {
+                        matchTag = cardTags.includes("hẹn hò bí mật") || cardTags.includes("bí mật");
+                    } else {
+                        matchTag = cardTags.includes(tagLower) || text.includes(tagLower);
+                    }
+                }
+
+                card.style.display = (matchQuery && matchTag) ? "flex" : "none";
             });
         }
     </script>
