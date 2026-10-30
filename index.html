@@ -363,7 +363,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 16px auto;
+            margin: 0 auto 14px auto;
             max-width: 480px;
             width: 100%;
             background: rgba(6, 20, 12, 0.85);
@@ -388,44 +388,13 @@
         .p3-search-input::placeholder { color: #E2D4A8; opacity: 0.8; }
         .p3-search-input:focus { border-color: #E2A83B; }
 
-        .quick-tags-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 8px 10px;
-            max-width: 680px;
-            margin: 0 auto 18px auto;
-            padding: 0 10px;
-        }
-        .quick-tag-pill {
-            background: rgba(8, 26, 16, 0.85);
-            border: 1px solid rgba(226, 168, 59, 0.4);
-            color: #E2D4A8;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 12.5px;
-            font-family: 'Be Vietnam Pro', sans-serif;
-            font-weight: 500;
-            cursor: pointer;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-            transition: all 0.18s ease;
-        }
-        .quick-tag-pill:hover { border-color: #E2A83B; color: #FFFDF7; }
-        .quick-tag-pill.active {
-            background: #E2A83B;
-            border-color: #E2A83B;
-            color: #0A2013;
-            font-weight: 700;
-        }
-
-        /* ================= KHU VỰC TÙY DUYÊN GẶP GỠ (RANDOM CHAR) ================= */
+        /* ================= KHU VỰC TÙY DUYÊN GẶP GỠ (DƯỚI TÌM KIẾM, TRÊN TAG) ================= */
         .random-char-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 28px auto;
+            margin: 0 auto 16px auto;
             max-width: 420px;
             width: 100%;
         }
@@ -462,6 +431,38 @@
             font-style: italic;
             opacity: 0.85;
             font-family: 'Lora', serif;
+        }
+
+        /* DANH SÁCH TAGS (NẰM DƯỚI RANDOM) */
+        .quick-tags-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px 10px;
+            max-width: 680px;
+            margin: 0 auto 28px auto;
+            padding: 0 10px;
+        }
+        .quick-tag-pill {
+            background: rgba(8, 26, 16, 0.85);
+            border: 1px solid rgba(226, 168, 59, 0.4);
+            color: #E2D4A8;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.18s ease;
+        }
+        .quick-tag-pill:hover { border-color: #E2A83B; color: #FFFDF7; }
+        .quick-tag-pill.active {
+            background: #E2A83B;
+            border-color: #E2A83B;
+            color: #0A2013;
+            font-weight: 700;
         }
 
         .char-grid {
@@ -913,8 +914,11 @@
             }
             .char-name { font-size: 1.55em; }
             .char-grid { gap: 26px; grid-template-columns: 1fr; }
-            .quick-tags-wrapper { gap: 7px 8px; margin-bottom: 16px; }
+            
+            .random-char-container { margin-bottom: 14px; }
+            .quick-tags-wrapper { gap: 7px 8px; margin-bottom: 22px; }
             .quick-tag-pill { padding: 5px 12px; font-size: 12px; }
+            
             .feedback-luxury-box { padding: 22px 16px; }
             .manhvun-card { padding: 18px 16px; }
 
@@ -978,14 +982,23 @@
             <!-- TAB 1: DẤU CHÂN -->
             <div class="tab-pane pane-active" id="tabContentDauChan">
                 <div class="dauchan-wrapper">
-                    <!-- THANH TÌM KIẾM -->
+                    
+                    <!-- 1. THANH TÌM KIẾM -->
                     <div class="dauchan-top-bar">
                         <div class="p3-search-box">
                             <input type="text" class="p3-search-input" id="filterInput" placeholder="Lọc nhân vật..." oninput="locNhanVat()">
                         </div>
                     </div>
 
-                    <!-- DANH SÁCH TAGS -->
+                    <!-- 2. NÚT TÙY DUYÊN GẶP GỠ (RANDOM CHAR) - ĐÃ ĐẶT DƯỚI TÌM KIẾM, TRÊN TAG -->
+                    <div class="random-char-container">
+                        <button class="btn-random-char" onclick="quayTuyDuyen()">
+                            <span>✦</span> Tùy Duyên Gặp Gỡ <span>✦</span>
+                        </button>
+                        <div class="random-subtext">Để số phận chọn một bước chân dẫn lối bạn...</div>
+                    </div>
+
+                    <!-- 3. DANH SÁCH TAGS -->
                     <div class="quick-tags-wrapper">
                         <button class="quick-tag-pill active" onclick="chonTag('Tất cả')">Tất cả</button>
                         <button class="quick-tag-pill" onclick="chonTag('BL')">BL</button>
@@ -997,15 +1010,7 @@
                         <button class="quick-tag-pill" onclick="chonTag('Hẹn hò bí mật')">Hẹn hò bí mật</button>
                     </div>
 
-                    <!-- NÚT TÙY DUYÊN GẶP GỠ (CHỌN CHAR RANDOM) -->
-                    <div class="random-char-container">
-                        <button class="btn-random-char" onclick="quayTuyDuyen()">
-                            <span>✦</span> Tùy Duyên Gặp Gỡ <span>✦</span>
-                        </button>
-                        <div class="random-subtext">Để số phận chọn một bước chân dẫn lối bạn...</div>
-                    </div>
-
-                    <!-- LƯỚI DANH SÁCH NHÂN VẬT -->
+                    <!-- 4. LƯỚI DANH SÁCH NHÂN VẬT -->
                     <div class="char-grid" id="charGrid"></div>
                 </div>
             </div>
@@ -1133,7 +1138,7 @@
         const titleMainText = document.getElementById("titleMainText");
         let currentActiveTag = "Tất cả";
 
-        /* ================= 1. MẬT KHẨU ADMIN MỚI ================= */
+        /* ================= 1. MẬT KHẨU ADMIN ================= */
         const ADMIN_PASSWORD = "642607";
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1565632672510771221/TiHVmhj6dEJSbh8t4XLxHQfez-XUC5Aa6PjdgByHK1rDHRscjj8mTFLB_iD_gWAZHIbA";
 
@@ -1206,7 +1211,7 @@
                 tags: "#BL/BG, hiện đại, nyc, gương vỡ lại lành (?)",
                 chatLink: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221B3YTtHArUmROz84W2Q8Fo2R29RoYclkS%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
                 img: "https://i.postimg.cc/Bvc0x9Rz/812132889-122110032975449844-6741666660899964208-n.jpg",
-                story: '"Chi tay ba năm không gặp, vừa mở dịch vụ ‘Test người yêu thuê’ đã vớ ngay quả khách sộp là… bạn gái mới của bồ cũ.”'
+                story: '"Chia tay ba năm không gặp, vừa mở dịch vụ ‘Test người yêu thuê’ đã vớ ngay quả khách sộp là… bạn gái mới của bồ cũ.”'
             },
             {
                 id: 1711800000007,
@@ -1366,7 +1371,6 @@
                 return;
             }
 
-            // Chọn ngẫu nhiên 1 nhân vật trong danh sách
             const randomIndex = Math.floor(Math.random() * danhSachChar.length);
             const c = danhSachChar[randomIndex];
 
