@@ -388,7 +388,7 @@
         .p3-search-input::placeholder { color: #E2D4A8; opacity: 0.8; }
         .p3-search-input:focus { border-color: #E2A83B; }
 
-        /* KHU VỰC TÙY DUYÊN GẶP GỠ (DƯỚI TÌM KIẾM, TRÊN TAG) */
+        /* KHU VỰC TÙY DUYÊN GẶP GỠ */
         .random-char-container {
             display: flex;
             flex-direction: column;
@@ -679,7 +679,7 @@
         }
         .fb-btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(226, 168, 59, 0.5); }
 
-        /* ================= TAB 3: MẢNH VỤN (CẬP NHẬT) ================= */
+        /* ================= TAB 3: MẢNH VỤN ================= */
         .manhvun-wrapper {
             width: 100%;
             max-width: 850px;
@@ -709,17 +709,29 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             border-bottom: 1px dashed rgba(226, 168, 59, 0.25);
-            padding-bottom: 8px;
+            padding-bottom: 10px;
         }
+
+        /* TÊN NHÂN VẬT & TIÊU ĐỀ PHỤ: HUY HIỆU XANH NGỌC DẠ QUANG NỔI BẬT */
         .mv-char-tag {
-            color: #E2A83B;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, rgba(13, 56, 38, 0.88), rgba(8, 38, 27, 0.92));
+            border: 1.5px solid #34D399;
+            color: #5EEAD4;
+            padding: 4px 14px;
+            border-radius: 18px;
             font-size: 12.5px;
             font-family: 'Be Vietnam Pro', sans-serif;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-shadow: 0 0 10px rgba(94, 234, 212, 0.65);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45), 0 0 14px rgba(52, 211, 153, 0.3);
         }
+
         .mv-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.4em;
@@ -785,14 +797,24 @@
             position: relative;
             padding-right: 30px;
         }
+        
         .mv-reader-tag {
-            color: #E2A83B;
-            font-size: 12.5px;
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(13, 56, 38, 0.9), rgba(8, 38, 27, 0.94));
+            border: 1.5px solid #34D399;
+            color: #5EEAD4;
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-size: 13px;
             font-family: 'Be Vietnam Pro', sans-serif;
-            font-weight: 600;
-            margin-bottom: 4px;
-            display: block;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-shadow: 0 0 12px rgba(94, 234, 212, 0.7);
+            box-shadow: 0 0 16px rgba(52, 211, 153, 0.35);
+            margin-bottom: 12px;
         }
+
         .mv-reader-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.6em;
@@ -815,7 +837,7 @@
         .mv-reader-close:hover { color: #FFF; }
         .mv-reader-intro-quote {
             background: rgba(14, 42, 24, 0.65);
-            border-left: 3px solid #E2A83B;
+            border-left: 3px solid #34D399;
             padding: 12px 16px;
             border-radius: 0 12px 12px 0;
             font-size: 0.95em;
@@ -1179,7 +1201,9 @@
         <div class="mv-reader-box" onclick="event.stopPropagation()">
             <div class="mv-reader-header">
                 <span class="mv-reader-close" onclick="dongModalDocManhVun()">✕</span>
-                <span class="mv-reader-tag" id="readerTag">#Nhân vật</span>
+                <div>
+                    <span class="mv-reader-tag" id="readerTag">#Nhân vật</span>
+                </div>
                 <h3 class="mv-reader-title" id="readerTitle">Tên mẩu truyện</h3>
             </div>
             <div class="mv-reader-intro-quote" id="readerIntro"></div>
@@ -1218,7 +1242,7 @@
             <div class="admin-tab-bar">
                 <button class="admin-tab-btn active" id="admTabBtn1" onclick="chuyenAdminTab(1)">Thêm / Sửa Nhân Vật</button>
                 <button class="admin-tab-btn" id="admTabBtn2" onclick="chuyenAdminTab(2)">Danh Sách Sửa / Xóa</button>
-                <button class="admin-tab-btn" id="admTabBtn3" onclick="chuyenAdminTab(3)">Mảnh Vụn (Thêm / Xóa)</button>
+                <button class="admin-tab-btn" id="admTabBtn3" onclick="chuyenAdminTab(3)">Mảnh Vụn (Thêm / Sửa / Xóa)</button>
             </div>
 
             <!-- FORM 1: THÊM HOẶC CẬP NHẬT NHÂN VẬT -->
@@ -1253,8 +1277,9 @@
                 <div id="admCharList"></div>
             </div>
 
-            <!-- FORM 3: THÊM MẨU TRUYỆN MẢNH VỤN & DANH SÁCH XÓA -->
+            <!-- FORM 3: THÊM / SỬA / XÓA MẢNH VỤN -->
             <div id="admSection3" style="display:none;">
+                <input type="hidden" id="admMvId">
                 <label class="fb-label">Tên nhân vật & Tiêu đề phụ *</label>
                 <input type="text" id="admMvTag" class="fb-input" placeholder="Ví dụ: #Trần Gia Bách • Ngoại truyện">
 
@@ -1267,11 +1292,12 @@
                 <label class="fb-label">Nội dung trích đoạn đầy đủ (hiển thị khi bấm vào thẻ) *</label>
                 <textarea id="admMvExcerpt" class="fb-textarea" rows="6" placeholder="Dán trọn vẹn đoạn truyện / trích đoạn..."></textarea>
 
-                <button class="fb-btn-submit" onclick="luuManhVunLenCloud()">✓ Thêm Mảnh Vụn Lên Đám Mây</button>
+                <button type="button" id="admMvSubmitBtn" class="fb-btn-submit" onclick="luuManhVunLenCloud()">✓ Thêm Mảnh Vụn Lên Đám Mây</button>
+                <button type="button" id="admMvCancelBtn" onclick="huySuaManhVun()" style="display:none; width:100%; margin-top:9px; background:rgba(255,255,255,0.08); border:1px solid #aaa; color:#FFFDF7; padding:9px; border-radius:12px; cursor:pointer; font-family:'Be Vietnam Pro',sans-serif; font-size:13px;">✕ Hủy Bỏ Chỉnh Sửa</button>
 
-                <!-- DANH SÁCH MẢNH VỤN ĐỂ XÓA -->
+                <!-- DANH SÁCH MẢNH VỤN ĐỂ SỬA HOẶC XÓA -->
                 <div style="margin-top:22px; border-top:1px dashed rgba(226,168,59,0.3); padding-top:14px;">
-                    <h4 style="color:#E2A83B; font-size:13.5px; margin-bottom:10px; font-family:'Be Vietnam Pro',sans-serif;">Danh Sách Mảnh Vụn (Bấm Xóa Nếu Muốn):</h4>
+                    <h4 style="color:#E2A83B; font-size:13.5px; margin-bottom:10px; font-family:'Be Vietnam Pro',sans-serif;">Danh Sách Mảnh Vụn (Bấm Sửa Hoặc Xóa):</h4>
                     <div id="admManhVunList"></div>
                 </div>
             </div>
@@ -1647,7 +1673,7 @@
             });
         }
 
-        /* RENDER MẢNH VỤN: CHỈ HIỆN TAG, TITLE, TÂM SỰ BÊN NGOÀI */
+        /* RENDER MẢNH VỤN */
         function renderManhVunGrid() {
             const mvGrid = document.getElementById("manhVunGrid");
             mvGrid.innerHTML = "";
@@ -1660,7 +1686,6 @@
                 card.className = "manhvun-card";
                 card.onclick = () => moModalDocManhVun(index);
                 
-                // Hiển thị intro, nếu mẩu truyện cũ chưa có intro thì lấy trích đoạn ngắn làm tâm sự
                 const introDisplay = mv.intro || mv.excerpt || "";
 
                 card.innerHTML = `
@@ -1683,7 +1708,6 @@
             document.getElementById('readerTag').innerText = mv.tag || "";
             document.getElementById('readerTitle').innerText = mv.title || "";
             
-            // Dòng tâm sự
             const introEl = document.getElementById('readerIntro');
             if (mv.intro && mv.intro.trim() !== "") {
                 introEl.style.display = "block";
@@ -1692,7 +1716,6 @@
                 introEl.style.display = "none";
             }
 
-            // Trích đoạn đầy đủ
             document.getElementById('readerContent').innerText = mv.excerpt || "(Trích đoạn đang được cập nhật...)";
 
             document.getElementById('mvReaderModal').style.display = 'flex';
@@ -1815,8 +1838,9 @@
             }
         }
 
-        /* LƯU MẢNH VỤN (CÓ THÊM Ô TÂM SỰ BÊN NGOÀI) */
+        /* ================= QUẢN TRỊ MẢNH VỤN: THÊM / SỬA / XÓA ================= */
         function luuManhVunLenCloud() {
+            const idVal = document.getElementById('admMvId').value;
             const tag = document.getElementById('admMvTag').value.trim();
             const title = document.getElementById('admMvTitle').value.trim();
             const intro = document.getElementById('admMvIntro').value.trim();
@@ -1827,19 +1851,60 @@
                 return;
             }
 
-            danhSachManhVun.unshift({ id: Date.now(), tag, title, intro, excerpt });
+            if (idVal) {
+                // CHỈNH SỬA MẢNH VỤN HIỆN TẠI
+                const idx = danhSachManhVun.findIndex(item => item.id === Number(idVal));
+                if (idx >= 0) {
+                    danhSachManhVun[idx].tag = tag;
+                    danhSachManhVun[idx].title = title;
+                    danhSachManhVun[idx].intro = intro;
+                    danhSachManhVun[idx].excerpt = excerpt;
+                }
+            } else {
+                // THÊM MẢNH VỤN MỚI
+                danhSachManhVun.unshift({ id: Date.now(), tag, title, intro, excerpt });
+            }
+
             if (db) {
                 db.ref('manhvun').set(danhSachManhVun).then(() => {
-                    alert("Đã thêm Mảnh vụn lên Đám mây! Ai vào web cũng thấy ngay ✦");
+                    alert(idVal ? "Đã cập nhật Mảnh vụn thành công!" : "Đã thêm Mảnh vụn lên Đám mây! Ai vào web cũng thấy ngay ✦");
                 });
             } else {
                 renderManhVunGrid();
             }
+
+            huySuaManhVun();
+            renderAdmManhVunList();
+            dongModalAdmin();
+        }
+
+        function napDuLieuSuaManhVun(index) {
+            const mv = danhSachManhVun[index];
+            if (!mv) return;
+
+            document.getElementById('admMvId').value = mv.id;
+            document.getElementById('admMvTag').value = mv.tag || '';
+            document.getElementById('admMvTitle').value = mv.title || '';
+            document.getElementById('admMvIntro').value = mv.intro || '';
+            document.getElementById('admMvExcerpt').value = mv.excerpt || '';
+
+            // Đổi tên nút thành cập nhật
+            document.getElementById('admMvSubmitBtn').innerText = '✓ Cập Nhật Mảnh Vụn Này';
+            document.getElementById('admMvCancelBtn').style.display = 'block';
+
+            // Cuộn mượt lên trên cùng của bảng để người dùng thấy form
+            const modalBox = document.querySelector('.admin-modal-box');
+            if (modalBox) modalBox.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function huySuaManhVun() {
+            document.getElementById('admMvId').value = '';
             document.getElementById('admMvTag').value = '';
             document.getElementById('admMvTitle').value = '';
             document.getElementById('admMvIntro').value = '';
             document.getElementById('admMvExcerpt').value = '';
-            dongModalAdmin();
+            document.getElementById('admMvSubmitBtn').innerText = '✓ Thêm Mảnh Vụn Lên Đám Mây';
+            document.getElementById('admMvCancelBtn').style.display = 'none';
         }
 
         function renderAdmManhVunList() {
@@ -1854,8 +1919,9 @@
                 const row = document.createElement("div");
                 row.className = "admin-item-row";
                 row.innerHTML = `
-                    <span style="font-weight:600; font-size:13px; max-width:70%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${mv.title}</span>
+                    <span style="font-weight:600; font-size:13px; max-width:62%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${mv.title}</span>
                     <div>
+                        <button class="btn-action-small" onclick="napDuLieuSuaManhVun(${index})">Sửa</button>
                         <button class="btn-action-small btn-action-del" onclick="xoaManhVun(${index})">Xóa</button>
                     </div>
                 `;
