@@ -594,14 +594,14 @@
             background: rgba(14, 42, 24, 0.9);
             border-radius: 16px;
             padding: 10px 12px;
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 700;
             font-family: 'Be Vietnam Pro', sans-serif;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            letter-spacing: 1.2px;
+            letter-spacing: 0.8px;
             transition: all 0.2s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
         }
@@ -609,6 +609,8 @@
         .btn-version-pill.btn-bl:hover { background: #E2A83B; color: #0A2013; }
         .btn-version-pill.btn-bg { border: 1.5px solid rgba(244, 143, 177, 0.75); color: #FFF0F5; }
         .btn-version-pill.btn-bg:hover { background: #F48FB1; color: #0A2013; }
+        .btn-version-pill.btn-top { border: 1.5px solid rgba(100, 181, 246, 0.75); color: #E3F2FD; }
+        .btn-version-pill.btn-top:hover { background: #64B5F6; color: #0A2013; }
 
         /* TAB 2: HÒM THƯ */
         .feedback-luxury-box {
@@ -1249,22 +1251,33 @@
             <div id="admSection1">
                 <input type="hidden" id="admCharId">
                 <label class="fb-label">Tên nhân vật *</label>
-                <input type="text" id="admCharName" class="fb-input" placeholder="Ví dụ: Trần Gia Bách">
+                <input type="text" id="admCharName" class="fb-input" placeholder="Ví dụ: Lê Quang Tùng">
 
                 <label class="fb-label">Thể loại (BL hoặc BL/BG) *</label>
                 <input type="text" id="admCharGenre" class="fb-input" placeholder="BL hoặc BL/BG">
 
                 <label class="fb-label">Tags (cách nhau bằng dấu phẩy) *</label>
-                <input type="text" id="admCharTags" class="fb-input" placeholder="#BL, hiện đại, tội phạm...">
+                <input type="text" id="admCharTags" class="fb-input" placeholder="#BL, bạn cùng phòng, vô tri, skin ship...">
 
                 <label class="fb-label">Link ảnh (dán link ảnh trực tiếp) *</label>
                 <input type="text" id="admCharImg" class="fb-input" placeholder="https://i.postimg.cc/...">
 
-                <label class="fb-label">Link Chat BL *</label>
+                <label class="fb-label">Link Chat 1 (BL hoặc User Bot) *</label>
                 <input type="text" id="admCharLinkBL" class="fb-input" placeholder="https://aistudio.google.com/...">
 
-                <label class="fb-label">Link Chat BG (nếu có, để trống nếu chỉ có BL)</label>
+                <label class="fb-label">Link Chat 2 (BG hoặc User Top - để trống nếu chỉ có 1 link)</label>
                 <input type="text" id="admCharLinkBG" class="fb-input" placeholder="https://aistudio.google.com/...">
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <div>
+                        <label class="fb-label">Tên nút 1 (tuỳ chọn)</label>
+                        <input type="text" id="admBtnLabel1" class="fb-input" placeholder="VD: BL hoặc User Bot">
+                    </div>
+                    <div>
+                        <label class="fb-label">Tên nút 2 (tuỳ chọn)</label>
+                        <input type="text" id="admBtnLabel2" class="fb-input" placeholder="VD: BG hoặc User Top">
+                    </div>
+                </div>
 
                 <label class="fb-label">Trích dẫn / Lời tự sự *</label>
                 <textarea id="admCharStory" class="fb-textarea" rows="3" placeholder="Nhập câu thoại..."></textarea>
@@ -1338,6 +1351,18 @@
 
         /* ================= 2. DỮ LIỆU BAN ĐẦU ================= */
         const danhSachCharGoc = [
+            {
+                id: 1711800000013,
+                name: "Lê Quang Tùng",
+                genre: "BL",
+                tags: "#BL, bạn cùng phòng, vô tri, skin ship",
+                chatLinkBL: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221qOdk05dJTgttwCCVEmGEli-0sp9vAZlR%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
+                chatLinkBG: "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221jzSSpqp4eP57fwPSebXLqD3D9tvjWhtl%22%5D,%22action%22:%22open%22,%22userId%22:%22102796106686629566196%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing",
+                btnLabel1: "User Bot",
+                btnLabel2: "User Top",
+                img: "https://i.postimg.cc/R0JgSdYm/857193970-122116745919449844-6613023364763790201-n.jpg",
+                story: '"Cốt đều đối xử với nhau vậy sao?"'
+            },
             {
                 id: 1711800000012,
                 name: "Trần Gia Bách",
@@ -1464,11 +1489,21 @@
 
         window.onload = function() {
             if (db) {
-                // ĐỒNG BỘ NHÂN VẬT TỪ FIREBASE
+                // ĐỒNG BỘ NHÂN VẬT TỪ FIREBASE (TỰ THÊM CHAR MỚI NẾU FIREBASE CHƯA CÓ)
                 db.ref('characters').on('value', snapshot => {
                     const data = snapshot.val();
                     if (data && Array.isArray(data) && data.length > 0) {
                         danhSachChar = data;
+                        let coThayDoi = false;
+                        danhSachCharGoc.forEach(goc => {
+                            if (!danhSachChar.some(c => c.id === goc.id)) {
+                                danhSachChar.unshift(goc);
+                                coThayDoi = true;
+                            }
+                        });
+                        if (coThayDoi) {
+                            db.ref('characters').set(danhSachChar);
+                        }
                     } else {
                         db.ref('characters').set(danhSachCharGoc);
                         danhSachChar = danhSachCharGoc;
@@ -1553,6 +1588,10 @@
             const hasBL = linkBL.startsWith('http');
             const hasBG = linkBG.startsWith('http');
 
+            const label1 = c.btnLabel1 || "BL";
+            const label2 = c.btnLabel2 || (c.genre && c.genre.includes("BG") ? "BG" : "User Top");
+            const btn2Class = label2.toLowerCase().includes("top") ? "btn-top" : "btn-bg";
+
             const slot = document.getElementById("randomCardSlot");
             slot.innerHTML = `
                 <div class="char-card" style="box-shadow:none; border:none; margin:0 auto;">
@@ -1567,8 +1606,8 @@
                         ${
                             hasBL && hasBG 
                             ? `<div class="char-dual-actions" style="padding-top:10px;">
-                                   <button class="btn-version-pill btn-bl" onclick="window.open('${linkBL}', '_blank')">BL</button>
-                                   <button class="btn-version-pill btn-bg" onclick="window.open('${linkBG}', '_blank')">BG</button>
+                                   <button class="btn-version-pill btn-bl" onclick="window.open('${linkBL}', '_blank')">${label1}</button>
+                                   <button class="btn-version-pill ${btn2Class}" onclick="window.open('${linkBG}', '_blank')">${label2}</button>
                                </div>`
                             : `<button class="btn-version-pill btn-bl" style="width:100%;" onclick="window.open('${hasBL ? linkBL : linkBG}', '_blank')">Trò Chuyện Ngay ✦</button>`
                         }
@@ -1630,6 +1669,10 @@
                 const hasBL = linkBL.startsWith('http');
                 const hasBG = linkBG.startsWith('http');
 
+                const label1 = c.btnLabel1 || "BL";
+                const label2 = c.btnLabel2 || (c.genre && c.genre.includes("BG") ? "BG" : "User Top");
+                const btn2Class = label2.toLowerCase().includes("top") ? "btn-top" : "btn-bg";
+
                 const card = document.createElement("div");
                 card.dataset.tags = c.tags;
                 card.dataset.genre = c.genre;
@@ -1646,8 +1689,8 @@
                             <div class="char-tags">${c.tags}</div>
                             <div class="char-quote-desc">${c.story}</div>
                             <div class="char-dual-actions">
-                                <button class="btn-version-pill btn-bl" onclick="event.stopPropagation(); window.open('${linkBL}', '_blank')">BL</button>
-                                <button class="btn-version-pill btn-bg" onclick="event.stopPropagation(); window.open('${linkBG}', '_blank')">BG</button>
+                                <button class="btn-version-pill btn-bl" onclick="event.stopPropagation(); window.open('${linkBL}', '_blank')">${label1}</button>
+                                <button class="btn-version-pill ${btn2Class}" onclick="event.stopPropagation(); window.open('${linkBG}', '_blank')">${label2}</button>
                             </div>
                         </div>
                     `;
@@ -1762,14 +1805,27 @@
             const img = document.getElementById('admCharImg').value.trim();
             const linkBL = document.getElementById('admCharLinkBL').value.trim();
             const linkBG = document.getElementById('admCharLinkBG').value.trim();
+            const btnLabel1 = document.getElementById('admBtnLabel1').value.trim();
+            const btnLabel2 = document.getElementById('admBtnLabel2').value.trim();
             const story = document.getElementById('admCharStory').value.trim();
 
             if (!name || !img || !linkBL) {
-                alert("Vui lòng điền đủ Tên, Link Ảnh và Link Chat BL!");
+                alert("Vui lòng điền đủ Tên, Link Ảnh và Link Chat 1!");
                 return;
             }
 
-            const charObj = { id: Number(id), name, genre, tags, img, chatLinkBL: linkBL, chatLinkBG: linkBG, story };
+            const charObj = { 
+                id: Number(id), 
+                name, 
+                genre, 
+                tags, 
+                img, 
+                chatLinkBL: linkBL, 
+                chatLinkBG: linkBG, 
+                btnLabel1: btnLabel1 || (linkBG ? "BL" : ""),
+                btnLabel2: btnLabel2 || (linkBG ? "BG" : ""),
+                story 
+            };
 
             const idx = danhSachChar.findIndex(c => c.id === charObj.id);
             if (idx >= 0) {
@@ -1793,6 +1849,8 @@
             document.getElementById('admCharImg').value = '';
             document.getElementById('admCharLinkBL').value = '';
             document.getElementById('admCharLinkBG').value = '';
+            document.getElementById('admBtnLabel1').value = '';
+            document.getElementById('admBtnLabel2').value = '';
             document.getElementById('admCharStory').value = '';
             dongModalAdmin();
         }
@@ -1823,6 +1881,8 @@
             document.getElementById('admCharImg').value = c.img;
             document.getElementById('admCharLinkBL').value = c.chatLinkBL || c.chatLink || '';
             document.getElementById('admCharLinkBG').value = c.chatLinkBG || '';
+            document.getElementById('admBtnLabel1').value = c.btnLabel1 || '';
+            document.getElementById('admBtnLabel2').value = c.btnLabel2 || '';
             document.getElementById('admCharStory').value = c.story;
             chuyenAdminTab(1);
         }
@@ -1852,7 +1912,6 @@
             }
 
             if (idVal) {
-                // CHỈNH SỬA MẢNH VỤN HIỆN TẠI
                 const idx = danhSachManhVun.findIndex(item => item.id === Number(idVal));
                 if (idx >= 0) {
                     danhSachManhVun[idx].tag = tag;
@@ -1861,7 +1920,6 @@
                     danhSachManhVun[idx].excerpt = excerpt;
                 }
             } else {
-                // THÊM MẢNH VỤN MỚI
                 danhSachManhVun.unshift({ id: Date.now(), tag, title, intro, excerpt });
             }
 
@@ -1888,11 +1946,9 @@
             document.getElementById('admMvIntro').value = mv.intro || '';
             document.getElementById('admMvExcerpt').value = mv.excerpt || '';
 
-            // Đổi tên nút thành cập nhật
             document.getElementById('admMvSubmitBtn').innerText = '✓ Cập Nhật Mảnh Vụn Này';
             document.getElementById('admMvCancelBtn').style.display = 'block';
 
-            // Cuộn mượt lên trên cùng của bảng để người dùng thấy form
             const modalBox = document.querySelector('.admin-modal-box');
             if (modalBox) modalBox.scrollTo({ top: 0, behavior: 'smooth' });
         }
