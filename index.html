@@ -9,7 +9,7 @@
     <!-- Font chữ chuẩn tiếng Việt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
 
     <!-- Thư viện Firebase Cloud Database -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -104,7 +104,7 @@
         }
         .admin-cog-btn:hover { opacity: 1; transform: scale(1.1); }
 
-        /* ================= HIỆU ỨNG PHÓNG BỰ MỞ THẾ GIỚI ================= */
+        /* ================= HIỆU ỨNG TRANG 1 ================= */
         .page-container {
             width: 100%;
             margin: 0 auto;
@@ -403,7 +403,7 @@
             background: linear-gradient(135deg, rgba(28, 72, 49, 0.95), rgba(12, 36, 21, 0.95));
             border: 1.5px solid #E2A83B;
             color: #FFFDF7;
-            padding: 9px 26px;
+            padding: 9px 28px;
             border-radius: 22px;
             font-family: 'Be Vietnam Pro', sans-serif;
             font-size: 13.5px;
@@ -411,7 +411,7 @@
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
             letter-spacing: 0.8px;
             box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 14px rgba(226, 168, 59, 0.35);
             transition: all 0.25s ease;
@@ -682,7 +682,7 @@
         }
         .fb-btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(226, 168, 59, 0.5); }
 
-        /* ================= TAB 3: MẢNH VỤN (TỐI ƯU SANG TRỌNG - BỚT NEON) ================= */
+        /* ================= TAB 3: MẢNH VỤN (TÊN NỔI BẬT KHÔNG NEON) ================= */
         .manhvun-wrapper {
             width: 100%;
             max-width: 850px;
@@ -717,22 +717,21 @@
             padding-bottom: 10px;
         }
 
-        /* TÊN NHÂN VẬT & TIÊU ĐỀ PHỤ: HUY HIỆU VÀNG KIM CỔ ĐIỂN, SANG TRỌNG, KHÔNG CHÓI NEON */
+        /* HUY HIỆU VÀNG KIM HOÀNG GIA - NỔI BẬT RÕ RÀNG TRÊN NỀN TỐI MÀ HOÀN TOÀN KHÔNG NEON */
         .mv-char-tag {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, rgba(38, 30, 12, 0.88), rgba(12, 34, 21, 0.92));
-            border: 1.5px solid rgba(226, 168, 59, 0.85);
-            color: #FFF2D1;
-            padding: 5px 15px;
+            background: linear-gradient(135deg, #E2A83B 0%, #F6C869 50%, #C8841B 100%);
+            color: #071D10;
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 12.5px;
+            font-size: 13px;
             font-family: 'Be Vietnam Pro', sans-serif;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.5px;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(226, 168, 59, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(226, 168, 59, 0.35);
+            border: 1px solid #FFE699;
+            text-shadow: none;
         }
 
         .mv-title {
@@ -804,17 +803,17 @@
         .mv-reader-tag {
             display: inline-flex;
             align-items: center;
-            background: linear-gradient(135deg, rgba(38, 30, 12, 0.9), rgba(12, 34, 21, 0.95));
-            border: 1.5px solid rgba(226, 168, 59, 0.85);
-            color: #FFF2D1;
-            padding: 5px 16px;
+            background: linear-gradient(135deg, #E2A83B 0%, #F6C869 50%, #C8841B 100%);
+            color: #071D10;
+            padding: 7px 18px;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 13.5px;
             font-family: 'Be Vietnam Pro', sans-serif;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.5px;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 2px 10px rgba(226, 168, 59, 0.4);
+            border: 1px solid #FFE699;
+            text-shadow: none;
             margin-bottom: 12px;
         }
 
@@ -952,7 +951,7 @@
             color: #0A2013;
         }
 
-        /* ================= MODAL NHẬP PASS ADMIN SIÊU ĐẸP ================= */
+        /* ================= MODAL NHẬP PASS ADMIN SANG XỊN ================= */
         .auth-modal-overlay {
             display: none;
             position: fixed;
@@ -1271,10 +1270,10 @@
                         </div>
                     </div>
 
-                    <!-- 2. NÚT TÙY DUYÊN GẶP GỠ (RANDOM CHAR) -->
+                    <!-- 2. NÚT TÙY DUYÊN GẶP GỠ -->
                     <div class="random-char-container">
                         <button class="btn-random-char" onclick="quayTuyDuyen()">
-                            <span>✦</span> Tùy Duyên Gặp Gỡ <span>✦</span>
+                            Tùy Duyên Gặp Gỡ
                         </button>
                         <div class="random-subtext">Để số phận chọn một bước chân dẫn lối bạn...</div>
                     </div>
@@ -1300,9 +1299,9 @@
             <div class="tab-pane pane-hidden" id="tabContentHomThu">
                 <div class="feedback-luxury-box">
                     <div class="fb-header">
-                        <h3>✦ Gửi Feedback cho Sốp</h3>
+                        <h3>Gửi Feedback cho Sốp</h3>
                     </div>
-                    <div class="fb-sub">Gửi lại đôi dòng tâm tình, cảm nhận hoặc góp ý về các nhân vật để sốp hoàn thiện hơn nhé ✦</div>
+                    <div class="fb-sub">Gửi lại đôi dòng tâm tình, cảm nhận hoặc góp ý về các nhân vật để sốp hoàn thiện hơn nhé.</div>
                     
                     <form onsubmit="submitOneWayFeedback(event)">
                         <div>
@@ -1339,7 +1338,7 @@
             <div class="mv-reader-intro-quote" id="readerIntro"></div>
             <div class="mv-reader-content" id="readerContent"></div>
             <div class="mv-reader-footer">
-                <button class="btn-close-reader" onclick="dongModalDocManhVun()">Đóng Lại ✦</button>
+                <button class="btn-close-reader" onclick="dongModalDocManhVun()">Đóng Lại</button>
             </div>
         </div>
     </div>
@@ -1348,13 +1347,13 @@
     <div class="random-modal-overlay" id="randomModal">
         <div class="random-modal-box">
             <div class="random-modal-header">
-                <h3>✦ Hữu Duyên Tương Ngộ ✦</h3>
+                <h3>Hữu Duyên Tương Ngộ</h3>
                 <span onclick="dongModalTuyDuyen()" style="cursor:pointer; color:#E2A83B; font-size:20px;">✕</span>
             </div>
             <div class="random-body">
                 <div class="random-card-wrapper" id="randomCardSlot"></div>
                 <div class="random-footer-actions">
-                    <button class="btn-reroll" onclick="quayTuyDuyen()">✦ Thử Vận Duyên Khác</button>
+                    <button class="btn-reroll" onclick="quayTuyDuyen()">Thử Vận Duyên Khác</button>
                     <button class="btn-reroll" onclick="dongModalTuyDuyen()" style="border-color:rgba(226,168,59,0.3); color:#aaa;">Đóng</button>
                 </div>
             </div>
@@ -1365,14 +1364,14 @@
     <div class="auth-modal-overlay" id="adminAuthModal" onclick="if(event.target === this) dongModalAuthAdmin()">
         <div class="auth-modal-box">
             <div class="auth-modal-header">
-                <h3>✦ Quản Trị Viên ✦</h3>
+                <h3>Quản Trị Viên</h3>
                 <span class="auth-close-btn" onclick="dongModalAuthAdmin()">✕</span>
             </div>
             <p class="auth-sub">Vui lòng nhập mật mã quản trị để tiếp tục</p>
             <input type="password" id="adminPassInput" class="auth-input" placeholder="••••••" onkeydown="if(event.key === 'Enter') xacNhanPassAdmin()">
             <div id="authErrMsg" class="auth-err-msg"></div>
             <div class="auth-btn-group">
-                <button type="button" class="auth-btn-submit" onclick="xacNhanPassAdmin()">Mở Khóa ✦</button>
+                <button type="button" class="auth-btn-submit" onclick="xacNhanPassAdmin()">Mở Khóa</button>
                 <button type="button" class="auth-btn-cancel" onclick="dongModalAuthAdmin()">Hủy Bỏ</button>
             </div>
         </div>
@@ -1382,7 +1381,7 @@
     <div class="admin-modal-overlay" id="adminModal">
         <div class="admin-modal-box">
             <div class="admin-modal-header">
-                <h3>✦ Bảng Quản Trị Đám Mây</h3>
+                <h3>Bảng Quản Trị Đám Mây</h3>
                 <span onclick="dongModalAdmin()" style="cursor:pointer; color:#E2A83B; font-size:20px;">✕</span>
             </div>
 
@@ -1744,7 +1743,7 @@
                                    <button class="btn-version-pill btn-bl" onclick="window.open('${linkBL}', '_blank')">${label1}</button>
                                    <button class="btn-version-pill ${btn2Class}" onclick="window.open('${linkBG}', '_blank')">${label2}</button>
                                </div>`
-                            : `<button class="btn-version-pill btn-bl" style="width:100%;" onclick="window.open('${hasBL ? linkBL : linkBG}', '_blank')">Trò Chuyện Ngay ✦</button>`
+                            : `<button class="btn-version-pill btn-bl" style="width:100%;" onclick="window.open('${hasBL ? linkBL : linkBG}', '_blank')">Trò Chuyện Ngay</button>`
                         }
                     </div>
                 </div>
@@ -1767,7 +1766,7 @@
             const timeStr = new Date().toLocaleString('vi-VN');
             document.getElementById('fbCharName').value = '';
             document.getElementById('fbContent').value = '';
-            alert('Đã gửi Feedback thành công tới sốp! Cảm ơn bạn nhiều nha ✦');
+            alert('Đã gửi Feedback thành công tới sốp! Cảm ơn bạn nhiều nha!');
 
             if (DISCORD_WEBHOOK_URL && DISCORD_WEBHOOK_URL.startsWith('https://discord.com/api/webhooks/')) {
                 fetch(DISCORD_WEBHOOK_URL.trim(), {
@@ -1779,7 +1778,7 @@
                         embeds: [{
                             title: "🌸 Nhận được feedback xinh iu từ web!",
                             description: "Có một bạn độc giả vừa để lại vài dòng nhắn gửi ấm áp nè:",
-                            color: 16752795, // Màu hồng cam ấm áp xinh xắn
+                            color: 16752795,
                             fields: [
                                 { name: "🐾 Nhân vật", value: `**${charName}**`, inline: true },
                                 { name: "🕒 Thời gian", value: `*${timeStr}*`, inline: true },
@@ -1873,11 +1872,11 @@
 
                 card.innerHTML = `
                     <div class="mv-header">
-                        <span class="mv-char-tag">✦ ${mv.tag}</span>
+                        <span class="mv-char-tag">${mv.tag}</span>
                     </div>
                     <h4 class="mv-title">${mv.title}</h4>
                     <p class="mv-intro">${introDisplay}</p>
-                    <div class="mv-read-hint">✦ Bấm để đọc trọn vẹn trích đoạn ➔</div>
+                    <div class="mv-read-hint">Bấm để đọc trọn vẹn trích đoạn ➔</div>
                 `;
                 mvGrid.appendChild(card);
             });
@@ -1888,7 +1887,7 @@
             const mv = danhSachManhVun[index];
             if (!mv) return;
 
-            document.getElementById('readerTag').innerText = (mv.tag ? "✦ " + mv.tag : "");
+            document.getElementById('readerTag').innerText = mv.tag || "";
             document.getElementById('readerTitle').innerText = mv.title || "";
             
             const introEl = document.getElementById('readerIntro');
@@ -2001,7 +2000,7 @@
 
             if (db) {
                 db.ref('characters').set(danhSachChar).then(() => {
-                    alert("Đã cập nhật lên Đám mây! Tất cả mọi người đều thấy ngay lập tức ✦");
+                    alert("Đã cập nhật lên Đám mây! Tất cả mọi người đều thấy ngay lập tức!");
                 });
             } else {
                 renderCharGrid();
@@ -2090,7 +2089,7 @@
 
             if (db) {
                 db.ref('manhvun').set(danhSachManhVun).then(() => {
-                    alert(idVal ? "Đã cập nhật Mảnh vụn thành công!" : "Đã thêm Mảnh vụn lên Đám mây! Ai vào web cũng thấy ngay ✦");
+                    alert(idVal ? "Đã cập nhật Mảnh vụn thành công!" : "Đã thêm Mảnh vụn lên Đám mây! Ai vào web cũng thấy ngay!");
                 });
             } else {
                 renderManhVunGrid();
