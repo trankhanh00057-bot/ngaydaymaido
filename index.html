@@ -1,4 +1,4 @@
-</html>
+<html/>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -496,7 +496,7 @@
         .heart-btn-custom {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             background: rgba(6, 20, 12, 0.78);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -856,24 +856,53 @@
             padding-bottom: 14px;
             margin-bottom: 18px;
             position: relative;
-            padding-right: 30px;
         }
-        
+
+        /* Hàng tiêu đề: Tên nhân vật + Nút tim bên trái, Nút ✕ bên phải */
+        .mv-reader-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .mv-reader-tag-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         .mv-reader-tag {
             display: inline-flex;
             align-items: center;
             background: linear-gradient(135deg, #E2A83B 0%, #F6C869 50%, #C8841B 100%);
             color: #071D10;
-            padding: 7px 18px;
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 13.5px;
+            font-size: 13px;
             font-family: 'Be Vietnam Pro', sans-serif;
             font-weight: 800;
             letter-spacing: 0.5px;
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 2px 10px rgba(226, 168, 59, 0.4);
             border: 1px solid #FFE699;
             text-shadow: none;
-            margin-bottom: 12px;
+            margin-bottom: 0;
+        }
+
+        .mv-reader-close {
+            font-size: 24px;
+            color: #E2A83B;
+            cursor: pointer;
+            line-height: 1;
+            padding: 4px 6px;
+            transition: color 0.2s, transform 0.2s;
+            flex-shrink: 0;
+        }
+        .mv-reader-close:hover { 
+            color: #FFF; 
+            transform: scale(1.15);
         }
 
         .mv-reader-title {
@@ -884,18 +913,6 @@
             font-weight: 700;
             line-height: 1.35;
         }
-        .mv-reader-close {
-            position: absolute;
-            top: -6px;
-            right: 0;
-            font-size: 24px;
-            color: #E2A83B;
-            cursor: pointer;
-            line-height: 1;
-            padding: 4px;
-            transition: color 0.2s;
-        }
-        .mv-reader-close:hover { color: #FFF; }
         .mv-reader-intro-quote {
             background: rgba(14, 42, 24, 0.65);
             border-left: 3px solid #E2A83B;
@@ -921,7 +938,7 @@
             border-top: 1px dashed rgba(226, 168, 59, 0.3);
             padding-top: 16px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
         }
         .btn-close-reader {
@@ -1333,7 +1350,7 @@
                     <!-- 2. NÚT TÙY DUYÊN GẶP GỠ -->
                     <div class="random-char-container">
                         <button class="btn-random-char" onclick="quayTuyDuyen()">
-                            Tùy Duyên GẶP GỠ
+                            Tùy Duyên Gặp Gỡ
                         </button>
                         <div class="random-subtext">Để số phận chọn một bước chân dẫn lối bạn...</div>
                     </div>
@@ -1389,17 +1406,20 @@
     <div class="mv-reader-overlay" id="mvReaderModal" onclick="dongModalDocManhVun(event)">
         <div class="mv-reader-box" onclick="event.stopPropagation()">
             <div class="mv-reader-header">
-                <span class="mv-reader-close" onclick="dongModalDocManhVun()">✕</span>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span class="mv-reader-tag" id="readerTag">#Nhân vật</span>
-                    <div id="readerLikeBtnSlot"></div>
+                <!-- CỤM TÊN VÀ NÚT TIM BÊN TRÁI, NÚT ✕ BÊN PHẢI HOÀN TOÀN TÁCH BIỆT -->
+                <div class="mv-reader-top-row">
+                    <div class="mv-reader-tag-group">
+                        <span class="mv-reader-tag" id="readerTag">#Nhân vật</span>
+                        <div id="readerLikeBtnSlot"></div>
+                    </div>
+                    <span class="mv-reader-close" onclick="dongModalDocManhVun()">✕</span>
                 </div>
+
                 <h3 class="mv-reader-title" id="readerTitle">Tên mẩu truyện</h3>
             </div>
             <div class="mv-reader-intro-quote" id="readerIntro"></div>
             <div class="mv-reader-content" id="readerContent"></div>
             <div class="mv-reader-footer">
-                <div></div>
                 <button class="btn-close-reader" onclick="dongModalDocManhVun()">Đóng Lại</button>
             </div>
         </div>
@@ -1526,7 +1546,7 @@
         const titleMainText = document.getElementById("titleMainText");
         let currentActiveTag = "Tất cả";
 
-        /* ================= 1. MẬT KHẨU ADMIN ================= */
+        /* ================= 1. MẬT KHẨU ADMIN & CONFIG ================= */
         const ADMIN_PASSWORD = "642607";
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1565632672510771221/TiHVmhj6dEJSbh8t4XLxHQfez-XUC5Aa6PjdgByHK1rDHRscjj8mTFLB_iD_gWAZHIbA";
 
@@ -2035,7 +2055,7 @@
             document.getElementById('readerTag').innerText = mv.tag || "";
             document.getElementById('readerTitle').innerText = mv.title || "";
             
-            // Render nút tim trong modal đọc truyện
+            // Render nút tim trong modal đọc truyện nằm cạnh tag
             document.getElementById('readerLikeBtnSlot').innerHTML = renderNutTimHTML('manhvun', mv.id);
 
             const introEl = document.getElementById('readerIntro');
