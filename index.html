@@ -1,3 +1,4 @@
+</html>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -485,6 +486,65 @@
             width: 100%;
         }
 
+        /* ================= HIỆU ỨNG THẢ TIM SANG TRỌNG ================= */
+        @keyframes heartPop {
+            0% { transform: scale(1); }
+            45% { transform: scale(1.35); }
+            100% { transform: scale(1); }
+        }
+
+        .heart-btn-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(6, 20, 12, 0.78);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1.2px solid rgba(226, 168, 59, 0.45);
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: #FFFDF7;
+            cursor: pointer;
+            user-select: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.22s ease;
+            z-index: 10;
+        }
+        .heart-btn-custom:hover {
+            transform: scale(1.05);
+            border-color: #E2A83B;
+            box-shadow: 0 4px 16px rgba(226, 168, 59, 0.35);
+        }
+        .heart-btn-custom svg {
+            width: 15px;
+            height: 15px;
+            fill: none;
+            stroke: #E2A83B;
+            stroke-width: 2;
+            transition: all 0.22s ease;
+        }
+        .heart-btn-custom.liked {
+            background: rgba(45, 12, 20, 0.88);
+            border-color: rgba(244, 63, 94, 0.75);
+            color: #FFE4E6;
+            box-shadow: 0 4px 14px rgba(244, 63, 94, 0.3);
+        }
+        .heart-btn-custom.liked svg {
+            fill: #f43f5e;
+            stroke: #f43f5e;
+            animation: heartPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Nút tim trên ảnh nhân vật */
+        .char-img-like-btn {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+        }
+
         /* THẺ NHÂN VẬT */
         .char-card {
             position: relative;
@@ -682,7 +742,7 @@
         }
         .fb-btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(226, 168, 59, 0.5); }
 
-        /* ================= TAB 3: MẢNH VỤN (TÊN NỔI BẬT KHÔNG NEON) ================= */
+        /* ================= TAB 3: MẢNH VỤN ================= */
         .manhvun-wrapper {
             width: 100%;
             max-width: 850px;
@@ -717,7 +777,6 @@
             padding-bottom: 10px;
         }
 
-        /* HUY HIỆU VÀNG KIM HOÀNG GIA - NỔI BẬT RÕ RÀNG TRÊN NỀN TỐI MÀ HOÀN TOÀN KHÔNG NEON */
         .mv-char-tag {
             display: inline-flex;
             align-items: center;
@@ -862,7 +921,8 @@
             border-top: 1px dashed rgba(226, 168, 59, 0.3);
             padding-top: 16px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
         }
         .btn-close-reader {
             background: rgba(14, 42, 24, 0.95);
@@ -881,7 +941,7 @@
             color: #0A2013;
         }
 
-        /* ================= MODAL HIỂN THỊ CHAR RANDOM (TÙY DUYÊN) ================= */
+        /* ================= MODAL HIỂN THỊ CHAR RANDOM ================= */
         .random-modal-overlay {
             display: none;
             position: fixed;
@@ -951,7 +1011,7 @@
             color: #0A2013;
         }
 
-        /* ================= MODAL NHẬP PASS ADMIN SANG XỊN ================= */
+        /* ================= MODAL NHẬP PASS ADMIN ================= */
         .auth-modal-overlay {
             display: none;
             position: fixed;
@@ -1273,7 +1333,7 @@
                     <!-- 2. NÚT TÙY DUYÊN GẶP GỠ -->
                     <div class="random-char-container">
                         <button class="btn-random-char" onclick="quayTuyDuyen()">
-                            Tùy Duyên Gặp Gỡ
+                            Tùy Duyên GẶP GỠ
                         </button>
                         <div class="random-subtext">Để số phận chọn một bước chân dẫn lối bạn...</div>
                     </div>
@@ -1330,14 +1390,16 @@
         <div class="mv-reader-box" onclick="event.stopPropagation()">
             <div class="mv-reader-header">
                 <span class="mv-reader-close" onclick="dongModalDocManhVun()">✕</span>
-                <div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
                     <span class="mv-reader-tag" id="readerTag">#Nhân vật</span>
+                    <div id="readerLikeBtnSlot"></div>
                 </div>
                 <h3 class="mv-reader-title" id="readerTitle">Tên mẩu truyện</h3>
             </div>
             <div class="mv-reader-intro-quote" id="readerIntro"></div>
             <div class="mv-reader-content" id="readerContent"></div>
             <div class="mv-reader-footer">
+                <div></div>
                 <button class="btn-close-reader" onclick="dongModalDocManhVun()">Đóng Lại</button>
             </div>
         </div>
@@ -1488,6 +1550,9 @@
             console.error("Lỗi khởi tạo Firebase:", e);
         }
 
+        /* DỮ LIỆU LƯỢT THÍCH ĐỒNG BỘ */
+        let likesData = { char: {}, manhvun: {} };
+
         /* ================= 2. DỮ LIỆU BAN ĐẦU ================= */
         const danhSachCharGoc = [
             {
@@ -1628,6 +1693,15 @@
 
         window.onload = function() {
             if (db) {
+                // ĐỒNG BỘ LƯỢT THÍCH TỪ FIREBASE
+                db.ref('likes').on('value', snapshot => {
+                    const data = snapshot.val();
+                    likesData = data || { char: {}, manhvun: {} };
+                    if (!likesData.char) likesData.char = {};
+                    if (!likesData.manhvun) likesData.manhvun = {};
+                    capNhatTatCaNutTim();
+                });
+
                 // ĐỒNG BỘ VÀ TỰ ĐỘNG CẬP NHẬT CHAR MỚI VÀO FIREBASE
                 db.ref('characters').on('value', snapshot => {
                     let data = snapshot.val();
@@ -1665,7 +1739,71 @@
             }
         };
 
-        /* ================= 3. CHUYỂN TRANG CHỦ <-> TRANG 2 ================= */
+        /* ================= 3. HỆ THỐNG THẢ TIM THÔNG MINH ================= */
+        const HEART_SVG = `<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+
+        function renderNutTimHTML(type, id, extraClass = "") {
+            const key = `liked_${type}_${id}`;
+            const isLiked = localStorage.getItem(key) === "true";
+            const count = (likesData[type] && likesData[type][id]) ? likesData[type][id] : 0;
+            return `
+                <div class="heart-btn-custom ${extraClass} ${isLiked ? 'liked' : ''}" 
+                     data-like-type="${type}" 
+                     data-like-id="${id}" 
+                     onclick="xuLyThaTim('${type}', ${id}, event)"
+                     title="${isLiked ? 'Bỏ thích' : 'Yêu thích'}">
+                    ${HEART_SVG}
+                    <span class="like-number">${count}</span>
+                </div>
+            `;
+        }
+
+        function xuLyThaTim(type, id, event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            const key = `liked_${type}_${id}`;
+            const isLiked = localStorage.getItem(key) === "true";
+
+            if (isLiked) {
+                localStorage.removeItem(key);
+            } else {
+                localStorage.setItem(key, "true");
+            }
+
+            if (db) {
+                db.ref(`likes/${type}/${id}`).transaction(currentLikes => {
+                    let val = (currentLikes || 0);
+                    if (isLiked) {
+                        return Math.max(0, val - 1);
+                    } else {
+                        return val + 1;
+                    }
+                });
+            } else {
+                if (!likesData[type]) likesData[type] = {};
+                let val = (likesData[type][id] || 0);
+                likesData[type][id] = isLiked ? Math.max(0, val - 1) : val + 1;
+                capNhatTatCaNutTim();
+            }
+        }
+
+        function capNhatTatCaNutTim() {
+            const buttons = document.querySelectorAll('[data-like-type][data-like-id]');
+            buttons.forEach(btn => {
+                const type = btn.getAttribute('data-like-type');
+                const id = btn.getAttribute('data-like-id');
+                const isLiked = localStorage.getItem(`liked_${type}_${id}`) === "true";
+                const count = (likesData[type] && likesData[type][id]) ? likesData[type][id] : 0;
+
+                btn.classList.toggle('liked', isLiked);
+                btn.title = isLiked ? "Bỏ thích" : "Yêu thích";
+                const numEl = btn.querySelector('.like-number');
+                if (numEl) numEl.innerText = count;
+            });
+        }
+
+        /* ================= 4. CHUYỂN TRANG CHỦ <-> TRANG 2 ================= */
         function chuyenTrang(soTrang) {
             if (soTrang === 2) {
                 titleMainText.style.animationPlayState = 'paused';
@@ -1684,7 +1822,7 @@
             }
         }
 
-        /* ================= 4. CHUYỂN TAB CÓ HIỆU ỨNG HÒA TAN ================= */
+        /* ================= 5. CHUYỂN TAB CÓ HIỆU ỨNG HÒA TAN ================= */
         function chuyenTab(tabName) {
             const tabs = [
                 { id: 'dauchan', btn: 'tabBtnDauChan', pane: 'tabContentDauChan' },
@@ -1707,7 +1845,7 @@
             });
         }
 
-        /* ================= 5. TÙY DUYÊN GẶP GỠ (RANDOM CHAR) ================= */
+        /* ================= 6. TÙY DUYÊN GẶP GỠ (RANDOM CHAR) ================= */
         function quayTuyDuyen() {
             if (!danhSachChar || danhSachChar.length === 0) {
                 alert("Hiện chưa có nhân vật nào!");
@@ -1730,6 +1868,7 @@
             slot.innerHTML = `
                 <div class="char-card" style="box-shadow:none; border:none; margin:0 auto;">
                     <div class="char-img-box" style="height:360px;">
+                        ${renderNutTimHTML('char', c.id, 'char-img-like-btn')}
                         <img src="${c.img}" class="char-img" alt="${c.name}" referrerpolicy="no-referrer">
                         <div class="char-img-fade"></div>
                     </div>
@@ -1750,13 +1889,14 @@
             `;
 
             document.getElementById("randomModal").style.display = "flex";
+            capNhatTatCaNutTim();
         }
 
         function dongModalTuyDuyen() {
             document.getElementById("randomModal").style.display = "none";
         }
 
-        /* ================= 6. GỬI FEEDBACK DISCORD XINH IU ================= */
+        /* ================= 7. GỬI FEEDBACK DISCORD XINH IU ================= */
         function submitOneWayFeedback(event) {
             event.preventDefault();
             const charName = document.getElementById('fbCharName').value.trim();
@@ -1793,7 +1933,7 @@
             }
         }
 
-        /* ================= 7. RENDER DỮ LIỆU NHÂN VẬT ================= */
+        /* ================= 8. RENDER DỮ LIỆU NHÂN VẬT ================= */
         function renderCharGrid() {
             const grid = document.getElementById("charGrid");
             grid.innerHTML = "";
@@ -1820,6 +1960,7 @@
                     card.className = "char-card dual-link";
                     card.innerHTML = `
                         <div class="char-img-box">
+                            ${renderNutTimHTML('char', c.id, 'char-img-like-btn')}
                             <img src="${c.img}" class="char-img" alt="${c.name}" referrerpolicy="no-referrer" loading="lazy" decoding="async">
                             <div class="char-img-fade"></div>
                         </div>
@@ -1841,6 +1982,7 @@
                     }
                     card.innerHTML = `
                         <div class="char-img-box">
+                            ${renderNutTimHTML('char', c.id, 'char-img-like-btn')}
                             <img src="${c.img}" class="char-img" alt="${c.name}" referrerpolicy="no-referrer" loading="lazy" decoding="async">
                             <div class="char-img-fade"></div>
                         </div>
@@ -1853,6 +1995,7 @@
                 }
                 grid.appendChild(card);
             });
+            capNhatTatCaNutTim();
         }
 
         /* RENDER MẢNH VỤN */
@@ -1873,6 +2016,7 @@
                 card.innerHTML = `
                     <div class="mv-header">
                         <span class="mv-char-tag">${mv.tag}</span>
+                        ${renderNutTimHTML('manhvun', mv.id)}
                     </div>
                     <h4 class="mv-title">${mv.title}</h4>
                     <p class="mv-intro">${introDisplay}</p>
@@ -1880,6 +2024,7 @@
                 `;
                 mvGrid.appendChild(card);
             });
+            capNhatTatCaNutTim();
         }
 
         /* MỞ / ĐÓNG MODAL ĐỌC TRÍCH ĐOẠN */
@@ -1890,6 +2035,9 @@
             document.getElementById('readerTag').innerText = mv.tag || "";
             document.getElementById('readerTitle').innerText = mv.title || "";
             
+            // Render nút tim trong modal đọc truyện
+            document.getElementById('readerLikeBtnSlot').innerHTML = renderNutTimHTML('manhvun', mv.id);
+
             const introEl = document.getElementById('readerIntro');
             if (mv.intro && mv.intro.trim() !== "") {
                 introEl.style.display = "block";
@@ -1901,6 +2049,7 @@
             document.getElementById('readerContent').innerText = mv.excerpt || "(Trích đoạn đang được cập nhật...)";
 
             document.getElementById('mvReaderModal').style.display = 'flex';
+            capNhatTatCaNutTim();
         }
 
         function dongModalDocManhVun(e) {
@@ -1910,7 +2059,7 @@
             document.getElementById('mvReaderModal').style.display = 'none';
         }
 
-        /* ================= 8. QUẢN TRỊ ADMIN (KHUNG ĐĂNG NHẬP MỚI) ================= */
+        /* ================= 9. QUẢN TRỊ ADMIN ================= */
         function moKhoaAdmin() {
             const modal = document.getElementById('adminAuthModal');
             const input = document.getElementById('adminPassInput');
@@ -2062,7 +2211,7 @@
             }
         }
 
-        /* ================= QUẢN TRỊ MẢNH VỤN: THÊM / SỬA / XÓA ================= */
+        /* ================= QUẢN TRỊ MẢNH VỤN ================= */
         function luuManhVunLenCloud() {
             const idVal = document.getElementById('admMvId').value;
             const tag = document.getElementById('admMvTag').value.trim();
@@ -2160,7 +2309,7 @@
             }
         }
 
-        /* ================= 9. BỘ LỌC THÔNG MINH ================= */
+        /* ================= 10. BỘ LỌC THÔNG MINH ================= */
         function chonTag(tag) {
             currentActiveTag = tag;
             const buttons = document.querySelectorAll('.quick-tag-pill');
